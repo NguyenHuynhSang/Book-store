@@ -21,4 +21,40 @@ header a {
   color: white;
   font-weight: bold;
   text-decoration: none;
+  background-image: linear-gradient(
+    to left,
+    violet,
+    indigo,
+    blue,
+    green,
+    yellow,
+    orange,
+    red
+  );
+}
+
+main {
+  padding: 1rem;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.product {
+  border: 1px #404040 solid;
+  margin: 1rem;
+}
+.product img {
+  width: 100%;
+  max-width: 200px;
+  height: 100%;
+  max-height: 210px;
+}
+
+.product-infor {
+  padding: 1rem;
+  font-weight: 400;
 }
