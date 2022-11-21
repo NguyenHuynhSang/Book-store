@@ -52,7 +52,7 @@ main {
 
 .book {
   width: 100%;
-  max-width: 200px;
+  max-width: 250px;
   box-sizing: border-box;
   box-shadow: var(--box-shadow);
   border: var(--boder);
@@ -76,7 +76,13 @@ main {
 
 .book-infor {
   text-align: center;
-  padding: 1rem;
-  font-weight: 400;
+  padding: 0.3rem;
+  font-weight: 200;
   font-style: oblique;
+}
+
+.btn-buy {
+  text-align: center;
+  width: 100%;
+  position: static;
 }

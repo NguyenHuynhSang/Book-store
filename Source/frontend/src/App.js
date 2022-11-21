@@ -1,30 +1,21 @@
-import data from './tempdata';
-
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import BookScreen from './screens/BookScreen';
+import HomeScreen from './screens/HomeScreen';
 function App() {
   return (
-    <div>
-      <header>
-        <a href="/">Shop ban hang</a>
-      </header>
-      <main>
-        <h1>Products</h1>
-        <div className="books">
-          {data.books.map((book) => (
-            <div className="book" key={book.slug}>
-              <a href={`/product/${book.slug}`}>
-                <img src={book.image} alt={book.name}></img>
-              </a>
-              <div className="book-infor">
-                <p>{book.name}</p>
-                <p>VND {book.price}</p>
-                <br></br>
-                <button>Mua hang</button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </main>
-    </div>
+    <BrowserRouter>
+      <div>
+        <header>
+          <Link to="/">Book</Link>
+        </header>
+        <main>
+          <Routes>
+            <Route path="/" element={<HomeScreen />}></Route>
+            <Route path="/book/:slug" element={<BookScreen />}></Route>
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
 
