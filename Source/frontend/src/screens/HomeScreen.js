@@ -1,13 +1,23 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import data from '../tempdata';
-
+import axios from 'axios';
 function HomeScreen() {
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get('api/books');
+      setBooks(result.data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <div>
       {' '}
       <h1>Top Books</h1>
       <div className="books">
-        {data.books.map((book) => (
+        {books.map((book) => (
           <div className="book" key={book.slug}>
             <Link to={`/book/${book.slug}`}>
               <img src={book.image} alt={book.name}></img>
