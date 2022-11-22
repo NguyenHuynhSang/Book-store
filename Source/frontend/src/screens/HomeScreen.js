@@ -1,7 +1,6 @@
 import { useEffect, useReducer, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQ':
