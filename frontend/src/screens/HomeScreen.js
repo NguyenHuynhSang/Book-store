@@ -1,6 +1,9 @@
 import { useEffect, useReducer, useState } from 'react';
-import { Link } from 'react-router-dom';
+
 import axios from 'axios';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Book from '../Components/Book';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQ':
@@ -38,21 +41,15 @@ function HomeScreen() {
 
   return (
     <div>
-      {' '}
       <h1>Top Books</h1>
       <div className="books">
-        {books.map((book) => (
-          <div className="book" key={book.slug}>
-            <Link to={`/book/${book.slug}`}>
-              <img src={book.image} alt={book.name}></img>
-            </Link>
-            <div className="book-infor">
-              <p>{book.name}</p>
-              <p>VND {book.price}</p>
-            </div>
-            <button className="btn-buy">Mua</button>
-          </div>
-        ))}
+        <Row>
+          {books.map((book) => (
+            <Col key={book.slug} sm={6} md={4} lg={3} className="mb-3">
+              <Book book={book}></Book>
+            </Col>
+          ))}
+        </Row>
       </div>
     </div>
   );
