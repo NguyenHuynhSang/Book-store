@@ -19,29 +19,11 @@ code {
     monospace;
 }
 
-header {
-  background-color: #404040;
-  padding: 1rem;
+.site-container {
+  min-height: 100vh;
 }
-
-header a {
-  color: white;
-  font-weight: bold;
-  text-decoration: none;
-  background-image: linear-gradient(
-    to left,
-    violet,
-    indigo,
-    blue,
-    green,
-    yellow,
-    orange,
-    red
-  );
-}
-
 main {
-  padding: 1rem;
+  flex: 1;
 }
 
 .books {
