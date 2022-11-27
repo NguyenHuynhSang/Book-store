@@ -41,6 +41,10 @@ main {
   margin: 1rem;
   border-radius: 1rem;
 }
+
+.fas.fa-star {
+  color: yellow;
+}
 .book img {
   width: 100%;
   max-width: 500px;
