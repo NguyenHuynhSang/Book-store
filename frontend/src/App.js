@@ -16,10 +16,9 @@ function App() {
               </LinkContainer>
             </Container>
           </Navbar>
-          <Link to="/">Book</Link>
         </header>
         <main>
-          <Container>
+          <Container className="mt-3">
             <Routes>
               <Route path="/" element={<HomeScreen />}></Route>
               <Route path="/book/:slug" element={<BookScreen />}></Route>

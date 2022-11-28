@@ -4,6 +4,7 @@ import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Book from '../Components/Book';
+import { Helmet } from 'react-helmet-async';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQ':
@@ -41,6 +42,9 @@ function HomeScreen() {
 
   return (
     <div>
+      <Helmet>
+        <title>LoveBook</title>
+      </Helmet>
       <h1>Top Books</h1>
       <div className="books">
         <Row>

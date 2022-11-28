@@ -43,7 +43,7 @@ main {
 }
 
 .fas.fa-star {
-  color: yellow;
+  color: orange;
 }
 .book img {
   width: 100%;
@@ -71,4 +71,8 @@ main {
   text-align: center;
   width: 100%;
   position: static;
+}
+
+.image-large {
+  max-width: 100%;
 }
