@@ -1,4 +1,4 @@
-import { parsePath, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useReducer } from 'react';
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
@@ -6,6 +6,7 @@ import Rating from '../Components/Rating';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../Components/Loading';
 import Message from '../Components/Message';
+import GetError from '../utils';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -38,7 +39,7 @@ function BookScreen() {
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
         // setBooks(result.data);
       } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', payload: err.message });
+        dispatch({ type: 'FETCH_FAIL', payload: GetError(err) });
       }
     };
     fetchData();
