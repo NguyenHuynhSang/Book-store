@@ -6,7 +6,7 @@ import Rating from './Rating';
 function Book(props) {
   const { book } = props;
   return (
-    <Card className="book">
+    <Card className="book d-flex" id="book-card">
       <Link to={`/book/${book.slug}`}>
         <img src={book.image} className="cart-img-top" alt={book.name}></img>
       </Link>

@@ -4,6 +4,8 @@ import { useEffect, useReducer } from 'react';
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import Rating from '../Components/Rating';
 import { Helmet } from 'react-helmet-async';
+import Loading from '../Components/Loading';
+import Message from '../Components/Message';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -43,9 +45,9 @@ function BookScreen() {
   }, [slug]);
 
   return loading ? (
-    <div>loading...</div>
+    <Loading></Loading>
   ) : error ? (
-    <div>Error {error}...</div>
+    <Message variant="danger">{error}</Message>
   ) : (
     <div>
       <Row>

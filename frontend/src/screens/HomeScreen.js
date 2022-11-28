@@ -5,6 +5,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Book from '../Components/Book';
 import { Helmet } from 'react-helmet-async';
+import Loading from '../Components/Loading';
+import Message from '../Components/Message';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQ':
@@ -40,7 +42,11 @@ function HomeScreen() {
     fetchData();
   }, []);
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : error ? (
+    <Message variant="danger">{error}</Message>
+  ) : (
     <div>
       <Helmet>
         <title>LoveBook</title>
