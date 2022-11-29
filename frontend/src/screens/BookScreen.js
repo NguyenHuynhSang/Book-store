@@ -1,12 +1,13 @@
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect, useReducer } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import Rating from '../Components/Rating';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../Components/Loading';
 import Message from '../Components/Message';
 import GetError from '../utils';
+import Store from '../CartStore';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -45,6 +46,10 @@ function BookScreen() {
     fetchData();
   }, [slug]);
 
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const addToCart = () => {
+    ctxDispatch({ type: 'ADD_ITEM', payload: { ...book, quantity: 1 } });
+  };
   return loading ? (
     <Loading></Loading>
   ) : error ? (
@@ -101,7 +106,9 @@ function BookScreen() {
                 {book.countInStock > 0 ? (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button variant="primary">Add to Cart</Button>
+                      <Button onClick={addToCart} variant="primary">
+                        Add to Cart
+                      </Button>
                     </div>
                   </ListGroup.Item>
                 ) : (
