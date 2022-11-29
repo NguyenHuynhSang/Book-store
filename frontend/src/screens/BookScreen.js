@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useFetcher, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useContext, useEffect, useReducer } from 'react';
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
@@ -47,9 +47,23 @@ function BookScreen() {
   }, [slug]);
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const addToCart = () => {
-    ctxDispatch({ type: 'ADD_ITEM', payload: { ...book, quantity: 1 } });
+  const { cart } = state;
+
+  const addToCart = async () => {
+    const existItem = cart.Items.find((x) => x.id == book.id);
+    let quantity = 1;
+    if (existItem) {
+      quantity = ++existItem.quantity;
+    }
+
+    const { data } = await axios.get(`/api/books/${book.id}`);
+
+    if (data.countInStock < quantity) {
+      window.alert('Out of Stock!!! Only ' + data.countInStock + ' available');
+    }
+    ctxDispatch({ type: 'ADD_ITEM', payload: { ...book, quantity } });
   };
+
   return loading ? (
     <Loading></Loading>
   ) : error ? (
@@ -106,7 +120,7 @@ function BookScreen() {
                 {book.countInStock > 0 ? (
                   <ListGroup.Item>
                     <div className="d-grid">
-                      <Button onClick={addToCart} variant="primary">
+                      <Button onClick={() => addToCart()} variant="primary">
                         Add to Cart
                       </Button>
                     </div>
