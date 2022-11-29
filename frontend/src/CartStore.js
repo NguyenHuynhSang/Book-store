@@ -1,6 +1,8 @@
 import { createContext, useReducer } from 'react';
+import { ReactSession } from 'react-client-session';
 
 const Store = createContext();
+ReactSession.setStoreType('localStorage');
 
 const intialState = {
   cart: {
@@ -17,7 +19,7 @@ const reducer = (state, action) => {
       const Items = existItem
         ? state.cart.Items.map((x) => (x.id === existItem.id ? newItem : x))
         : [...state.cart.Items, newItem];
-
+      ReactSession.set('cart', Items);
       return {
         ...state,
         cart: { ...state.cart, Items },
@@ -31,7 +33,8 @@ const reducer = (state, action) => {
 
 export const StoreProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, intialState);
-  const value = { state, dispatch };
+  let value = { state, dispatch };
+  value.state.cart.Items = ReactSession.get('cart');
   return <Store.Provider value={value}>{props.children}</Store.Provider>;
 };
 export default Store;

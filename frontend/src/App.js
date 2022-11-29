@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import Store from './CartStore';
 function App() {
   const { state } = useContext(Store);
+
   const { cart } = state;
   return (
     <BrowserRouter>
