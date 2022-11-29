@@ -1,4 +1,4 @@
-import { useFetcher, useParams } from 'react-router-dom';
+import { useFetcher, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useContext, useEffect, useReducer } from 'react';
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
@@ -23,6 +23,7 @@ const reducer = (state, action) => {
 };
 
 function BookScreen() {
+  const navigate = useNavigate();
   const urlParam = useParams();
   const { slug } = urlParam;
   const [{ loading, error, book }, dispatch] = useReducer(reducer, {
@@ -62,6 +63,7 @@ function BookScreen() {
       window.alert('Out of Stock!!! Only ' + data.countInStock + ' available');
     }
     ctxDispatch({ type: 'ADD_ITEM', payload: { ...book, quantity } });
+    //navigate('/cart');
   };
 
   return loading ? (

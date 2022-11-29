@@ -19,10 +19,12 @@ const reducer = (state, action) => {
       const Items = existItem
         ? state.cart.Items.map((x) => (x.id === existItem.id ? newItem : x))
         : [...state.cart.Items, newItem];
-      ReactSession.set('cart', Items);
+
+      const cart = { ...state.cart, Items };
+      ReactSession.set('cart', cart);
       return {
         ...state,
-        cart: { ...state.cart, Items },
+        cart: cart,
       };
     }
     default: {
@@ -34,7 +36,7 @@ const reducer = (state, action) => {
 export const StoreProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, intialState);
   let value = { state, dispatch };
-  value.state.cart.Items = ReactSession.get('cart');
+
   return <Store.Provider value={value}>{props.children}</Store.Provider>;
 };
 export default Store;
