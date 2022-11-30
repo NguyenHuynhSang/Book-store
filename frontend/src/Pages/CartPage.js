@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Store from '../CartStore';
 import Message from '../Components/Message';
 
-const CartScene = (props) => {
+const CartPage = (props) => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
 
   const updateCart = async (item, quantity) => {
@@ -47,7 +47,7 @@ const CartScene = (props) => {
                       <Button
                         variant="light"
                         onClick={() => updateCart(x, --x.quantity)}
-                        disabled={x.quantity <= 1}
+                        disabled={x.quantity === 1}
                       >
                         <i className="fas fa-minus-circle"></i>
                       </Button>{' '}
@@ -106,4 +106,4 @@ const CartScene = (props) => {
     </div>
   );
 };
-export default CartScene;
+export default CartPage;

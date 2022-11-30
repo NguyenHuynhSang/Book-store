@@ -20,7 +20,7 @@ const reducer = (state, action) => {
   }
 };
 
-function HomeScreen() {
+function HomePage() {
   const [{ loading, error, books }, dispatch] = useReducer(reducer, {
     books: [],
     loading: true,
@@ -65,4 +65,4 @@ function HomeScreen() {
   );
 }
 
-export default HomeScreen;
+export default HomePage;

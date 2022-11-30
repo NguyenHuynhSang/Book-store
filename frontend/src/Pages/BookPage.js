@@ -22,7 +22,7 @@ const reducer = (state, action) => {
   }
 };
 
-function BookScreen() {
+function BookPage() {
   const navigate = useNavigate();
   const urlParam = useParams();
   const { slug } = urlParam;
@@ -138,4 +138,4 @@ function BookScreen() {
     </div>
   );
 }
-export default BookScreen;
+export default BookPage;
