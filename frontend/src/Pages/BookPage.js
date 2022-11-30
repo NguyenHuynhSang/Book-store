@@ -51,7 +51,7 @@ function BookPage() {
   const { cart } = state;
 
   const addToCart = async () => {
-    const existItem = cart.Items.find((x) => x.id == book.id);
+    const existItem = cart.Items.find((x) => x.id === book.id);
     let quantity = 1;
     if (existItem) {
       quantity = ++existItem.quantity;

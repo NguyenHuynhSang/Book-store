@@ -1,12 +1,15 @@
 import { createContext, useReducer } from 'react';
 import { ReactSession } from 'react-client-session';
+import { json } from 'react-router-dom';
 
 const Store = createContext();
 ReactSession.setStoreType('localStorage');
 
 const intialState = {
   cart: {
-    Items: [],
+    Items: localStorage.getItem('cart')
+      ? JSON.parse(localStorage.getItem('cart'))
+      : [],
   },
 };
 
@@ -21,7 +24,7 @@ const reducer = (state, action) => {
         : [...state.cart.Items, newItem];
 
       const cart = { ...state.cart, Items };
-      ReactSession.set('cart', cart);
+      localStorage.setItem('cart', JSON.stringify(Items));
       return {
         ...state,
         cart: cart,
@@ -31,6 +34,7 @@ const reducer = (state, action) => {
       const list = state.cart.Items.filter(
         (item) => item.id !== action.payload.id
       );
+      localStorage.setItem('cart', JSON.stringify(list));
       return { ...state, cart: { ...state.cart, Items: list } };
     }
     default: {
