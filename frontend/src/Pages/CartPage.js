@@ -8,7 +8,9 @@ import Message from '../Components/Message';
 
 const CartPage = (props) => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
-
+  const {
+    cart: { Items },
+  } = state;
   const updateCart = async (item, quantity) => {
     const { data } = await axios.get(`api/books/${item.id}`);
     if (data.countInStock < quantity) {
@@ -17,9 +19,11 @@ const CartPage = (props) => {
     ctxDispatch({ type: 'ADD_ITEM', payload: { ...item, quantity } });
     //navigate('/cart');
   };
-  const {
-    cart: { Items },
-  } = state;
+
+  const removeItems = (item) => {
+    ctxDispatch({ type: 'REMOVE_ITEM', payload: item });
+    console.log(Items);
+  };
   return (
     <div>
       <Helmet>
@@ -61,7 +65,7 @@ const CartPage = (props) => {
                     </Col>
                     <Col mg={3}>{x.price * x.quantity}</Col>
                     <Col mg={2}>
-                      <Button variant="light" disabled={x.quantity === 1}>
+                      <Button variant="light" onClick={() => removeItems(x)}>
                         <i className="fas fa-trash"></i>
                       </Button>
                     </Col>

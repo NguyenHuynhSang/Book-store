@@ -27,6 +27,12 @@ const reducer = (state, action) => {
         cart: cart,
       };
     }
+    case 'REMOVE_ITEM': {
+      const list = state.cart.Items.filter(
+        (item) => item.id !== action.payload.id
+      );
+      return { ...state, cart: { ...state.cart, Items: list } };
+    }
     default: {
       return state;
     }
