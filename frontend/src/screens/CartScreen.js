@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useContext } from 'react';
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
@@ -6,8 +7,16 @@ import Store from '../CartStore';
 import Message from '../Components/Message';
 
 const CartScene = (props) => {
-  const { state, dispatch, ctxDispatch } = useContext(Store);
+  const { state, dispatch: ctxDispatch } = useContext(Store);
 
+  const updateCart = async (item, quantity) => {
+    const { data } = await axios.get(`api/books/${item.id}`);
+    if (data.countInStock < quantity) {
+      window.alert('Out of Stock!!! Only ' + data.countInStock + ' available');
+    }
+    ctxDispatch({ type: 'ADD_ITEM', payload: { ...item, quantity } });
+    //navigate('/cart');
+  };
   const {
     cart: { Items },
   } = state;
@@ -32,20 +41,27 @@ const CartScene = (props) => {
                         alt={x.name}
                         className="img-fluid rounded img-thumbnail"
                       ></img>
-                      <Link to={`/product/${x.slug}`}></Link>
+                      <Link to={`/book/${x.slug}`}></Link>
                     </Col>
                     <Col mg={3}>
-                      <Button variant="light" disable={x.quantity === 1}>
+                      <Button
+                        variant="light"
+                        onClick={() => updateCart(x, --x.quantity)}
+                        disabled={x.quantity <= 1}
+                      >
                         <i className="fas fa-minus-circle"></i>
                       </Button>{' '}
                       <span>{x.quantity}</span>{' '}
-                      <Button variant="light" disable={x.quantity === 1}>
+                      <Button
+                        variant="light"
+                        onClick={() => updateCart(x, ++x.quantity)}
+                      >
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </Col>
                     <Col mg={3}>{x.price * x.quantity}</Col>
                     <Col mg={2}>
-                      <Button variant="light" disable={x.quantity === 1}>
+                      <Button variant="light" disabled={x.quantity === 1}>
                         <i className="fas fa-trash"></i>
                       </Button>
                     </Col>
