@@ -80,3 +80,7 @@ main {
 .img-thumbnail {
   height: 4rem;
 }
+
+.s-container {
+  max-width: 600px;
+}
