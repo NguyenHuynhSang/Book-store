@@ -2,11 +2,13 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Store from '../CartStore';
 import Message from '../Components/Message';
 
 const CartPage = (props) => {
+  let navigate = useNavigate();
+
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     cart: { Items },
@@ -23,6 +25,9 @@ const CartPage = (props) => {
   const removeItems = (item) => {
     ctxDispatch({ type: 'REMOVE_ITEM', payload: item });
     console.log(Items);
+  };
+  const signIn = () => {
+    navigate('/signin');
   };
   return (
     <div>
@@ -97,8 +102,9 @@ const CartPage = (props) => {
                       type="button"
                       disabled={Items.length === 0}
                       variant="primary"
+                      onClick={() => signIn()}
                     >
-                      Check Out
+                      Check out
                     </Button>
                   </div>
                 </ListGroup.Item>

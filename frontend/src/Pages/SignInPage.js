@@ -14,14 +14,12 @@ const Signin = () => {
       <h1 className="my-3">Sign in</h1>
       <Form>
         <Form.Group className="mb-3" controlId="email">
-          <Form.Label type="email" required>
-            Email
-          </Form.Label>
+          <Form.Label>Email</Form.Label>
+          <Form.Control required type="email"></Form.Control>
         </Form.Group>
         <Form.Group className="mb-3" controlId="password">
-          <Form.Label type="password" required>
-            Password
-          </Form.Label>
+          <Form.Label>Password</Form.Label>
+          <Form.Control required type="password"></Form.Control>
         </Form.Group>
         <div className="mb-3">
           <Button type="submit">Sign in</Button>
