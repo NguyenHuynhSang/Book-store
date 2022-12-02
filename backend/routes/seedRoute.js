@@ -5,7 +5,7 @@ const seed = express.Router();
 
 seed.get('/', async (req, res) => {
   await Book.remove({});
-  const createdBook = await Book.insertMany(data.Book);
+  const createdBook = await Book.insertMany(data.books);
   res.send({ createdBook });
 });
 
