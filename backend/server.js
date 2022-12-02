@@ -1,5 +1,19 @@
 import express from 'express';
 import data from './tempdata.js';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+// load data from .env to process
+dotenv.config();
+// connect Db
+mongoose
+  .connect(process.env.DB_URI)
+  .then(() => {
+    console.log('DB Loaded');
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
 
 const app = express();
 app.use(express.json());

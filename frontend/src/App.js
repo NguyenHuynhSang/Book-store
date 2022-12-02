@@ -9,11 +9,8 @@ import { useContext } from 'react';
 import Store from './CartStore';
 import CartPage from './Pages/CartPage';
 import RouteController from './Routes/RouteController';
-import MainNav from './Components/MainNav';
+import MainNav from './Components/Header/MainNav';
 function App() {
-  const { state } = useContext(Store);
-
-  const { cart } = state;
   return (
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
