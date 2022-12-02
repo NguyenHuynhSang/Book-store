@@ -1,7 +1,6 @@
 const data = {
   books: [
     {
-      id: 1,
       name: 'Hành Tinh Của Một Kẻ Nghĩ Nhiều',
       type: '',
       slug: 'book-1',
@@ -16,7 +15,6 @@ const data = {
       des: 'Good stuff',
     },
     {
-      id: 2,
       name: 'Nhà Giả Kim (Tái Bản 2020)',
       type: '',
       slug: 'book-2',
@@ -31,7 +29,6 @@ const data = {
       des: 'Good stuff',
     },
     {
-      id: 3,
       name: 'Thư Viện Nửa Đêm',
       type: '',
       slug: 'book-3',

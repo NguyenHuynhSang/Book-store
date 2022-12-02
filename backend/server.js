@@ -2,25 +2,30 @@ import express from 'express';
 import data from './tempdata.js';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import seed from './routes/seedRoute.js';
 
 // load data from .env to process
-dotenv.config();
-// connect Db
-mongoose
-  .connect(process.env.DB_URI)
-  .then(() => {
-    console.log('DB Loaded');
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
+const uri = 'mongodb://0.0.0.0:27017/book-store';
 
 const app = express();
-app.use(express.json());
+dotenv.config();
+// connect Db
 
+mongoose
+  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Database connected');
+  })
+  .catch((error) => {
+    console.log('Error connecting to database');
+    console.log(error.message);
+  });
+//app.use('/api/seed', seed);
+//app.use(express.json());
 app.get('/api/books', (req, res) => {
   res.send(data.books);
 });
+
 app.get('/api/books/slug/:slug', (req, res) => {
   const book = data.books.find((x) => x.slug === req.params.slug);
   if (book) {
