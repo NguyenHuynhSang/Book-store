@@ -52,13 +52,13 @@ function BookPage() {
   const { cart } = state;
 
   const addToCart = async () => {
-    const existItem = cart.Items.find((x) => x.id === book.id);
+    const existItem = cart.Items.find((x) => x._id === book._id);
     let quantity = 1;
     if (existItem) {
       quantity = ++existItem.quantity;
     }
 
-    const { data } = await axios.get(`/api/books/${book.id}`);
+    const { data } = await axios.get(`/api/books/${book._id}`);
 
     if (data.countInStock < quantity) {
       window.alert('Out of Stock!!! Only ' + data.countInStock + ' available');

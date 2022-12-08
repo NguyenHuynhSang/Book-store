@@ -14,7 +14,7 @@ const CartPage = (props) => {
     cart: { Items },
   } = state;
   const updateCart = async (item, quantity) => {
-    const { data } = await axios.get(`api/books/${item.id}`);
+    const { data } = await axios.get(`api/books/${item._id}`);
     if (data.countInStock < quantity) {
       window.alert('Out of Stock!!! Only ' + data.countInStock + ' available');
     }
@@ -42,7 +42,7 @@ const CartPage = (props) => {
           ) : (
             <ListGroup>
               {Items.map((x) => (
-                <ListGroup.Item key={x.id}>
+                <ListGroup.Item key={x._id}>
                   <Row className="align-items-center">
                     <Col mg={4}>
                       <img

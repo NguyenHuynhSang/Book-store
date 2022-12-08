@@ -14,13 +14,13 @@ function Book(props) {
     cart: { Items },
   } = state;
   const addToCart = async (item) => {
-    const existItem = Items.find((x) => x.id === book.id);
+    const existItem = Items.find((x) => x._id === book._id);
     let quantity = 1;
     if (existItem) {
       quantity = ++existItem.quantity;
     }
 
-    const { data } = await axios.get(`api/books/${item.id}`);
+    const { data } = await axios.get(`api/books/${item._id}`);
     if (data.countInStock < quantity) {
       window.alert('Out of Stock!!! Only ' + data.countInStock + ' available');
     }
