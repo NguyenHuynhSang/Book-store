@@ -1,4 +1,12 @@
+import bcrypt from 'bcryptjs';
 const data = {
+  users: [
+    {
+      username: 'booklover',
+      email: 'booklover@gmail.com',
+      password: bcrypt.hashSync('booklover'),
+    },
+  ],
   books: [
     {
       name: 'Hành Tinh Của Một Kẻ Nghĩ Nhiều',
