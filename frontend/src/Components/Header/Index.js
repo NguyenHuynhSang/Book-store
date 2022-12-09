@@ -8,7 +8,17 @@ const Header = () => {
   const { state } = useContext(Store);
   const { cart } = state;
   const [isShowLoginForm, setShowLoginForm] = useState(false);
+
   const [isShowCartForm, setShowCartForm] = useState(false);
+
+  function showCart(e) {
+    e.preventDefault();
+    //trigger when click on parent element only
+    if (e.target === e.currentTarget) {
+      setShowCartForm(!isShowCartForm);
+    }
+  }
+
   return (
     <div>
       <header className="header">
@@ -29,8 +39,7 @@ const Header = () => {
           <div className="icons">
             <div id="search-btn" className="fas fa-search"></div>
             <div
-              href="/"
-              onClick={() => setShowCartForm(true)}
+              onClick={(e) => showCart(e)}
               className="fas fa-shopping-cart"
               id="shopping-cart"
             >
@@ -38,7 +47,7 @@ const Header = () => {
             </div>
             <div
               id="login-btn"
-              onClick={() => setShowLoginForm(true)}
+              onClick={() => setShowLoginForm(!isShowLoginForm)}
               className="fas fa-user"
             ></div>
           </div>
@@ -64,7 +73,7 @@ const Header = () => {
           </nav>
         </div>
       </header>
-      {isShowLoginForm && <LoginForm />}
+      {isShowLoginForm && <LoginForm setLogin={setShowLoginForm} />}
     </div>
   );
 };
