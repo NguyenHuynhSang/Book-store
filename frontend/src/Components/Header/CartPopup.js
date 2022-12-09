@@ -18,7 +18,7 @@ const CartPopup = () => {
               <h3>{x.name}</h3>
               <div className="quantity-box">
                 <i className="fa fa-plus-circle"></i>
-                <span className="quantity"> 1 </span>{' '}
+                <span className="quantity"> {x.quantity} </span>{' '}
                 <i className="fa fa-minus-circle"></i>
               </div>
 

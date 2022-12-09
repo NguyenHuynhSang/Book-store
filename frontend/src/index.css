@@ -132,16 +132,18 @@ section {
   /* transition: 0.5s ease-out; */
 }
 
-.quantityBadge {
+#quantityBadge {
+  position: absolute;
   font-size: 0.8rem;
   margin-top: 1rem;
-  position: absolute;
+  transform: translateX(-30%);
 }
 /* cartbox */
 .cart-box {
   position: absolute;
   display: block;
   z-index: 99;
+
   width: 300px;
 
   overflow: auto;
