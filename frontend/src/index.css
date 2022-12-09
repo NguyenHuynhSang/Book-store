@@ -132,6 +132,11 @@ section {
   /* transition: 0.5s ease-out; */
 }
 
+.quantityBadge {
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  position: absolute;
+}
 /* cartbox */
 .cart-box {
   position: absolute;
@@ -152,6 +157,7 @@ section {
 
 .cart-box .summary {
   float: right;
+  flex-wrap: wrap;
   margin: 1rem;
 }
 .cart-box .summary p {

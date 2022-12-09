@@ -9,7 +9,7 @@ const Signin = () => {
   return (
     <Container className="s-container">
       <Helmet>
-        <title>Sign In</title>
+        <title>Sign Up</title>
       </Helmet>
       <h1 className="my-3">Sign in</h1>
       <Form>

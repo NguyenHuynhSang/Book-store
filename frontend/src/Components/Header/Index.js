@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Store from '../../CartStore';
 import LoginForm from '../Login';
@@ -43,6 +44,14 @@ const Header = () => {
               className="fas fa-shopping-cart"
               id="shopping-cart"
             >
+              <Badge
+                id="quantityBadge"
+                className="quantityBadge"
+                pill
+                bg="danger"
+              >
+                {cart.Items.reduce((a, c) => a + c.quantity, 0)}
+              </Badge>
               {isShowCartForm && <CartPopup></CartPopup>}
             </div>
             <div
