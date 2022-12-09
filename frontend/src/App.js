@@ -1,22 +1,17 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import BookPage from './Pages/BookPage';
-import HomePage from './Pages/HomePage';
-import Navbar from 'react-bootstrap/Navbar';
+import { BrowserRouter } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Badge, Nav } from 'react-bootstrap';
-import { useContext } from 'react';
-import Store from './CartStore';
-import CartPage from './Pages/CartPage';
+
 import RouteController from './Routes/RouteController';
 import MainNav from './Components/Header/MainNav';
+import Header from './Components/Header/Index';
 function App() {
   return (
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
-        <header>
+        {/* <header>
           <MainNav />
-        </header>
+        </header> */}
+        <Header />
         <main>
           <Container className="mt-3">
             <RouteController />

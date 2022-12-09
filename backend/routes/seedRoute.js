@@ -1,5 +1,5 @@
 import express from 'express';
-import Book from '../models/book.js';
+import Book from '../models/bookModel.js';
 import User from '../models/userModel.js';
 import data from '../tempdata.js';
 const seed = express.Router();
