@@ -3,7 +3,7 @@ import { Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Store from '../../CartStore';
 import LoginForm from '../Login';
-import CartPopup from './CartPopup';
+import CartModal from './CartModal';
 
 const Header = () => {
   const { state } = useContext(Store);
@@ -45,6 +45,7 @@ const Header = () => {
               id="shopping-cart"
             >
               <Badge
+                onClick={(e) => showCart(e)}
                 id="quantityBadge"
                 className="quantityBadge"
                 pill
@@ -52,7 +53,7 @@ const Header = () => {
               >
                 {cart.Items.reduce((a, c) => a + c.quantity, 0)}
               </Badge>
-              {isShowCartForm && <CartPopup></CartPopup>}
+              {isShowCartForm && <CartModal></CartModal>}
             </div>
             <div
               id="login-btn"

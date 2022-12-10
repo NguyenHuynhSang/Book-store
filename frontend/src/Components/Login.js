@@ -5,8 +5,6 @@ const LoginForm = (props) => {
     if (e.target === e.currentTarget) {
       setLogin(false);
     }
-
-    console.log('click');
   }
 
   return (

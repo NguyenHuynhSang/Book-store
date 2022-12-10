@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Store from '../../CartStore';
 
-const CartPopup = () => {
+const CartModal = (props) => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     cart: { Items },
@@ -44,4 +44,4 @@ const CartPopup = () => {
     </div>
   );
 };
-export default CartPopup;
+export default CartModal;
