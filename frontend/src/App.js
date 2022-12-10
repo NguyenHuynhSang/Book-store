@@ -13,9 +13,7 @@ function App() {
         </header> */}
         <Header />
         <main>
-          <Container className="mt-3">
-            <RouteController />
-          </Container>
+          <RouteController />
         </main>
         <footer>
           <div className="text-center">footer</div>

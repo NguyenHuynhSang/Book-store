@@ -7,6 +7,9 @@ import Book from '../Components/Book';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../Components/Loading';
 import Message from '../Components/Message';
+import Icons from '../Components/Home/Icons';
+import Slider from '../Components/Home/Slider';
+import style from '../Asset/css/Home.css';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQ':
@@ -51,6 +54,8 @@ function HomePage() {
       <Helmet>
         <title>LoveBook</title>
       </Helmet>
+
+      <Slider></Slider>
       <h1>Top Books</h1>
       <div className="books">
         <Row>
@@ -61,6 +66,7 @@ function HomePage() {
           ))}
         </Row>
       </div>
+      <Icons></Icons>
     </div>
   );
 }
