@@ -1,7 +1,7 @@
 import { createContext, useReducer } from 'react';
 import { ReactSession } from 'react-client-session';
-import { json } from 'react-router-dom';
 
+// create a context to share state
 const Store = createContext();
 ReactSession.setStoreType('localStorage');
 
@@ -43,6 +43,7 @@ const reducer = (state, action) => {
   }
 };
 
+// create a reducer to update state
 export const StoreProvider = (props) => {
   const [state, dispatch] = useReducer(reducer, intialState);
   let value = { state, dispatch };
