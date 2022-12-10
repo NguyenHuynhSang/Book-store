@@ -28,7 +28,7 @@ const CartModal = (props) => {
     <div className="cart-box">
       <div className="items">
         {Items.length <= 0 ? (
-          <h2>Khong co sp</h2>
+          <Message>Cart is empty</Message>
         ) : (
           Items.map((x) => (
             <div className="item">

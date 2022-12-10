@@ -389,6 +389,9 @@ main {
   flex: 1;
 }
 
+.top-book-container {
+  margin: 0 4rem;
+}
 .books {
   display: flex;
   flex-wrap: wrap;

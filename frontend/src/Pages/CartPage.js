@@ -18,7 +18,9 @@ const CartPage = (props) => {
     if (data.countInStock < quantity) {
       window.alert('Out of Stock!!! Only ' + data.countInStock + ' available');
     }
-    ctxDispatch({ type: 'ADD_ITEM', payload: { ...item, quantity } });
+    if (quantity === 0) {
+      ctxDispatch({ type: 'REMOVE_ITEM', payload: item });
+    } else ctxDispatch({ type: 'ADD_ITEM', payload: { ...item, quantity } });
     //navigate('/cart');
   };
 

@@ -56,16 +56,19 @@ function HomePage() {
       </Helmet>
 
       <Slider></Slider>
-      <h1>Top Books</h1>
-      <div className="books">
-        <Row>
-          {books.map((book) => (
-            <Col key={book.slug} sm={6} md={4} lg={3} className="mb-3">
-              <Book book={book}></Book>
-            </Col>
-          ))}
-        </Row>
-      </div>
+      <section className="top-book-container">
+        <h1>Top Books</h1>
+        <div className="books">
+          <Row>
+            {books.map((book) => (
+              <Col key={book.slug} sm={6} md={4} lg={3} className="mb-3">
+                <Book book={book}></Book>
+              </Col>
+            ))}
+          </Row>
+        </div>
+      </section>
+
       <Icons></Icons>
     </div>
   );
