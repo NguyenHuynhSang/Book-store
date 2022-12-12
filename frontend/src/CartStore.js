@@ -1,5 +1,6 @@
 import { createContext, useReducer } from 'react';
 import { ReactSession } from 'react-client-session';
+import { toast } from 'react-toastify';
 
 // create a context to share state
 const Store = createContext();
@@ -25,6 +26,16 @@ const reducer = (state, action) => {
 
       const cart = { ...state.cart, Items };
       localStorage.setItem('cart', JSON.stringify(Items));
+      toast('Added ' + newItem.name + ' to cart!', {
+        position: 'bottom-right',
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
       return {
         ...state,
         cart: cart,

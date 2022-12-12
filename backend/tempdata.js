@@ -1,5 +1,39 @@
 import bcrypt from 'bcryptjs';
 const data = {
+  links: [
+    {
+      name: 'Home',
+      url: '/',
+      alt: '',
+      icon: '',
+      target: '_blank',
+      type: 'navbar',
+    },
+    {
+      name: 'Hot',
+      url: '/hot',
+      alt: '',
+      icon: '',
+      target: '_blank',
+      type: 'navbar',
+    },
+    {
+      name: 'Incomming',
+      url: '/incomming',
+      alt: '',
+      icon: '',
+      target: '_blank',
+      type: 'navbar',
+    },
+    {
+      name: 'About Us',
+      url: '/aboutus',
+      alt: '',
+      icon: '',
+      target: '_blank',
+      type: 'navbar',
+    },
+  ],
   users: [
     {
       username: 'booklover',
