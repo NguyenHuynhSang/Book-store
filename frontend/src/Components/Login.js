@@ -19,7 +19,7 @@ const LoginForm = (props) => {
           <input type="password" id="password" placeholder="Nhap mat khau" />
           <div class="checkbox">
             <input type="checkbox" name="" id="remember-me" />
-            <label for="remember-me">remember-me</label>
+            <label htmlFor="remember-me">remember-me</label>
           </div>
           <input type="submit" value="sign in" class="btn" id="login-submit" />
           <p>

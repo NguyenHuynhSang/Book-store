@@ -1,4 +1,4 @@
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -7,6 +7,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import 'swiper/css/autoplay';
 import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -61,10 +62,14 @@ const Slider = () => {
 
         <Swiper
           // install Swiper modules
-          modules={[Navigation, Pagination, Scrollbar, A11y]}
+          modules={[Navigation, Pagination, Autoplay]}
           slidesPerView={3}
+          autoplay={{
+            delay: 1500,
+            disableOnInteraction: false,
+          }}
           pagination={{ clickable: true }}
-          navigation
+          //   navigation
         >
           {books.map((x, index) => (
             <SwiperSlide key={x._id} virtualIndex={index}>
@@ -78,7 +83,7 @@ const Slider = () => {
             src={require('../../Asset/image/bstand.png')}
             className="stand"
             alt=""
-          ></img>
+          />
         </Swiper>
       </div>
     </section>

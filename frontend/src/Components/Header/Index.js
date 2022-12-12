@@ -34,7 +34,7 @@ const Header = () => {
               id="search-box"
               placeholder="tim kiem"
             />
-            <label for="search-box" className="fas fa-search"></label>
+            <label htmlFor="search-box" className="fas fa-search"></label>
           </form>
 
           <div className="icons">
