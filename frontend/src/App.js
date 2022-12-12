@@ -4,6 +4,10 @@ import Container from 'react-bootstrap/Container';
 import RouteController from './Routes/RouteController';
 import MainNav from './Components/Header/MainNav';
 import Header from './Components/Header/Index';
+import 'react-toastify/dist/ReactToastify.css';
+
+import { ToastContainer } from 'react-toastify';
+
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +23,7 @@ function App() {
           <div className="text-center">footer</div>
         </footer>
       </div>
+      <ToastContainer />
     </BrowserRouter>
   );
 }

@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import Store from '../CartStore';
 import Rating from './Rating';
+import { toast } from 'react-toastify';
 
 function Book(props) {
   const { book } = props;
@@ -23,9 +24,20 @@ function Book(props) {
     const { data } = await axios.get(`api/books/${item._id}`);
     if (data.countInStock < quantity) {
       window.alert('Out of Stock!!! Only ' + data.countInStock + ' available');
+    } else {
+      ctxDispatch({ type: 'ADD_ITEM', payload: { ...item, quantity } });
+      toast('Added ' + data.name + ' to cart!', {
+        position: 'top-right',
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+      //navigate('/cart');
     }
-    ctxDispatch({ type: 'ADD_ITEM', payload: { ...item, quantity } });
-    //navigate('/cart');
   };
   return (
     <Card className="book d-flex" id="book-card">
