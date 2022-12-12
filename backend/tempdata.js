@@ -50,6 +50,36 @@ const data = {
       numRev: 10,
       des: 'Good stuff',
     },
+    {
+      name: 'Cân bằng cảm xúc cả lúc bão giông',
+      type: '',
+      slug: 'book-4',
+      PublishYear: '2022',
+      author: 'Nguyễn Đoàn Minh Thư',
+      image:
+        'https://book365.vn/upload/resize_cache/iblock/2bd/570_490_1/2bd9969831f3589e1859d14b5ec7bd17.jpeg',
+      price: '2000000',
+      countInStock: 10,
+      numPage: 200,
+      rating: 1,
+      numRev: 10,
+      des: 'Good stuff',
+    },
+    {
+      name: 'Người Giàu Có Nhất Thành Babylon',
+      type: '',
+      slug: 'book-5',
+      PublishYear: '2022',
+      author: 'Nguyễn Đoàn Minh Thư',
+      image:
+        'https://book365.vn/upload/resize_cache/iblock/6d7/570_490_1/6d7fac801463e9c2d998754e77890e3a.jpeg',
+      price: '2000000',
+      countInStock: 10,
+      numPage: 200,
+      rating: 1,
+      numRev: 10,
+      des: 'Good stuff',
+    },
   ],
 };
 export default data;

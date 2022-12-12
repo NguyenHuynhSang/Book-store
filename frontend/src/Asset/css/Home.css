@@ -1,5 +1,5 @@
 .home {
-  /* background: url('../image/banner.jpg') no-repeat; */
+  background: url(../image/banner.jpg) no-repeat;
   background-size: cover;
   background-position: center;
 }
@@ -26,20 +26,20 @@
   padding: 1rem 0;
 }
 
-.home .row .book-slider {
+.swiper {
   flex: 1 1 42rem;
   text-align: center;
   margin-top: 2rem;
 }
 
-.home .row .book-slider a img {
+.swiper-slider img {
   height: 20rem;
   margin: 1rem;
   /* hide background if it's white  */
   /* careful, it didn't work in some browsers */
   mix-blend-mode: multiply;
 }
-.home .row .book-slider a img:hover {
+.swiper-slider img:hover {
   transform: scale(1.3);
   transition: 0.5s ease-out;
 }

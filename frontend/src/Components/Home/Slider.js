@@ -1,4 +1,50 @@
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import { useEffect, useReducer } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 const Slider = () => {
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'FETCH_REQ':
+        return { ...state, loading: true };
+      case 'FETCH_SUCCESS':
+        return { ...state, books: action.payload, loading: false };
+      case 'FETCH_FAIL':
+        return { ...state, loading: false, error: action.payload };
+      default:
+        return state;
+    }
+  };
+  const [{ loading, error, books }, dispatch] = useReducer(reducer, {
+    books: [],
+    loading: true,
+    error: '',
+  });
+  // const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch({ type: 'FETCH_REQ' });
+      try {
+        const result = await axios.get('api/books');
+        dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
+
+        // setBooks(result.data);
+      } catch (err) {
+        dispatch({ type: 'FETCH_FAIL', payload: err.message });
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <section className="home" id="home">
       <div className="row">
@@ -10,14 +56,30 @@ const Slider = () => {
             ưu đãi đến 40% trong tháng 9 này trên các sàn TMĐT từ các nhà sách
             và nhà xuất bản lớn
           </p>
-          <a className="btn">Xem ngay</a>
+          <Link className="btn">Xem ngay</Link>
         </div>
-        <div className=" book-slider">
-          <div className="swiper-wrapper"></div>
 
-          <img src="assets/image/bstand.png" className="stand" alt=""></img>
-          <div className="swiper-pagination"></div>
-        </div>
+        <Swiper
+          // install Swiper modules
+          modules={[Navigation, Pagination, Scrollbar, A11y]}
+          slidesPerView={3}
+          pagination={{ clickable: true }}
+          navigation
+        >
+          {books.map((x, index) => (
+            <SwiperSlide key={x._id} virtualIndex={index}>
+              <a className="swiper-slider" href="#">
+                <img src={x.image} alt="" />
+              </a>
+            </SwiperSlide>
+          ))}
+          <img src="assets/image/bstand.png" className="stand" alt="" />
+          <img
+            src={require('../../Asset/image/bstand.png')}
+            className="stand"
+            alt=""
+          ></img>
+        </Swiper>
       </div>
     </section>
   );
