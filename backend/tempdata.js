@@ -26,6 +26,14 @@ const data = {
       type: 'navbar',
     },
     {
+      name: 'Blog',
+      url: '/blog',
+      alt: '',
+      icon: '',
+      target: '_blank',
+      type: 'navbar',
+    },
+    {
       name: 'About Us',
       url: '/aboutus',
       alt: '',
