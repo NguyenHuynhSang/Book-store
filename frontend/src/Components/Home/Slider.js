@@ -73,9 +73,9 @@ const Slider = () => {
         >
           {books.map((x, index) => (
             <SwiperSlide key={x._id} virtualIndex={index}>
-              <a className="swiper-slider" href="#">
+              <Link className="swiper-slider" to={`/book/${x.slug}`}>
                 <img src={x.image} alt="" />
-              </a>
+              </Link>
             </SwiperSlide>
           ))}
           <img src="assets/image/bstand.png" className="stand" alt="" />

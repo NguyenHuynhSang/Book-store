@@ -40,7 +40,7 @@ const CartPage = (props) => {
       <Row>
         <Col md={8}>
           {Items.length === 0 ? (
-            <Message>Cart is empty</Message>
+            <Message>Cart is empty!!!</Message>
           ) : (
             <ListGroup>
               {Items.map((x) => (
