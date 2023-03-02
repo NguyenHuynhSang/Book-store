@@ -394,7 +394,7 @@ main {
 }
 
 .top-book-container {
-  margin: 0 4 rem;
+  margin: 2rem 4rem;
 }
 .books {
   display: flex;
