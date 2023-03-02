@@ -10,7 +10,7 @@ import linkRoute from './routes/linkRoute.js';
 const uri = 'mongodb://0.0.0.0:27017/book-store';
 
 const app = express();
-//dotenv.config();
+dotenv.config();
 
 // connect Db
 
