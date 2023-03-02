@@ -47,7 +47,7 @@ const CartModal = (props) => {
                   ></i>
                 </div>
 
-                <p> Gia: {x.price}</p>
+                <p> Gia: {x.price * x.quantity}</p>
               </div>
               <button
                 type="button"
@@ -61,7 +61,8 @@ const CartModal = (props) => {
       </div>
       <div className="summary">
         <p>
-          Tong tien: <span>2 000 000 </span>
+          Tong tien:{' '}
+          <span>{Items.reduce((a, c) => a + c.price * c.quantity, 0)} </span>
         </p>
 
         <Link to="/cart" className="btn">
