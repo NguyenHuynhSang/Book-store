@@ -1,9 +1,13 @@
 import axios from 'axios';
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Form } from 'react-bootstrap';
+import Store from '../Store';
 
 const LoginForm = (props) => {
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   let setLogin = props.setLogin;
   function showLogin(e) {
     e.preventDefault();
@@ -11,16 +15,19 @@ const LoginForm = (props) => {
       setLogin(false);
     }
   }
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+
   const submitHandler = async (e) => {
     console.log('submit');
     e.preventDefault();
     try {
       const { data } = await axios.post('api/user/login', { email, password });
       console.log(data);
+      ctxDispatch({ type: 'USER_LOGGEDIN', payload: data });
+      localStorage.setItem('loggedUser', JSON.stringify(data));
+      setLogin(false);
     } catch (err) {
-      console.log(err.response.data);
+      // alert(err.response.data.message);
+      alert('Sai thong tin dang nhap');
     }
   };
   return (

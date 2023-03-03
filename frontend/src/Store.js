@@ -12,6 +12,9 @@ const intialState = {
       ? JSON.parse(localStorage.getItem('cart'))
       : [],
   },
+  loggedUser: localStorage.getItem('loggedUser')
+    ? JSON.parse(localStorage.getItem('loggedUser'))
+    : {},
 };
 
 const reducer = (state, action) => {
@@ -50,6 +53,9 @@ const reducer = (state, action) => {
     }
     default: {
       return state;
+    }
+    case 'USER_LOGGEDIN': {
+      return { ...state, loggedUser: action.payload };
     }
   }
 };

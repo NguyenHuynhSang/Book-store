@@ -9,7 +9,7 @@ userRoute.post(
   '/login',
 
   expressAsyncHandler(async (req, res) => {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email.toLowerCase() });
     if (user) {
       if (bcrypt.compareSync(req.body.password, user.password)) {
         res.send({

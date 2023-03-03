@@ -48,6 +48,11 @@ const data = {
       email: 'booklover@gmail.com',
       password: bcrypt.hashSync('booklover'),
     },
+    {
+      username: 'admin',
+      email: 'admin',
+      password: bcrypt.hashSync('admin'),
+    },
   ],
   books: [
     {

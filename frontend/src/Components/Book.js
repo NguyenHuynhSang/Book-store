@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
-import Store from '../CartStore';
+import Store from '../Store';
 import Rating from './Rating';
 
 function Book(props) {

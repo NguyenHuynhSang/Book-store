@@ -1,13 +1,13 @@
 import { useContext, useState } from 'react';
-import { Badge } from 'react-bootstrap';
+import { Badge, Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Store from '../../CartStore';
+import Store from '../../Store';
 import LoginForm from '../Login';
 import CartModal from './CartModal';
 
 const Header = () => {
   const { state } = useContext(Store);
-  const { cart } = state;
+  const { cart, loggedUser } = state;
   const [isShowLoginForm, setShowLoginForm] = useState(false);
 
   const [isShowCartForm, setShowCartForm] = useState(false);
@@ -60,6 +60,7 @@ const Header = () => {
               onClick={() => setShowLoginForm(!isShowLoginForm)}
               className="fas fa-user"
             ></div>
+            {loggedUser ? <Dropdown>{loggedUser.username}</Dropdown> : ''}
           </div>
         </div>
 
@@ -83,7 +84,11 @@ const Header = () => {
           </nav>
         </div>
       </header>
-      {isShowLoginForm && <LoginForm setLogin={setShowLoginForm} />}
+      {isShowLoginForm && !loggedUser ? (
+        <LoginForm setLogin={setShowLoginForm} />
+      ) : (
+        ''
+      )}
     </div>
   );
 };

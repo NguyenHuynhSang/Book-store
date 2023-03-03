@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import Store from '../CartStore';
+import Store from '../Store';
 import Message from '../Components/Message';
 
 const CartPage = (props) => {

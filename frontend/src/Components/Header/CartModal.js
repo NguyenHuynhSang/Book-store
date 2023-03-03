@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import Store from '../../CartStore';
+import Store from '../../Store';
 import Message from '../Message';
 
 const CartModal = (props) => {

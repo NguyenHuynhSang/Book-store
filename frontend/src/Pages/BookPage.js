@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet-async';
 import Loading from '../Components/Loading';
 import Message from '../Components/Message';
 import GetError from '../utils';
-import Store from '../CartStore';
+import Store from '../Store';
 
 const reducer = (state, action) => {
   switch (action.type) {

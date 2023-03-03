@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Badge, Container, Nav, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
-import Store from '../../CartStore';
+import Store from '../../Store';
 
 const MainNav = () => {
   const { state } = useContext(Store);
