@@ -1,16 +1,22 @@
 import { useContext, useState } from 'react';
-import { Badge, Dropdown } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Badge, Dropdown, NavDropdown } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Link, redirect } from 'react-router-dom';
 import Store from '../../Store';
 import LoginForm from '../Login';
 import CartModal from './CartModal';
 
 const Header = () => {
-  const { state } = useContext(Store);
+  const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, loggedUser } = state;
   const [isShowLoginForm, setShowLoginForm] = useState(false);
 
   const [isShowCartForm, setShowCartForm] = useState(false);
+
+  const LogoutHandler = () => {
+    console.log('user log out');
+    ctxDispatch({ type: 'USER_LOGOUT' });
+  };
 
   function showCart(e) {
     e.preventDefault();
@@ -60,7 +66,29 @@ const Header = () => {
               onClick={() => setShowLoginForm(!isShowLoginForm)}
               className="fas fa-user"
             ></div>
-            {loggedUser ? <Dropdown>{loggedUser.username}</Dropdown> : ''}
+            {loggedUser ? (
+              <div>
+                <NavDropdown
+                  title={loggedUser.username}
+                  id="basic-nav-dropdown"
+                >
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>
+                      {' '}
+                      <i class="fa-solid fa-bars"></i>User Profile
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/">
+                    <NavDropdown.Item onClick={LogoutHandler}>
+                      {' '}
+                      <i class="fa-solid fa-right-from-bracket"></i>Logout
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              </div>
+            ) : (
+              ''
+            )}
           </div>
         </div>
 

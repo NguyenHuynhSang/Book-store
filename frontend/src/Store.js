@@ -57,6 +57,12 @@ const reducer = (state, action) => {
     case 'USER_LOGGEDIN': {
       return { ...state, loggedUser: action.payload };
     }
+    case 'USER_LOGOUT': {
+      if (localStorage.getItem('loggedUser')) {
+        localStorage.removeItem('loggedUser');
+      }
+      return { ...state, loggedUser: null };
+    }
   }
 };
 
