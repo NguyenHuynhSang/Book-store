@@ -30,6 +30,14 @@ const LoginForm = (props) => {
       alert('Sai thong tin dang nhap');
     }
   };
+
+  const handleRememberme = (e) => {
+    console.log(e.target.value);
+    if (e.target.checked) {
+      console.log('bla bla bla');
+    }
+  };
+
   return (
     <div>
       (
@@ -51,7 +59,11 @@ const LoginForm = (props) => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <div className="checkbox">
-            <input type="checkbox" name="" id="remember-me" />
+            <input
+              id="remember-me"
+              type="checkbox"
+              onClick={(e) => handleRememberme(e)}
+            />
             <label htmlFor="remember-me">remember-me</label>
           </div>
           <input

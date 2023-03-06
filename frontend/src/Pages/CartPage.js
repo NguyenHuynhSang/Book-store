@@ -29,7 +29,7 @@ const CartPage = (props) => {
     console.log(Items);
   };
   const signIn = () => {
-    navigate('/signin');
+    navigate('/checkout');
   };
   return (
     <div>

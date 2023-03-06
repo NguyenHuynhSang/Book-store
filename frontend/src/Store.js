@@ -8,13 +8,19 @@ ReactSession.setStoreType('localStorage');
 
 const intialState = {
   cart: {
+    shippingInfor: localStorage.getItem('shippingInfor')
+      ? JSON.parse(localStorage.getItem('shippingInfor'))
+      : {},
     Items: localStorage.getItem('cart')
       ? JSON.parse(localStorage.getItem('cart'))
       : [],
   },
   loggedUser: localStorage.getItem('loggedUser')
     ? JSON.parse(localStorage.getItem('loggedUser'))
-    : {},
+    : null,
+  rememberedUserName: localStorage.getItem('rememberedUser')
+    ? localStorage.getItem('rememberedUser')
+    : null,
 };
 
 const reducer = (state, action) => {
@@ -62,6 +68,15 @@ const reducer = (state, action) => {
         localStorage.removeItem('loggedUser');
       }
       return { ...state, loggedUser: null };
+    }
+    case 'REMEMBERED_ME': {
+      return { ...state, rememberedUserName: action.payload };
+    }
+    case 'SHIPPING_INFOR': {
+      return {
+        ...state,
+        cart: { ...state.cart, shippingInfor: action.payload },
+      };
     }
   }
 };
