@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Navigate } from 'react-router-dom';
+import CheckOutStep from '../Components/CheckOutStep';
 import Store from '../Store';
 
 const CheckOutPage = () => {
@@ -37,6 +38,7 @@ const CheckOutPage = () => {
       <Helmet>
         <title>Checkout</title>
       </Helmet>
+      <CheckOutStep step1 step2></CheckOutStep>
       <div className="container small-container">
         <h1 className="my-3">Check Out</h1>
         <Form onSubmit={submitHandler}>
