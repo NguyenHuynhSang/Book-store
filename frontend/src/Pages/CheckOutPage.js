@@ -1,6 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
+import { Navigate } from 'react-router-dom';
 import Store from '../Store';
 
 const CheckOutPage = () => {
@@ -25,6 +26,12 @@ const CheckOutPage = () => {
     );
     console.log('submit');
   };
+  useEffect(() => {
+    if (!shippingInfor) {
+      Navigate('/signin?redirect=shipping');
+    }
+  });
+
   return (
     <div>
       <Helmet>

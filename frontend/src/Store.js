@@ -66,8 +66,17 @@ const reducer = (state, action) => {
     case 'USER_LOGOUT': {
       if (localStorage.getItem('loggedUser')) {
         localStorage.removeItem('loggedUser');
+        //remove shipping infor when user log out
+        localStorage.removeItem('shippingInfor');
       }
-      return { ...state, loggedUser: null };
+      return {
+        ...state,
+        loggedUser: null,
+        cart: {
+          Items: [],
+          shippingInfor: {},
+        },
+      };
     }
     case 'REMEMBERED_ME': {
       return { ...state, rememberedUserName: action.payload };
