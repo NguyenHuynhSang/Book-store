@@ -4,6 +4,7 @@ import CartPage from '../Pages/CartPage';
 import CheckOutPage from '../Pages/CheckOutPage';
 import HomePage from '../Pages/HomePage';
 import Signin from '../Pages/SignInPage';
+import SignUpPage from '../Pages/SignUpPage';
 
 const RouteController = () => {
   return (
@@ -11,6 +12,7 @@ const RouteController = () => {
       <Route path="/" element={<HomePage />}></Route>
       <Route path="/cart" element={<CartPage />}></Route>
       <Route path="/signin" element={<Signin />}></Route>
+      <Route path="/signup" element={<SignUpPage />}></Route>
       <Route path="/Checkout" element={<CheckOutPage />}></Route>
       <Route path="/book/:slug" element={<BookPage />}></Route>
     </Routes>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useContext, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Store from '../Store';
+import { Link } from 'react-router-dom';
 
 const LoginForm = (props) => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -18,6 +19,7 @@ const LoginForm = (props) => {
 
   const submitHandler = async (e) => {
     console.log('submit');
+    console.log(email);
     e.preventDefault();
     try {
       const { data } = await axios.post('api/user/login', { email, password });
@@ -77,7 +79,10 @@ const LoginForm = (props) => {
             Quen mat khau <a href="/">click here</a>
           </p>
           <p>
-            Tao moi <a href="/">click here</a>
+            Tao moi{' '}
+            <Link to="/signup" onClick={(e) => setLogin(false)}>
+              click here
+            </Link>
           </p>
         </Form>
       </div>

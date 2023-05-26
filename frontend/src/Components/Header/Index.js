@@ -94,19 +94,19 @@ const Header = () => {
 
         <div className="header-2">
           <nav className="navbar">
-            <Link to="/" target="_blank">
+            <Link to="/" target="_self">
               Home
             </Link>
-            <Link to="/" target="_blank">
+            <Link to="/" target="_self">
               Hot
             </Link>
-            <Link to="/" target="_blank">
+            <Link to="/" target="_self">
               Incomming
             </Link>
-            <Link to="/" target="_blank">
+            <Link to="/" target="_self">
               Blog
             </Link>
-            <Link to="/" target="_blank">
+            <Link to="/" target="_self">
               About Us
             </Link>
           </nav>

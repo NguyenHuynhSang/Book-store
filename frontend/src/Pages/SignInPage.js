@@ -21,6 +21,10 @@ const Signin = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control required type="password"></Form.Control>
         </Form.Group>
+        <Form.Group className="mb-3" controlId="password">
+          <Form.Label>Comfirm Password</Form.Label>
+          <Form.Control required type="password"></Form.Control>
+        </Form.Group>
         <div className="mb-3">
           <Button type="submit">Sign in</Button>
         </div>

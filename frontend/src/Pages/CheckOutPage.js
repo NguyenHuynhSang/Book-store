@@ -12,6 +12,9 @@ const CheckOutPage = () => {
   } = state;
   const [fullName, setFullName] = useState(shippingInfor.fullName || '');
   const [addRess, setAddRess] = useState(shippingInfor.addRess || '');
+  const [phoneNumber, setphoneNumber] = useState(
+    shippingInfor.phoneNumber || ''
+  );
   const submitHandler = (e) => {
     e.preventDefault();
     ctxDispatch({
@@ -50,7 +53,7 @@ const CheckOutPage = () => {
               required
             ></Form.Control>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="fullName">
+          <Form.Group className="mb-3" controlId="Address">
             <Form.Label>Address</Form.Label>
             <Form.Control
               value={addRess}
@@ -58,11 +61,12 @@ const CheckOutPage = () => {
               required
             ></Form.Control>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="fullName">
-            <Form.Label>Address</Form.Label>
+          <Form.Group className="mb-3" controlId="phoneNumber">
+            <Form.Label>Phone number</Form.Label>
             <Form.Control
-              value={addRess}
-              onChange={(e) => setAddRess(e.target.value)}
+              value={phoneNumber}
+              type="number"
+              onChange={(e) => setphoneNumber(e.target.value)}
               required
             ></Form.Control>
           </Form.Group>

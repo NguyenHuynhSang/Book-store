@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Store from '../../Store';
 import Message from '../Message';
@@ -23,7 +23,6 @@ const CartModal = (props) => {
     ctxDispatch({ type: 'REMOVE_ITEM', payload: item });
     console.log(Items);
   };
-
   return (
     <div className="cart-box">
       <div className="items">
