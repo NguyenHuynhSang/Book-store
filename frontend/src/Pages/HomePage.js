@@ -10,7 +10,7 @@ import Message from '../Components/Message';
 import Icons from '../Components/Home/Icons';
 import Slider from '../Components/Home/Slider';
 import style from '../Asset/css/Home.css';
-const reducer = (state, action) => {
+const userReducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQ':
       return { ...state, loading: true };
@@ -24,11 +24,12 @@ const reducer = (state, action) => {
 };
 
 function HomePage() {
-  const [{ loading, error, books }, dispatch] = useReducer(reducer, {
+  const [{ loading, error, books }, dispatch] = useReducer(userReducer, {
     books: [],
     loading: true,
     error: '',
   });
+
   // const [books, setBooks] = useState([]);
 
   useEffect(() => {
