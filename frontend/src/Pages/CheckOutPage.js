@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import CheckOutStep from '../Components/CheckOutStep';
 import Store from '../Store';
 
@@ -15,6 +15,7 @@ const CheckOutPage = () => {
   const [phoneNumber, setphoneNumber] = useState(
     shippingInfor.phoneNumber || ''
   );
+  const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
     ctxDispatch({
@@ -29,10 +30,11 @@ const CheckOutPage = () => {
       JSON.stringify({ fullName, addRess })
     );
     console.log('submit');
+    navigate('/placeorder');
   };
   useEffect(() => {
     if (!shippingInfor) {
-      Navigate('/signin?redirect=shipping');
+      navigate('/signin?redirect=shipping');
     }
   });
 

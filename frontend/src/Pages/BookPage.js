@@ -1,13 +1,22 @@
 import { useFetcher, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useContext, useEffect, useReducer } from 'react';
-import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
+import {
+  Badge,
+  Button,
+  Card,
+  Col,
+  Image,
+  ListGroup,
+  Row,
+} from 'react-bootstrap';
 import Rating from '../Components/Rating';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../Components/Loading';
 import Message from '../Components/Message';
 import GetError from '../utils';
 import Store from '../Store';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -26,6 +35,7 @@ function BookPage() {
   const navigate = useNavigate();
   const urlParam = useParams();
   const { slug } = urlParam;
+
   const [{ loading, error, book }, dispatch] = useReducer(reducer, {
     book: [],
     loading: true,
@@ -72,12 +82,24 @@ function BookPage() {
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
-    <div>
+    <div style={{ margin: '5rem 15rem' }}>
+      <Breadcrumb>
+        <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+        <Breadcrumb.Item href="https://getbootstrap.com/docs/4.0/components/breadcrumb/">
+          Library
+        </Breadcrumb.Item>
+        <Breadcrumb.Item active>Data</Breadcrumb.Item>
+      </Breadcrumb>
       <Row>
-        <Col md={6}>
-          <img className="image-large" src={book.image} alt={book.name}></img>
+        <Col md={5}>
+          <Image
+            className="image-large"
+            src={book.image}
+            alt={book.name}
+            style={{ width: '55rem', margin: 'auto', display: 'inline' }}
+          ></Image>
         </Col>
-        <Col md={3}>
+        <Col md={7}>
           <ListGroup variant="flush">
             <ListGroup.Item>
               <Helmet>
@@ -91,50 +113,48 @@ function BookPage() {
                 numReviews={book.numReviews}
               ></Rating>
             </ListGroup.Item>
-            <ListGroup.Item>Price: {book.price}</ListGroup.Item>
+            <Card>
+              <Card.Body>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Price:</Col>
+                      <Col>{book.price}</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Status:</Col>
+                      <Col>
+                        {book.countInStock > 0 ? (
+                          <Badge bg="success">Available</Badge>
+                        ) : (
+                          <Badge bg="dagger">Unavailable</Badge>
+                        )}
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+
+                  {book.countInStock > 0 ? (
+                    <ListGroup.Item>
+                      <div className="d-grid">
+                        <Button onClick={() => addToCart()} variant="primary">
+                          Add to Cart
+                        </Button>
+                      </div>
+                    </ListGroup.Item>
+                  ) : (
+                    ''
+                  )}
+                </ListGroup>
+              </Card.Body>
+            </Card>
             <ListGroup.Item>
               <p> {book.des}</p>
             </ListGroup.Item>
           </ListGroup>
         </Col>
-        <Col md={3}>
-          <Card>
-            <Card.Body>
-              <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Price:</Col>
-                    <Col>{book.price}</Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Status:</Col>
-                    <Col>
-                      {book.countInStock > 0 ? (
-                        <Badge bg="success">Available</Badge>
-                      ) : (
-                        <Badge bg="dagger">Unavailable</Badge>
-                      )}
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
-
-                {book.countInStock > 0 ? (
-                  <ListGroup.Item>
-                    <div className="d-grid">
-                      <Button onClick={() => addToCart()} variant="primary">
-                        Add to Cart
-                      </Button>
-                    </div>
-                  </ListGroup.Item>
-                ) : (
-                  ''
-                )}
-              </ListGroup>
-            </Card.Body>
-          </Card>
-        </Col>
+        <Col md={2}></Col>
       </Row>
     </div>
   );

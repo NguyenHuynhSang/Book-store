@@ -3,8 +3,9 @@ import Store from '../Store';
 import Axios from 'axios';
 import { Button, Container, Form } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GetError from '../utils';
+import { toast } from 'react-toastify';
 
 const SignUpPage = () => {
   const [name, setName] = useState('');
@@ -15,10 +16,20 @@ const SignUpPage = () => {
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
+
+  // back to last page after sign up
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get('redirect');
+  const redirect = redirectInUrl ? redirectInUrl : '/';
+  const nagigate = useNavigate();
   const submitHandler = async (e) => {
     console.log(username);
     e.preventDefault();
 
+    if (password !== confirmPassword) {
+      toast.error('passwork not match');
+      return;
+    }
     try {
       const { data } = await Axios.post('/api/user/signup', {
         email,
@@ -27,6 +38,8 @@ const SignUpPage = () => {
         password,
       });
       ctxDispatch({ type: 'USER_LOGGEDIN', payload: data });
+      localStorage.setItem('loggedUser', JSON.stringify(data));
+      nagigate(redirect || '/');
     } catch (err) {
       console.log(GetError(err));
     }

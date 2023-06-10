@@ -4,7 +4,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import RouteController from './Routes/RouteController';
 import MainNav from './Components/Header/MainNav';
 import Header from './Components/Header/Index';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
 import { ToastContainer } from 'react-toastify';
 
 function App() {

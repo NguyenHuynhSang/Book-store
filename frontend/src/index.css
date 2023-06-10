@@ -60,11 +60,18 @@ a {
   font-weight: 200;
 }
 
+input {
+  text-transform: none !important;
+}
 .btn:hover {
   background: var(--dark-color);
 }
 section {
   padding: 5rem, 10%;
+}
+
+.app-container {
+  margin: 1rem 1rem;
 }
 
 .header .header-1 {
