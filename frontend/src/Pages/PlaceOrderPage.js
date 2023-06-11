@@ -1,21 +1,73 @@
-import React, { useContext } from 'react';
+import React, { useContext, useReducer } from 'react';
 import CheckOutStep from '../Components/CheckOutStep';
 import { Helmet } from 'react-helmet-async';
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import Store from '../Store';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import GetError from '../utils';
+import axios from 'axios';
+import Header from '../Components/Header/Index';
 
+const reducer = (action, state) => {
+  switch (action.type) {
+    case 'CREATE_REQ':
+      return { ...state, loading: true };
+    case 'CREATE_SUCC':
+      return { ...state, loading: false };
+    case 'CREATE_FAIL':
+      return { ...state, loading: false };
+    default:
+      return state;
+  }
+};
 export default function PlaceOrderPage() {
-  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { state, dispatch: dispatch } = useContext(Store);
   const { cart, loggedUser } = state;
 
+  const [{ loading, error }, ctxDispatch] = useReducer(reducer, {
+    loading: true,
+    error: '',
+  });
+
+  const navigate = useNavigate();
+  function moneyFormat(num) {
+    return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  }
   const round = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
   cart.totalPrice = round(
     cart.Items.reduce((a, c) => a + c.quantity * c.price, 0)
   );
   cart.shippingPrice = cart.itemsPrice > 100 ? round(0) : round(10);
   cart.taxPrice = round(0.15 * cart.itemsPrice);
-  const planOrderHandler = async () => {};
+
+  const planOrderHandler = async () => {
+    try {
+      const { data } = axios.post(
+        'api/orders',
+        {
+          orderItems: cart.Items,
+          shippingAddress: cart.shippingAddress,
+          paymentMenthod: cart.paymentMenthod,
+          itemsPrice: cart.itemsPrice,
+          shippingPrice: cart.shippingPrice,
+          taxPrice: cart.taxPrice,
+          totalPrice: cart.totalPrice,
+        },
+        {
+          header: {
+            authorization: `Bearer ${loggedUser.token}`,
+          },
+        }
+      );
+      ctxDispatch({ type: 'CART_CLEAR' });
+      dispatch({ type: 'CREATE_SUCC' });
+      localStorage.removeItem('cartItems');
+    } catch (err) {
+      dispatch({ type: 'CREATE_FAIL' });
+      toast(GetError(err));
+    }
+  };
   return (
     <div>
       <CheckOutStep step1 step2 step3 step4></CheckOutStep>
@@ -88,7 +140,7 @@ export default function PlaceOrderPage() {
                         <Link to={`/book/${x.slug}`}></Link>
                       </Col>
                       <Col mg={3}>{x.quantity}</Col>
-                      <Col mg={3}>{x.price * x.quantity}</Col>
+                      <Col mg={3}> {moneyFormat(x.price * x.quantity)}</Col>
                     </Row>
                   </ListGroup.Item>
                 ))}
@@ -96,7 +148,7 @@ export default function PlaceOrderPage() {
             </Card.Body>
           </Card>
         </Col>
-        <Col md={8}>
+        <Col md={4}>
           <Card>
             <Card.Body>
               <Card.Title>Sumary</Card.Title>

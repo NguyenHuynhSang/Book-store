@@ -60,6 +60,10 @@ const reducer = (state, action) => {
     default: {
       return state;
     }
+
+    case 'CART_CLEAR': {
+      return { ...state, cart: { ...state.cart, Items: [] } };
+    }
     case 'USER_LOGGEDIN': {
       return { ...state, loggedUser: action.payload };
     }
