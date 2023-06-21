@@ -55,14 +55,16 @@ export default function PlaceOrderPage() {
           totalPrice: cart.totalPrice,
         },
         {
-          header: {
+          headers: {
             authorization: `Bearer ${loggedUser.token}`,
           },
         }
       );
+      console.log('token' + loggedUser.token);
       ctxDispatch({ type: 'CART_CLEAR' });
       dispatch({ type: 'CREATE_SUCC' });
       localStorage.removeItem('cartItems');
+      navigate(`/order/${data.order._id}`);
     } catch (err) {
       dispatch({ type: 'CREATE_FAIL' });
       toast(GetError(err));

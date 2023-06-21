@@ -5,6 +5,7 @@ import seed from './routes/seedRoute.js';
 import bookRoute from './routes/bookRoute.js';
 import userRoute from './routes/userRoute.js';
 import linkRoute from './routes/linkRoute.js';
+import orderRoute from './routes/orderRoute.js';
 
 // load data from .env to process
 const uri = 'mongodb://0.0.0.0:27017/book-store';
@@ -31,6 +32,8 @@ app.use('/api/seed', seed);
 
 app.use('/api/books', bookRoute);
 app.use('/api/user', userRoute);
+app.use('/api/orders', orderRoute);
+
 app.use('/api/link', linkRoute);
 //send specific error to server
 app.use((err, req, res, next) => {
