@@ -35,20 +35,25 @@ export default function PlaceOrderPage() {
     return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   }
   const round = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
-  cart.totalPrice = round(
+
+  cart.itemsPrice = round(
     cart.Items.reduce((a, c) => a + c.quantity * c.price, 0)
   );
+
   cart.shippingPrice = cart.itemsPrice > 100 ? round(0) : round(10);
   cart.taxPrice = round(0.15 * cart.itemsPrice);
-
+  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+  cart.paymentMenthod = 'tien mat';
   const planOrderHandler = async () => {
+    console.log('plan order');
+    console.log(cart);
     try {
-      const { data } = axios.post(
+      const { data } = await axios.post(
         'api/orders',
         {
           orderItems: cart.Items,
-          shippingAddress: cart.shippingAddress,
-          paymentMenthod: cart.paymentMenthod,
+          shippingAddress: cart.shippingInfor,
+          paymentMethod: cart.paymentMenthod,
           itemsPrice: cart.itemsPrice,
           shippingPrice: cart.shippingPrice,
           taxPrice: cart.taxPrice,
@@ -62,10 +67,14 @@ export default function PlaceOrderPage() {
       );
       console.log('token' + loggedUser.token);
       ctxDispatch({ type: 'CART_CLEAR' });
+      console.log(1);
       dispatch({ type: 'CREATE_SUCC' });
+      console.log(2);
       localStorage.removeItem('cartItems');
+      console.log(data);
       navigate(`/order/${data.order._id}`);
     } catch (err) {
+      console.log('error');
       dispatch({ type: 'CREATE_FAIL' });
       toast(GetError(err));
     }
@@ -87,7 +96,10 @@ export default function PlaceOrderPage() {
                 {cart.shippingInfor.fullName}
                 <br></br>
                 <strong>Address:</strong>
-                {cart.shippingInfor.addRess}
+                {cart.shippingInfor.address}
+                <br></br>
+                <strong>Phone:</strong>
+                {cart.shippingInfor.phone}
                 <br></br>
                 <Link to="/shipping">Edit </Link>
               </Card.Text>

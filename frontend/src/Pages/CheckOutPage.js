@@ -11,10 +11,8 @@ const CheckOutPage = () => {
     cart: { shippingInfor },
   } = state;
   const [fullName, setFullName] = useState(shippingInfor.fullName || '');
-  const [addRess, setAddRess] = useState(shippingInfor.addRess || '');
-  const [phoneNumber, setphoneNumber] = useState(
-    shippingInfor.phoneNumber || ''
-  );
+  const [address, setAddress] = useState(shippingInfor.address || '');
+  const [phone, setphoneNumber] = useState(shippingInfor.phone || '');
   const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
@@ -22,12 +20,13 @@ const CheckOutPage = () => {
       type: 'SHIPPING_INFOR',
       payload: {
         fullName,
-        addRess,
+        address,
+        phone,
       },
     });
     localStorage.setItem(
       'shippingInfor',
-      JSON.stringify({ fullName, addRess })
+      JSON.stringify({ fullName, address, phone })
     );
     console.log('submit');
     navigate('/placeorder');
@@ -58,15 +57,15 @@ const CheckOutPage = () => {
           <Form.Group className="mb-3" controlId="Address">
             <Form.Label>Address</Form.Label>
             <Form.Control
-              value={addRess}
-              onChange={(e) => setAddRess(e.target.value)}
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
               required
             ></Form.Control>
           </Form.Group>
           <Form.Group className="mb-3" controlId="phoneNumber">
             <Form.Label>Phone number</Form.Label>
             <Form.Control
-              value={phoneNumber}
+              value={phone}
               type="number"
               onChange={(e) => setphoneNumber(e.target.value)}
               required

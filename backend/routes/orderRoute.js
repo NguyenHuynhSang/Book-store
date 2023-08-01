@@ -23,13 +23,14 @@ orderRoute.post(
       totalPrice: req.body.totalPrice,
     });
 
-    console.log('userId' + req.user._id);
     console.log('Start');
     console.log(newOrder);
-    console.log(newOrder.orderItems);
     const order = await newOrder.save();
     console.log('Saved');
+    console.log('saved order:' + order);
+
     res.status(201).send({ message: 'Order created', order });
+    console.log('created');
   })
 );
 export default orderRoute;
