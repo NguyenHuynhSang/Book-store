@@ -33,4 +33,15 @@ orderRoute.post(
     console.log('created');
   })
 );
+
+orderRoute.get(
+  '/orderHistory',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    console.log('user id:' + req.user._id);
+    const orders = await Order.find({ user: req.user._id });
+    console.log('orders:' + orders);
+    res.send(orders);
+  })
+);
 export default orderRoute;

@@ -6,7 +6,7 @@ import Store from '../Store';
 import MessageBox from '../Components/MessageBox';
 import GetError from '../utils';
 import axios from 'axios';
-import Header from '../Components/Header/Index';
+import { toast } from 'react-toastify';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -24,7 +24,7 @@ const reducer = (state, action) => {
 export default function OrderHistoryPage() {
   const { state } = useContext(Store);
   const navigate = useNavigate();
-  const loggedUser = state;
+  const { loggedUser } = state;
   const [{ loading, error, orders }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -32,13 +32,22 @@ export default function OrderHistoryPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await axios.get('/api/order/orderhistory', {
-        headers: { Authorization: `Bearer ${loggedUser.token}` },
-      });
-      dispatch({
-        type: 'FETCH_FAIL',
-        payload: GetError(error),
-      });
+      try {
+        console.log('token' + loggedUser.token);
+        const { data } = await axios.get('/api/orders/orderHistory', {
+          headers: { Authorization: `Bearer ${loggedUser.token}` },
+        });
+        dispatch({
+          type: 'FETCH_SUCCESS',
+          payload: data,
+        });
+      } catch (error) {
+        dispatch({
+          type: 'FETCH_FAIL',
+          payload: GetError(error),
+        });
+        console.log(GetError(error));
+      }
     };
     fetchData();
   }, [loggedUser]);
@@ -59,15 +68,16 @@ export default function OrderHistoryPage() {
               <th>ID</th>
               <th>Date</th>
               <th>Total</th>
-              <th>Paid</th>
-              <th>Delivered</th>
-              <th>Actions</th>
+              <th>Delivered?</th>
             </tr>
           </thead>
           <tbody>
             {orders.map((x) => (
               <tr key={x._id}>
                 <td>{x._id}</td>
+                <td>{x.createdAt}</td>
+                <td>{x.totalPrice}</td>
+                <th>{x.isDelivered ? 'yes' : 'no'}</th>
               </tr>
             ))}
           </tbody>

@@ -6,6 +6,7 @@ import HomePage from '../Pages/HomePage';
 import Signin from '../Pages/SignInPage';
 import SignUpPage from '../Pages/SignUpPage';
 import PlaceOrderPage from '../Pages/PlaceOrderPage';
+import OrderHistoryPage from '../Pages/0rderHistoryPage';
 
 const RouteController = () => {
   return (
@@ -19,6 +20,10 @@ const RouteController = () => {
         <Route path="/placeorder" element={<PlaceOrderPage />}></Route>
         <Route path="/Checkout" element={<CheckOutPage />}></Route>
         <Route path="/book/:slug" element={<BookPage />}></Route>
+        <Route
+          path="/order/orderHistory"
+          element={<OrderHistoryPage />}
+        ></Route>
       </Routes>
     </div>
   );
