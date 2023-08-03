@@ -7,6 +7,7 @@ import Signin from '../Pages/SignInPage';
 import SignUpPage from '../Pages/SignUpPage';
 import PlaceOrderPage from '../Pages/PlaceOrderPage';
 import OrderHistoryPage from '../Pages/0rderHistoryPage';
+import UserProfilePage from '../Pages/UserProfilePage';
 
 const RouteController = () => {
   return (
@@ -19,6 +20,7 @@ const RouteController = () => {
 
         <Route path="/placeorder" element={<PlaceOrderPage />}></Route>
         <Route path="/Checkout" element={<CheckOutPage />}></Route>
+        <Route path="/user" element={<UserProfilePage />}></Route>
         <Route path="/book/:slug" element={<BookPage />}></Route>
         <Route
           path="/order/orderHistory"

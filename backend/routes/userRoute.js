@@ -2,7 +2,7 @@ import express from 'express';
 import User from '../models/userModel.js';
 import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
-import { generateToken } from '../utils.js';
+import { generateToken, isAuth } from '../utils.js';
 const userRoute = express.Router();
 
 userRoute.post(
@@ -50,6 +50,35 @@ userRoute.post(
       username: user.username,
       token: generateToken(user),
     });
+  })
+);
+
+userRoute.put(
+  '/update',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    console.log('call update');
+    const user = await User.findById(req.user._id);
+    console.log(1);
+    if (user) {
+      console.log(2);
+      user.name = req.body.name;
+      user.email = req.body.email;
+      if (req.user.password) {
+        user.password = bcrypt.hashSync(req.body.password, 8);
+      }
+      console.log(user);
+      const updatedUser = await user.save();
+      console.log(4);
+      res.send({
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        password: updatedUser.password,
+      });
+    } else {
+      res.status(404).send({ message: 'not Found' });
+    }
   })
 );
 export default userRoute;
