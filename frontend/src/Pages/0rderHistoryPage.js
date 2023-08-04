@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useReducer } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../Components/Loading';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import Store from '../Store';
 import MessageBox from '../Components/MessageBox';
 import GetError from '../utils';
@@ -74,7 +74,10 @@ export default function OrderHistoryPage() {
           <tbody>
             {orders.map((x) => (
               <tr key={x._id}>
-                <td>{x._id}</td>
+                <td>
+                  {' '}
+                  <Link to={`/order/${x._id}`}>{x._id}</Link>
+                </td>
                 <td>{x.createdAt}</td>
                 <td>{x.totalPrice}</td>
                 <th>{x.isDelivered ? 'yes' : 'no'}</th>

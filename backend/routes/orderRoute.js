@@ -44,4 +44,15 @@ orderRoute.get(
     res.send(orders);
   })
 );
+
+orderRoute.get('/:id', async (req, res) => {
+  console.log('id:' + req.params.id);
+  const order = await Order.findOne({ _id: req.params.id });
+
+  if (order) {
+    res.send(order);
+  } else {
+    res.status(404).send({ message: 'Order Not found' });
+  }
+});
 export default orderRoute;

@@ -8,6 +8,7 @@ import SignUpPage from '../Pages/SignUpPage';
 import PlaceOrderPage from '../Pages/PlaceOrderPage';
 import OrderHistoryPage from '../Pages/0rderHistoryPage';
 import UserProfilePage from '../Pages/UserProfilePage';
+import OrderDetailPage from '../Pages/OrderDetailPage';
 
 const RouteController = () => {
   return (
@@ -22,6 +23,7 @@ const RouteController = () => {
         <Route path="/Checkout" element={<CheckOutPage />}></Route>
         <Route path="/user" element={<UserProfilePage />}></Route>
         <Route path="/book/:slug" element={<BookPage />}></Route>
+        <Route path="/order/:_id" element={<OrderDetailPage />}></Route>
         <Route
           path="/order/orderHistory"
           element={<OrderHistoryPage />}
