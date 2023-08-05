@@ -23,7 +23,7 @@ export default function SearchBox() {
           placeholder="tim kiem"
           onChange={(e) => setQuery(e.target.value)}
         />
-        <button type="submit">
+        <button type="submit" style={{ backgroundColor: 'rgba(0,0,0,0)' }}>
           <label htmlFor="search-box" className="fas fa-search"></label>
         </button>
       </form>
