@@ -5,6 +5,7 @@ import { Link, redirect } from 'react-router-dom';
 import Store from '../../Store';
 import LoginForm from '../Login';
 import CartModal from './CartModal';
+import SearchBox from './SearchBox';
 
 const Header = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -33,15 +34,7 @@ const Header = () => {
           <Link to="/" className="logo">
             <i className="fas fa-book"></i>Book
           </Link>
-          <form action="" className="search-form">
-            <input
-              type="search"
-              name=""
-              id="search-box"
-              placeholder="tim kiem"
-            />
-            <label htmlFor="search-box" className="fas fa-search"></label>
-          </form>
+          <SearchBox></SearchBox>
 
           <div className="icons">
             <div id="search-btn" className="fas fa-search"></div>
