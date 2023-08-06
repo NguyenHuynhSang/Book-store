@@ -8,6 +8,7 @@ const orderSchema = new mongoose.Schema(
         image: { type: String, default: '/imgs/n2.webp' },
         price: { type: Number, require: true },
         rating: { type: Number, default: 0 },
+        price: { type: Number, require: true },
         book: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Book',
