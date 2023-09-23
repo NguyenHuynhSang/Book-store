@@ -9,6 +9,14 @@ const bookSchema = new mongoose.Schema(
     rating: { type: Number, default: 0 },
     countInStock: { type: Number, default: 0 },
     numReviews: { type: Number, default: 0 },
+    // sparse: true //
+    // unique if not null
+    caterories: [
+      {
+        name: { type: String },
+        order: { type: Number },
+      },
+    ],
   },
   {
     timestamps: true,

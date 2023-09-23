@@ -8,6 +8,15 @@ bookRoute.get('/', async (req, res) => {
   res.send(books);
 });
 
+bookRoute.get('/categories', async (req, res) => {
+  const categories = await Book.find()
+    .sort({ 'caterories.order': -1 })
+    .distinct('caterories.name');
+
+  console.log('cate' + categories);
+  res.send(categories);
+});
+
 bookRoute.get('/slug/:slug', async (req, res) => {
   const book = await Book.findOne({ slug: req.params.slug });
   if (book) {

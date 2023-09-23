@@ -2,22 +2,21 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import seed from './routes/seedRoute.js';
-import bookRoute from './routes/bookRoute.js';
+
 import userRoute from './routes/userRoute.js';
 import linkRoute from './routes/linkRoute.js';
 import orderRoute from './routes/orderRoute.js';
+import bookRoute from './routes/BookRoute.js';
 
 // load data from .env to process
 const uri = 'mongodb://0.0.0.0:27017/book-store';
+const dbName = 'book-store';
 
 const app = express();
 dotenv.config();
-
-// connect Db
-
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
+  .then((x) => {
     console.log('Database connected');
   })
   .catch((error) => {

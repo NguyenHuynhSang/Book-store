@@ -68,6 +68,10 @@ const data = {
       rating: 3,
       numRev: 10,
       des: 'Good stuff',
+      caterories: [
+        { name: 'Tam ly', order: 1 },
+        { name: 'Vien tuong', order: 2 },
+      ],
     },
     {
       name: 'Nhà Giả Kim (Tái Bản 2020)',
@@ -82,6 +86,10 @@ const data = {
       rating: 5,
       numRev: 10,
       des: 'Good stuff',
+      caterories: [
+        { name: 'Tam ly', order: 1 },
+        { name: 'Ton giao', order: 3 },
+      ],
     },
     {
       name: 'Thư Viện Nửa Đêm',
@@ -96,6 +104,10 @@ const data = {
       rating: 1,
       numRev: 10,
       des: 'Good stuff',
+      caterories: [
+        { name: 'Tam ly', order: 1 },
+        { name: 'Trinh tham', order: 4 },
+      ],
     },
     {
       name: 'Cân bằng cảm xúc cả lúc bão giông',
@@ -111,6 +123,7 @@ const data = {
       rating: 1,
       numRev: 10,
       des: 'Good stuff',
+      caterories: [{ name: 'Tam ly', order: 1 }],
     },
     {
       name: 'Người Giàu Có Nhất Thành Babylon',
@@ -126,6 +139,10 @@ const data = {
       rating: 1,
       numRev: 10,
       des: 'Good stuff',
+      caterories: [
+        { name: 'Tam ly', order: 1 },
+        { name: 'Lich su', order: 5 },
+      ],
     },
   ],
 };

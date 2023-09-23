@@ -2,7 +2,7 @@ import express from 'express';
 import Book from '../models/bookModel.js';
 import Link from '../models/linkModel.js';
 import User from '../models/userModel.js';
-import data from '../tempdata.js';
+import data from '../manifest.js';
 const seed = express.Router();
 
 seed.get('/all', async (req, res) => {
