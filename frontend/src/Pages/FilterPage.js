@@ -123,7 +123,7 @@ export default function FilterPage() {
     const filterRating = filter.rating || rating;
     const filterPrice = filter.price || price;
     const filterOrder = filter.order || order;
-    return `search?page=${filterPage}&query=${filterQuery}&category=${filterCategory}&price=${filterPrice}}&rating=${filterRating}&order=${filterOrder}`;
+    return `searchpage=${filterPage}&query=${filterQuery}&category=${filterCategory}&price=${filterPrice}}&rating=${filterRating}&order=${filterOrder}`;
   };
   return (
     <div>
