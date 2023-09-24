@@ -1,11 +1,13 @@
-import { useContext, useState } from 'react';
-import { Badge, Dropdown, NavDropdown } from 'react-bootstrap';
+import { useContext, useEffect, useState } from 'react';
+import { Badge, Dropdown, DropdownButton, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link, redirect } from 'react-router-dom';
 import Store from '../../Store';
 import LoginForm from '../Login';
 import CartModal from './CartModal';
 import SearchBox from './SearchBox';
+import axios from 'axios';
+import GetError from '../../utils';
 
 const Header = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -13,7 +15,7 @@ const Header = () => {
   const [isShowLoginForm, setShowLoginForm] = useState(false);
 
   const [isShowCartForm, setShowCartForm] = useState(false);
-
+  const [categories, setCategories] = useState([]);
   const LogoutHandler = () => {
     console.log('user log out');
     ctxDispatch({ type: 'USER_LOGOUT' });
@@ -26,6 +28,18 @@ const Header = () => {
       setShowCartForm(!isShowCartForm);
     }
   }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get('/api/books/categories');
+        console.log(data);
+        setCategories(data);
+      } catch (error) {
+        GetError(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -97,9 +111,16 @@ const Header = () => {
             <Link to="/" target="_self">
               Home
             </Link>
-            <Link to="/" target="_self">
-              Hot
+            <Link className="link-style" to="" id="categories-dropdown-btn">
+              Category <i className="fa fa-triangle">A</i>
+              <ul className="categories-dropdown">
+                <li>All </li>
+                {categories.map((x, index) => (
+                  <li title={x}>{x} </li>
+                ))}
+              </ul>
             </Link>
+
             <Link to="/" target="_self">
               Incomming
             </Link>
