@@ -122,7 +122,7 @@ const Header = () => {
             </Link>
 
             <Link to="/" target="_self">
-              Incomming
+              Filter
             </Link>
             <Link to="/" target="_self">
               Blog
