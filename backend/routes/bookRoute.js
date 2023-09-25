@@ -12,7 +12,7 @@ bookRoute.get('/', async (req, res) => {
 bookRoute.get('/search', async (req, res) => {
   console.log('call filter');
   const { query } = req;
-  console.log(PAGE_SIZE);
+
   const pageSize = query.pageSize || PAGE_SIZE;
   const page = query.page || 1;
   const category = query.category || '';
@@ -20,6 +20,10 @@ bookRoute.get('/search', async (req, res) => {
   const rating = query.rating || '';
   const price = query.price || '';
   const order = query.order || '';
+  console.log('query.price' + query.price);
+  console.log(price.split('-')[0]);
+  console.log(price);
+  console.log(price.split('-')[1]);
 
   const queryFilter =
     searchQuery && searchQuery !== 'all'
@@ -31,7 +35,10 @@ bookRoute.get('/search', async (req, res) => {
         }
       : {};
 
-  const categoryFilter = category && category !== 'all' ? { category } : {};
+  const categoryFilter =
+    category && category !== 'all' ? `{ caterories.name: ${category} }` : {};
+
+  console.log(categoryFilter);
   const ratingFilter =
     rating && rating !== 'all'
       ? {
@@ -40,18 +47,18 @@ bookRoute.get('/search', async (req, res) => {
           },
         }
       : {};
-  console.log('price' + price);
+  console.log(ratingFilter);
   const priceFilter =
     price && price !== 'all'
       ? {
           // 1-150
           price: {
-            $gte: Number(price.split('-')[0]),
-            $lte: Number(price.split('-')[1]),
+            $gte: parseInt(price.split('-')[0]),
+            $lte: parseInt(price.split('-')[1]),
           },
         }
       : {};
-  console.log('price after cast' + price);
+  console.log(priceFilter);
   const sortOrder =
     order === 'featured'
       ? { featured: -1 }
@@ -64,9 +71,10 @@ bookRoute.get('/search', async (req, res) => {
       : order === 'newest'
       ? { createdAt: -1 }
       : { _id: -1 };
-  console.log(3);
+
   const books = await Book.find({
     ...queryFilter,
+    ...priceFilter,
     ...categoryFilter,
     ...ratingFilter,
   })
@@ -74,15 +82,14 @@ bookRoute.get('/search', async (req, res) => {
     .sort(sortOrder)
     .skip(pageSize * (page - 1))
     .limit(pageSize);
-  console.log(books);
-  console.log(4);
 
   const countBooks = await Book.countDocuments({
     ...queryFilter,
+    ...priceFilter,
     ...categoryFilter,
     ...ratingFilter,
   });
-  console.log(5);
+
   res.send({
     books,
     countBooks,
@@ -95,7 +102,7 @@ bookRoute.get('/categories', async (req, res) => {
   const categories = await Book.find()
     .sort({ 'caterories.order': -1 })
     .distinct('caterories.name');
-  console.log('cate' + categories);
+
   res.send(categories);
 });
 

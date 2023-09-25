@@ -116,7 +116,7 @@ export default function FilterPage() {
     console.log('fetch');
   }, [dispatch]);
 
-  const getFilterUrl = (filter) => {
+  const getFilterUrl = (filter, skipPathname) => {
     console.log(filter);
     const filterPage = filter.page || page;
 
@@ -125,8 +125,12 @@ export default function FilterPage() {
     const filterRating = filter.rating || rating;
     const filterPrice = filter.price || price;
     const filterOrder = filter.order || order;
-    return `search?page=${filterPage}&query=${filterQuery}&category=${filterCategory}&price=${filterPrice}}&rating=${filterRating}&order=${filterOrder}`;
+    // skip pathname to fix "?" inside Link tag route
+    return `${
+      skipPathname ? '' : '/search?'
+    }category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${filterOrder}&page=${filterPage}`;
   };
+
   return (
     <div>
       <Helmet>
@@ -166,7 +170,7 @@ export default function FilterPage() {
                 <li>
                   <Link
                     className={price === c ? 'text-bold' : ''}
-                    to={getFilterUrl({ price: c })}
+                    to={getFilterUrl({ price: c.value })}
                   >
                     {c.name}
                   </Link>
