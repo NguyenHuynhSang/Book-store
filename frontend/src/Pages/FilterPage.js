@@ -66,8 +66,8 @@ export const ratings = [
 ];
 export default function FilterPage() {
   const navigate = useNavigate();
-  const { filter } = useLocation();
-  const sp = new URLSearchParams(filter);
+  const { search } = useLocation();
+  const sp = new URLSearchParams(search);
   const category = sp.get('category') || 'all';
   const query = sp.get('query') || 'all';
   const price = sp.get('price') || 'all';
@@ -117,13 +117,15 @@ export default function FilterPage() {
   }, [dispatch]);
 
   const getFilterUrl = (filter) => {
+    console.log(filter);
     const filterPage = filter.page || page;
+
     const filterCategory = filter.category || category;
     const filterQuery = filter.query || query;
     const filterRating = filter.rating || rating;
     const filterPrice = filter.price || price;
     const filterOrder = filter.order || order;
-    return `searchpage=${filterPage}&query=${filterQuery}&category=${filterCategory}&price=${filterPrice}}&rating=${filterRating}&order=${filterOrder}`;
+    return `search?page=${filterPage}&query=${filterQuery}&category=${filterCategory}&price=${filterPrice}}&rating=${filterRating}&order=${filterOrder}`;
   };
   return (
     <div>
@@ -244,7 +246,11 @@ export default function FilterPage() {
                   <LinkContainer
                     key={x + 1}
                     className="mx-1"
-                    to={getFilterUrl({ page: x + 1 })}
+                    // fix question mark in Link tag/
+                    to={{
+                      pathname: '/search',
+                      seacrh: getFilterUrl({ page: x + 1 }, true),
+                    }}
                   >
                     <Button
                       className={Number(page) === x + 1 ? 'text-bold' : ''}

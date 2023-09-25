@@ -121,7 +121,7 @@ const Header = () => {
               </ul>
             </Link>
 
-            <Link to="/" target="_self">
+            <Link to="/search" target="_self">
               Filter
             </Link>
             <Link to="/" target="_self">
