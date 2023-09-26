@@ -16,18 +16,20 @@ bookRoute.get('/search', async (req, res) => {
   const pageSize = query.pageSize || PAGE_SIZE;
   const page = query.page || 1;
   const category = query.category || '';
-  const searchQuery = query.query || '';
+  const searchQuery = query.query.toLowerCase() || '';
   const rating = query.rating || '';
   const price = query.price || '';
   const order = query.order || '';
   console.log('query.price' + query.price);
 
+  ///Currently bug with unicode character
+  // return unfound if there have unicode character in search query
   const queryFilter =
     searchQuery && searchQuery !== 'all'
       ? {
           name: {
             $regex: searchQuery,
-            $option: 'i',
+            $options: 'i', // lower case compare
           },
         }
       : {};
@@ -81,7 +83,7 @@ bookRoute.get('/search', async (req, res) => {
     ...queryFilter,
     ...priceFilter,
     ...categoryFilter,
-    ...ratingFilter,
+    // ...ratingFilter,
   })
 
     .sort(sortOrder)
@@ -92,7 +94,7 @@ bookRoute.get('/search', async (req, res) => {
     ...queryFilter,
     ...priceFilter,
     ...categoryFilter,
-    ...ratingFilter,
+    // ...ratingFilter,
   });
 
   res.send({
