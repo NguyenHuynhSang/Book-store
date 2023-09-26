@@ -21,9 +21,6 @@ bookRoute.get('/search', async (req, res) => {
   const price = query.price || '';
   const order = query.order || '';
   console.log('query.price' + query.price);
-  console.log(price.split('-')[0]);
-  console.log(price);
-  console.log(price.split('-')[1]);
 
   const queryFilter =
     searchQuery && searchQuery !== 'all'
@@ -47,9 +44,12 @@ bookRoute.get('/search', async (req, res) => {
           },
         }
       : {};
+
   console.log(ratingFilter);
+  console.log('filter 2' + price);
+
   const priceFilter =
-    price && price !== 'all'
+    price && price != 'all'
       ? {
           // 1-150
           price: {
@@ -58,7 +58,7 @@ bookRoute.get('/search', async (req, res) => {
           },
         }
       : {};
-  console.log(priceFilter);
+
   const sortOrder =
     order === 'featured'
       ? { featured: -1 }

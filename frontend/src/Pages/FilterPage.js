@@ -89,7 +89,7 @@ export default function FilterPage() {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          `/api/books/search?page=${page}&query=${query}&category=${category}&price=${price}}&rating=${rating}&order=${order}`
+          `/api/books/search?page=${page}&query=${query}&category=${category}&price=${price}&rating=${rating}&order=${order}`
         );
         dispatch({ type: 'FETCH_SUCC', payload: data });
       } catch (err) {
@@ -187,9 +187,9 @@ export default function FilterPage() {
                 <li>
                   <Link
                     className={rating === c ? 'text-bold' : ''}
-                    to={getFilterUrl({ rating: c })}
+                    to={getFilterUrl({ rating: c.value })}
                   >
-                    <Rating caption={' & up'} rating={c.rating}></Rating>
+                    <Rating caption={' & up'} rating={c.name}></Rating>
                   </Link>
                 </li>
               ))}
