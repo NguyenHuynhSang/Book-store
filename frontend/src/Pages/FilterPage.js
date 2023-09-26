@@ -10,6 +10,7 @@ import MessageBox from '../Components/MessageBox';
 import Loading from '../Components/Loading';
 import Book from '../Components/Book';
 import { LinkContainer } from 'react-router-bootstrap';
+import BookCardFilter from '../Components/BookCardFilter';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -214,8 +215,8 @@ export default function FilterPage() {
             <>
               <Row className="justify-content=between mb-3">
                 <Col md={6}>
-                  <div>
-                    {countBooks === 0 ? 'No' : countBooks} Results
+                  <div className="query-title">
+                    {countBooks === 0 ? 'No' : countBooks + ' Result'}
                     {query !== 'all' && ' : ' + query}
                     {category !== 'all' && ' : ' + category}
                     {price !== 'all' && ' : Price ' + price}
@@ -248,9 +249,9 @@ export default function FilterPage() {
               {books.length === 0 && <MessageBox>No Books found</MessageBox>}
               <Row>
                 {books.map((x) => (
-                  <Col sm={6} lg={4} className="mb-3" key={x._id}>
-                    <Book book={x}></Book>
-                  </Col>
+                  <Row className="mb-3" key={x._id}>
+                    <BookCardFilter book={x}></BookCardFilter>
+                  </Row>
                 ))}
               </Row>
               <div>
