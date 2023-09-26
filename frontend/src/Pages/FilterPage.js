@@ -48,6 +48,10 @@ const prices = [
 
 export const ratings = [
   {
+    name: '5 star',
+    value: 5,
+  },
+  {
     name: '4 stars and up',
     value: 4,
   },
@@ -71,7 +75,7 @@ export default function FilterPage() {
   const category = sp.get('category') || 'all';
   const query = sp.get('query') || 'all';
   const price = sp.get('price') || 'all';
-  const rating = sp.get('query') || 'all';
+  const rating = sp.get('rating') || 'all';
   const order = sp.get('order') || 'latest';
   // pagination
   const page = sp.get('page') || 1;
@@ -126,6 +130,7 @@ export default function FilterPage() {
     const filterPrice = filter.price || price;
     const filterOrder = filter.order || order;
     // skip pathname to fix "?" inside Link tag route
+
     return `${
       skipPathname ? '' : '/search?'
     }category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${filterOrder}&page=${filterPage}`;
@@ -189,7 +194,10 @@ export default function FilterPage() {
                     className={rating === c ? 'text-bold' : ''}
                     to={getFilterUrl({ rating: c.value })}
                   >
-                    <Rating caption={' & up'} rating={c.name}></Rating>
+                    <Rating
+                      caption={c.value !== 5 ? ' & up' : ' '}
+                      rating={c.value}
+                    ></Rating>
                   </Link>
                 </li>
               ))}

@@ -42,12 +42,12 @@ bookRoute.get('/search', async (req, res) => {
           },
         }
       : {};
-
+  console.log('rating: ' + rating);
   const ratingFilter =
     rating && rating !== 'all'
       ? {
           rating: {
-            $gte: Number(rating),
+            $gte: parseInt(rating),
           },
         }
       : {};
@@ -74,7 +74,7 @@ bookRoute.get('/search', async (req, res) => {
       : order === 'highest'
       ? { price: -1 }
       : order === 'toprated'
-      ? { rating: -1 }
+      ? { price: -1 }
       : order === 'newest'
       ? { createdAt: -1 }
       : { _id: -1 };
@@ -83,7 +83,7 @@ bookRoute.get('/search', async (req, res) => {
     ...queryFilter,
     ...priceFilter,
     ...categoryFilter,
-    // ...ratingFilter,
+    ...ratingFilter,
   })
 
     .sort(sortOrder)
@@ -94,7 +94,7 @@ bookRoute.get('/search', async (req, res) => {
     ...queryFilter,
     ...priceFilter,
     ...categoryFilter,
-    // ...ratingFilter,
+    ...ratingFilter,
   });
 
   res.send({
