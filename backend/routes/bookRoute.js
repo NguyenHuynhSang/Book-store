@@ -33,9 +33,14 @@ bookRoute.get('/search', async (req, res) => {
       : {};
 
   const categoryFilter =
-    category && category !== 'all' ? `{ caterories.name: ${category} }` : {};
+    category && category !== 'all'
+      ? {
+          'caterories.name': {
+            $eq: category,
+          },
+        }
+      : {};
 
-  console.log(categoryFilter);
   const ratingFilter =
     rating && rating !== 'all'
       ? {
