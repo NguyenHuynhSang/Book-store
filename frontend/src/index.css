@@ -473,19 +473,25 @@ main {
 .book-card {
   display: flex;
   flex-direction: row;
-  height: 20rem;
+  /* height: 20rem; */
   border: 1px solid #f5f5f5;
-  flex-wrap: wrap;
-  overflow: hidden;
+  flex-wrap: nowrap;
+  overflow: auto;
+  word-wrap: break-word;
 }
 
 .book-card-thumb {
   width: 20rem;
+  max-width: 17rem;
   mix-blend-mode: multiply;
+  height: 25rem;
   background-color: rgb(247, 247, 247);
 }
+
 .book-card-subtitle {
   font-weight: 500;
+  text-wrap: wrap;
+  word-wrap: break-word;
 }
 .book-card-title {
   color: #0f1111 !important;
@@ -495,4 +501,14 @@ main {
   color: #0f1111 !important;
   font-size: 12px !important;
   font-weight: 800;
+}
+
+.btn-buy {
+  width: 8rem;
+}
+
+.text-price {
+  color: #f08000;
+  font-weight: 500;
+  font-size: 3rem;
 }

@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 import Store from '../Store';
 import Rating from './Rating';
 
+function moneyFormat(num) {
+  return num.toFixed().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+}
 function BookCardFilter(props) {
   const { book } = props;
 
@@ -48,8 +51,17 @@ function BookCardFilter(props) {
             </Link>
           ))}
         </Card.Text>
+        <b>Description</b>
+        <Card.Text className="book-card-subtitle mb-1">
+          {book.description}
+        </Card.Text>
+
         <Rating rating={book.rating} numReviews={book.numReviews}></Rating>
-        <Card.Text>{book.price}</Card.Text>
+
+        <Card.Text>
+          <span className="text-price">{moneyFormat(book.price)}</span>
+          <i>VND</i>
+        </Card.Text>
         <Button
           className="btn-buy"
           disabled={book.countInStock <= 0}

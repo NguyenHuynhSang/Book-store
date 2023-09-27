@@ -8,6 +8,7 @@ const bookSchema = new mongoose.Schema(
     price: { type: Number, require: true },
     rating: { type: Number, default: 0 },
     countInStock: { type: Number, default: 0 },
+    description: { type: String },
     numReviews: { type: Number, default: 0 },
     // sparse: true //
     // unique if not null
