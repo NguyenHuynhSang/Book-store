@@ -449,8 +449,13 @@ main {
   position: static;
 }
 
-.image-large {
+.book-detail-thumb-card {
+  text-align: center;
+}
+.book-detail-thumb {
   max-width: 100%;
+  width: 30rem;
+  margin: auto;
 }
 
 .img-thumbnail {

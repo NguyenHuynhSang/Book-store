@@ -36,8 +36,10 @@ function BookCardFilter(props) {
       {/* <Link to={`/book/${book.slug}`}>
         <img src={book.image} className="cart-img-top" alt={book.name}></img>
       </Link> */}
+      <Link to={`/book/${book.slug}`}>
+        <Card.Img className="book-card-thumb" variant="top" src={book.image} />
+      </Link>
 
-      <Card.Img className="book-card-thumb" variant="top" src={book.image} />
       <Card.Body Body>
         <Card.Title className="book-card-title">{book.name}</Card.Title>
         <Card.Text className="book-card-subtitle mb-1">By:Jame</Card.Text>

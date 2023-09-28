@@ -1,4 +1,4 @@
-import { useFetcher, useNavigate, useParams } from 'react-router-dom';
+import { Link, useFetcher, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useContext, useEffect, useReducer } from 'react';
 import {
@@ -30,7 +30,9 @@ const reducer = (state, action) => {
       return state;
   }
 };
-
+function moneyFormat(num) {
+  return num.toFixed().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+}
 function BookPage() {
   const navigate = useNavigate();
   const urlParam = useParams();
@@ -82,7 +84,7 @@ function BookPage() {
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
-    <div style={{ margin: '5rem 15rem' }}>
+    <div>
       <Breadcrumb>
         <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
         <Breadcrumb.Item href="https://getbootstrap.com/docs/4.0/components/breadcrumb/">
@@ -91,21 +93,22 @@ function BookPage() {
         <Breadcrumb.Item active>Data</Breadcrumb.Item>
       </Breadcrumb>
       <Row>
-        <Col md={5}>
-          <Image
-            className="image-large"
-            src={book.image}
-            alt={book.name}
-            style={{ width: '55rem', margin: 'auto', display: 'inline' }}
-          ></Image>
+        <Col md={3}>
+          <div className="book-detail-thumb-card">
+            <Image
+              className="book-detail-thumb"
+              src={book.image}
+              alt={book.name}
+            ></Image>
+          </div>
         </Col>
-        <Col md={7}>
+        <Col md={6}>
           <ListGroup variant="flush">
             <ListGroup.Item>
               <Helmet>
                 <title>{book.name}</title>
               </Helmet>
-              <h1>{book.name}</h1>
+              <h1 className="book-card-title">{book.name}</h1>
             </ListGroup.Item>
             <ListGroup.Item>
               <Rating
@@ -113,48 +116,60 @@ function BookPage() {
                 numReviews={book.numReviews}
               ></Rating>
             </ListGroup.Item>
-            <Card>
-              <Card.Body>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Price:</Col>
-                      <Col>{book.price}</Col>
-                    </Row>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Row>
-                      <Col>Status:</Col>
-                      <Col>
-                        {book.countInStock > 0 ? (
-                          <Badge bg="success">Available</Badge>
-                        ) : (
-                          <Badge bg="dagger">Unavailable</Badge>
-                        )}
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-
-                  {book.countInStock > 0 ? (
-                    <ListGroup.Item>
-                      <div className="d-grid">
-                        <Button onClick={() => addToCart()} variant="primary">
-                          Add to Cart
-                        </Button>
-                      </div>
-                    </ListGroup.Item>
-                  ) : (
-                    ''
-                  )}
-                </ListGroup>
-              </Card.Body>
-            </Card>
             <ListGroup.Item>
-              <p> {book.des}</p>
+              <b>Caterory: </b>
+              {book.caterories.map((c) => (
+                <Link to="/search">
+                  {c !== book.caterories[book.caterories.length - 1]
+                    ? c.name + ', '
+                    : c.name + '.'}
+                </Link>
+              ))}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <b>Description</b>
+              <p> {book.description}</p>
             </ListGroup.Item>
           </ListGroup>
         </Col>
-        <Col md={2}></Col>
+        <Col md={3}>
+          <Card>
+            <Card.Body>
+              <ListGroup variant="flush">
+                <ListGroup.Item>
+                  <Row>
+                    <b>Price:</b>
+                    <Col className="text-price">{moneyFormat(book.price)}</Col>
+                  </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Status:</Col>
+                    <Col>
+                      {book.countInStock > 0 ? (
+                        <Badge bg="success">Available</Badge>
+                      ) : (
+                        <Badge bg="dagger">Unavailable</Badge>
+                      )}
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+
+                {book.countInStock > 0 ? (
+                  <ListGroup.Item>
+                    <div className="d-grid">
+                      <Button onClick={() => addToCart()} variant="primary">
+                        Add to Cart
+                      </Button>
+                    </div>
+                  </ListGroup.Item>
+                ) : (
+                  ''
+                )}
+              </ListGroup>
+            </Card.Body>
+          </Card>
+        </Col>
       </Row>
     </div>
   );
