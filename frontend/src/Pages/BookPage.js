@@ -100,10 +100,13 @@ function BookPage() {
               src={book.image}
               alt={book.name}
             ></Image>
+            <hr></hr>
+            <h3>Author</h3>
           </div>
+          <div></div>
         </Col>
         <Col md={6}>
-          <ListGroup variant="flush">
+          <ListGroup variant="flush" className="">
             <ListGroup.Item>
               <Helmet>
                 <title>{book.name}</title>
@@ -127,19 +130,80 @@ function BookPage() {
               ))}
             </ListGroup.Item>
             <ListGroup.Item>
+              {' '}
+              <hr></hr>
+            </ListGroup.Item>
+
+            <ListGroup.Item>
               <b>Description</b>
               <p> {book.description}</p>
             </ListGroup.Item>
           </ListGroup>
+          <ListGroup.Item>
+            {' '}
+            <hr></hr>
+          </ListGroup.Item>
+
+          <section className="book-icons-container">
+            <div className="icon">
+              <i className="fas fa-book"></i>
+              <div className="content">
+                <h4>Print length</h4>
+                <p>100 pages</p>
+              </div>
+            </div>
+            <div className="icon">
+              <i className="fas fa-language"></i>
+              <div className="content">
+                <h4>Language</h4>
+                <p>English</p>
+              </div>
+            </div>
+            <div className="icon">
+              <i className="fas fa-book"></i>
+              <div className="content">
+                <h4>Dimensions</h4>
+                <p>100 pages</p>
+              </div>
+            </div>
+
+            <div className="icon">
+              <i className="fas fa-calendar"></i>
+              <div className="content">
+                <h4>Publication</h4>
+                <p>20/10/2022</p>
+              </div>
+            </div>
+            <div className="icon">
+              <i className="fas fa-building"></i>
+              <div className="content">
+                <h4>Publisher</h4>
+                <p>100 pages</p>
+              </div>
+            </div>
+
+            <div className="icon">
+              <i className="fas fa-qrcode"></i>
+              <div className="content">
+                <h4>QRCode</h4>
+                <p>100 pages</p>
+              </div>
+            </div>
+          </section>
         </Col>
         <Col md={3}>
-          <Card>
+          <Card className="book-order-card">
             <Card.Body>
               <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
                     <b>Price:</b>
-                    <Col className="text-price">{moneyFormat(book.price)}</Col>
+                    <Col>
+                      <span className="text-price">
+                        {moneyFormat(book.price)}
+                      </span>
+                      <i>VND</i>
+                    </Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>

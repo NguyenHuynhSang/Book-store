@@ -517,3 +517,46 @@ main {
   font-weight: 500;
   font-size: 3rem;
 }
+.book-order-card {
+  border-radius: 8px;
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.list-group-item {
+  border: none !important;
+  padding: 0 0 5px 0;
+}
+
+.rating {
+  font-size: 1.5rem !important;
+}
+
+.book-icons-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  gap: 1rem;
+}
+
+.book-icons-container .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem 0;
+}
+
+.book-icons-container .icon i {
+  font-size: 2.5rem;
+  color: var(--green);
+}
+
+.book-icons-container .icon h4 {
+  font-size: 1.5rem;
+  color: var(--black);
+  padding-bottom: 0.5rem;
+}
+
+.book-icons-container .icon p {
+  font-size: 1.4rem;
+  color: var(--light-color);
+}

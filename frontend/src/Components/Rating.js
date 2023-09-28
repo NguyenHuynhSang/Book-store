@@ -1,19 +1,19 @@
 function Rating(props) {
   const { rating, numReviews, caption } = props;
   return (
-    <div className="rating">
-      <span>
+    <div>
+      <span className="rating">
         <i
           className={
             rating >= 1
-              ? 'fas fa-star'
+              ? 'fas fa-star '
               : rating >= 0.5
               ? 'fas fa-star-half'
               : 'far fa-star'
           }
         ></i>
       </span>
-      <span>
+      <span className="rating">
         <i
           className={
             rating >= 2
@@ -24,7 +24,7 @@ function Rating(props) {
           }
         ></i>
       </span>
-      <span>
+      <span className="rating">
         <i
           className={
             rating >= 3
@@ -35,7 +35,7 @@ function Rating(props) {
           }
         ></i>
       </span>
-      <span>
+      <span className="rating">
         <i
           className={
             rating >= 4
@@ -46,7 +46,7 @@ function Rating(props) {
           }
         ></i>
       </span>
-      <span>
+      <span className="rating">
         <i
           className={
             rating >= 5
