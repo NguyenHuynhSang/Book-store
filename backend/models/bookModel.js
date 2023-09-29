@@ -9,6 +9,10 @@ const bookSchema = new mongoose.Schema(
     rating: { type: Number, default: 0 },
     countInStock: { type: Number, default: 0 },
     description: { type: String },
+    publishDate: { type: Date },
+    publisher: { type: String },
+    language: { type: String },
+    numPage: { type: Number },
     numReviews: { type: Number, default: 0 },
     // sparse: true //
     // unique if not null

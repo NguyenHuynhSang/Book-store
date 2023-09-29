@@ -33,6 +33,9 @@ const reducer = (state, action) => {
 function moneyFormat(num) {
   return num.toFixed().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
+function formatDate(date) {
+  return new Date(date).toISOString().split('T')[0];
+}
 function BookPage() {
   const navigate = useNavigate();
   const urlParam = useParams();
@@ -149,14 +152,14 @@ function BookPage() {
               <i className="fas fa-book"></i>
               <div className="content">
                 <h4>Print length</h4>
-                <p>100 pages</p>
+                <p>{book.numPage}</p>
               </div>
             </div>
             <div className="icon">
               <i className="fas fa-language"></i>
               <div className="content">
                 <h4>Language</h4>
-                <p>English</p>
+                <p>{book.language}</p>
               </div>
             </div>
             <div className="icon">
@@ -171,14 +174,14 @@ function BookPage() {
               <i className="fas fa-calendar"></i>
               <div className="content">
                 <h4>Publication</h4>
-                <p>20/10/2022</p>
+                <p>{formatDate(book.publishDate)}</p>
               </div>
             </div>
             <div className="icon">
               <i className="fas fa-building"></i>
               <div className="content">
                 <h4>Publisher</h4>
-                <p>100 pages</p>
+                <p> {book.publisher}</p>
               </div>
             </div>
 
