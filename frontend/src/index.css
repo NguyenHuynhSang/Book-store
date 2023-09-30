@@ -580,3 +580,23 @@ main {
   width: 80%;
   margin: 1rem auto 0rem auto;
 }
+
+.book-detail-description {
+  background: #4e9cd6;
+  color: #fff;
+  padding: 3px 10px;
+  font-size: 1.5rem;
+  position: relative;
+}
+.book-detail-des-box {
+  border-radius: 8px;
+  background-color: #f0f2f2 !important;
+  width: 100%;
+  /* line-height: 2; */
+  padding: 1rem;
+  display: block;
+  white-space: pre-wrap;
+}
+.book-detail-des-context {
+  font-size: 1.5rem;
+}

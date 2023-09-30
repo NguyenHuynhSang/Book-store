@@ -148,8 +148,10 @@ function BookPage() {
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <b>Description</b>
-              <p> {book.description}</p>
+              <b className="book-detail-description">Description</b>
+              <div className="book-detail-des-box">
+                <p className="book-detail-des-context"> {book.description}</p>
+              </div>
             </ListGroup.Item>
           </ListGroup>
           <ListGroup.Item>
