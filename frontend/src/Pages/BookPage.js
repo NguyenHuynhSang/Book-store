@@ -56,6 +56,7 @@ function BookPage() {
         const result = await axios.get(`/api/books/slug/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
         // setBooks(result.data);
+        console.log(result.data);
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: GetError(err) });
       }
@@ -105,6 +106,15 @@ function BookPage() {
             ></Image>
             <hr></hr>
             <h3>Author</h3>
+            <div className="authors-card">
+              {book.authors.map((x) => (
+                <div className="author-card-item">
+                  <img className="thumb-img" src={x.avatar}></img>
+                  <span className="author-name">{x.name}</span>
+                  <hr className="hr-author-item"></hr>
+                </div>
+              ))}
+            </div>
           </div>
           <div></div>
         </Col>

@@ -54,6 +54,25 @@ const data = {
       password: bcrypt.hashSync('admin'),
     },
   ],
+  authors: [
+    {
+      name: 'Rick Riordan',
+      avatar:
+        'https://m.media-amazon.com/images/I/61w3pqVMCZL._SX300_CR0%2C0%2C0%2C0_.jpg',
+
+      infor: `Rick Riordan is the #1 New York Times bestselling author of the Percy Jackson and the Olympians series, the Kane Chronicles, and the Heroes of Olympus. He is also the author of the multi-award-winning Tres Navarre mystery series for adults.
+
+      For fifteen years, Rick taught English and history at public and private middle schools in the San Francisco Bay Area and in Texas. In 2002, Saint Mary's Hall honored him with the school's first Master Teacher Award.
+      
+      While teaching full time, Riordan began writing mystery novels for grownups. His Tres Navarre series went on to win the top three national awards in the mystery genre - the Edgar, the Anthony and the Shamus. Riordan turned to children's fiction when he started The Lightning Thief as a bedtime story for his oldest son.
+      
+      Today over 35 million copies of his Percy Jackson, Kane Chronicles, and Heroes of Olympus books are in print in the United States, and rights have been sold into more than 35 countries. Rick is also the author of The 39 Clues: The Maze of Bones, another #1 New York Times bestseller. 
+      
+      Rick Riordan now writes full-time. He lives in Boston with his wife and two sons.`,
+      bookSeed: [5, 8],
+      books: [],
+    },
+  ],
   books: [
     {
       name: 'Hành Tinh Của Một Kẻ Nghĩ Nhiều',
@@ -219,12 +238,33 @@ const data = {
       type: '',
       slug: 'book-8',
       PublishYear: '2022',
-      author: 'Stephen King',
       description: `Holly Gibney, one of Stephen King’s most compelling and ingeniously resourceful characters, returns in this thrilling novel to solve the gruesome truth behind multiple disappearances in a midwestern town.
 
       “Sometimes the universe throws you a rope.” —BILL HODGES`,
       image: 'https://m.media-amazon.com/images/I/815oQ6G6HDL._SL1500_.jpg',
-      price: '1200000',
+      price: '420000',
+      countInStock: 20,
+      numPage: 210,
+      language: 'EN',
+      publishDate: '02/06/2011',
+      publisher: 'Amazon',
+      rating: 4,
+      numRev: 10,
+      des: 'Good stuff',
+      caterories: [
+        { name: 'Adventure', order: 8 },
+        { name: 'Fantasy', order: 7 },
+      ],
+    },
+    {
+      name: 'Lightning Thief, The (Percy Jackson and the Olympians Book 1)',
+      type: '',
+      slug: 'book-9',
+      PublishYear: '2022',
+      description: `Holly Gibney, one of Stephen King’s most compelling and ingeniously resourceful characters, returns in this thrilling novel to solve the gruesome truth behind multiple disappearances in a midwestern town.
+      “Sometimes the universe throws you a rope.” —BILL HODGES`,
+      image: 'https://m.media-amazon.com/images/I/91Dj5dqydTL._SL1500_.jpg',
+      price: '340000',
       countInStock: 20,
       numPage: 210,
       language: 'EN',

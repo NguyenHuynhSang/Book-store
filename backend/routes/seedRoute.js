@@ -3,6 +3,7 @@ import Book from '../models/bookModel.js';
 import Link from '../models/linkModel.js';
 import User from '../models/userModel.js';
 import data from '../manifest.js';
+import Author from '../models/authorModel.js';
 const seed = express.Router();
 
 seed.get('/all', async (req, res) => {
@@ -15,6 +16,16 @@ seed.get('/all', async (req, res) => {
   const createdUsers = await User.insertMany(data.users);
   console.log(data.user);
   res.send({ createdBook, createdUsers });
+
+  await Author.remove({});
+
+  for (let i = 0; i < data.authors.length; i++) {
+    for (let j = 0; j < data.authors[i].bookSeed.length; j++) {
+      data.authors[i].books.push(createdBook[data.authors[i].bookSeed[j]]);
+    }
+  }
+  console.log(data.authors);
+  const createdAuthor = await Author.insertMany(data.authors);
 });
 
 seed.get('/book', async (req, res) => {

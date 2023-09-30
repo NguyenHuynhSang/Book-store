@@ -560,3 +560,23 @@ main {
   font-size: 1.4rem;
   color: var(--light-color);
 }
+
+.book-detail-thumb-card .authors-card {
+  /* float: left; */
+}
+.book-detail-thumb-card .authors-card .author-card-item .thumb-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.book-detail-thumb-card .authors-card .author-card-item .author-name {
+  margin-left: 1rem;
+  font-size: 2rem;
+  color: #007185;
+  font-weight: 500;
+}
+.book-detail-thumb-card .authors-card .author-card-item .hr-author-item {
+  width: 80%;
+  margin: 1rem auto 0rem auto;
+}

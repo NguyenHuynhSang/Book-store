@@ -1,5 +1,6 @@
 import express, { query } from 'express';
 import Book from '../models/bookModel.js';
+import Author from '../models/authorModel.js';
 
 const PAGE_SIZE = 10;
 const bookRoute = express.Router();
@@ -113,10 +114,24 @@ bookRoute.get('/categories', async (req, res) => {
   res.send(categories);
 });
 
+//it works but it look bad lmao
+// need to find a better solution
 bookRoute.get('/slug/:slug', async (req, res) => {
   const book = await Book.findOne({ slug: req.params.slug });
-  if (book) {
-    res.send(book);
+
+  const authors = await Author.find({
+    books: {
+      $eq: book._id,
+    },
+  });
+
+  const resData = {
+    ...book._doc,
+    authors: [...authors],
+  };
+
+  if (resData) {
+    res.send(resData);
   } else {
     res.status(404).send({ message: 'Book Not found' });
   }
