@@ -164,7 +164,7 @@ function BookPage() {
               <i className="fas fa-book"></i>
               <div className="content">
                 <h4>Print length</h4>
-                <p>{book.numPage}</p>
+                <p>{book.numPage} pages</p>
               </div>
             </div>
             <div className="icon">
@@ -249,6 +249,30 @@ function BookPage() {
             </Card.Body>
           </Card>
         </Col>
+      </Row>
+      <hr></hr>
+      <Row>
+        <h3>About the Author</h3>
+        <div>
+          <span>
+            Follow authors to get new release updates, plus improved
+            recommendations.
+          </span>
+          <div className="authors-detail-card">
+            {book.authors.map((x) => (
+              <div className="author-card">
+                <div className="author-thumb">
+                  <img className="author-thumb" src={x.avatar}></img>
+                </div>
+                <div className="author-infor">
+                  <span className="author-name">{x.name}</span>
+                  <hr className="hr-author-item"></hr>
+                  <p>{x.infor}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </Row>
     </div>
   );
