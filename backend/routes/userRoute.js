@@ -17,6 +17,7 @@ userRoute.post(
           name: user.name,
           email: user.email,
           username: user.username,
+          role: user.role,
           token: generateToken(user),
         });
       }
@@ -74,6 +75,7 @@ userRoute.put(
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
+        role: user.role,
         password: updatedUser.password,
       });
     } else {

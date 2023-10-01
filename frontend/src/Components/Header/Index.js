@@ -74,32 +74,66 @@ const Header = () => {
               className="fas fa-user"
             ></div>
             {loggedUser ? (
-              <div>
-                <NavDropdown
-                  title={loggedUser.username}
-                  id="basic-nav-dropdown"
-                >
-                  <LinkContainer to="/user">
-                    <NavDropdown.Item>
-                      {' '}
-                      <i class="fa-solid fa-bars"></i>User Profile
-                    </NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to="/order/orderHistory">
-                    <NavDropdown.Item>
-                      {' '}
-                      <i class="fa-solid fa-right-from-bracket"></i>OrderHistory
-                    </NavDropdown.Item>
-                  </LinkContainer>
-
-                  <LinkContainer to="/">
-                    <NavDropdown.Item onClick={LogoutHandler}>
-                      {' '}
-                      <i class="fa-solid fa-right-from-bracket"></i>Logout
-                    </NavDropdown.Item>
-                  </LinkContainer>
-                </NavDropdown>
-              </div>
+              loggedUser.role === 'admin' ? (
+                <div>
+                  <NavDropdown
+                    title={'Admin: ' + loggedUser.username}
+                    id="admin-nav-dropdown"
+                  >
+                    <div className="user-dropdown-box">
+                      <LinkContainer to="/dashboard">
+                        <NavDropdown.Item>
+                          {' '}
+                          <i class="fa-solid fa-bars me-3 mb-2"></i>Admin
+                          Dashboard
+                        </NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/order/orderHistory">
+                        <NavDropdown.Item>
+                          {' '}
+                          <i class="fa-solid fa-user me-3 mb-2"></i>
+                          Admin Profile
+                        </NavDropdown.Item>
+                      </LinkContainer>
+                      <hr className="m-2"></hr>
+                      <LinkContainer to="/">
+                        <NavDropdown.Item onClick={LogoutHandler}>
+                          <i class="fa-solid fa-right-from-bracket me-3"></i>
+                          Logout
+                        </NavDropdown.Item>
+                      </LinkContainer>
+                    </div>
+                  </NavDropdown>
+                </div>
+              ) : (
+                <div>
+                  <NavDropdown
+                    title={loggedUser.username}
+                    id="basic-nav-dropdown"
+                  >
+                    <div className="user-dropdown-box">
+                      <LinkContainer to="/user">
+                        <NavDropdown.Item>
+                          <i class="fa-solid fa-bars me-3 mb-2"></i>User Profile
+                        </NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to="/order/orderHistory">
+                        <NavDropdown.Item>
+                          <i class="fa-solid fa-right-from-bracket me-3 "></i>
+                          OrderHistory
+                        </NavDropdown.Item>
+                      </LinkContainer>
+                      <hr className="m-2"></hr>
+                      <LinkContainer to="/">
+                        <NavDropdown.Item onClick={LogoutHandler}>
+                          <i class="fa-solid fa-right-from-bracket me-3"></i>
+                          Logout
+                        </NavDropdown.Item>
+                      </LinkContainer>
+                    </div>
+                  </NavDropdown>
+                </div>
+              )
             ) : (
               ''
             )}

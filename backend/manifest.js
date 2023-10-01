@@ -49,9 +49,22 @@ const data = {
       password: bcrypt.hashSync('booklover'),
     },
     {
-      username: 'admin',
-      email: 'admin',
-      password: bcrypt.hashSync('admin'),
+      username: 'user1',
+      email: 'user1@gmail.com',
+      password: bcrypt.hashSync('user1'),
+      address: [
+        {
+          location: '102 Tan Phu, Thu Duc, tp HCM',
+          isDefault: true,
+          phone: '0123456789',
+        },
+      ],
+    },
+    {
+      username: 'booker',
+      email: 'booker',
+      password: bcrypt.hashSync('booker'),
+      role: 'admin',
     },
   ],
   authors: [
