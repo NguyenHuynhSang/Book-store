@@ -7,6 +7,7 @@ export const generateToken = (user) => {
       name: user.name,
       email: user.email,
       username: user.username,
+      role: user.role,
     },
     process.env.JWT_SECRET,
     {
@@ -32,5 +33,15 @@ export const isAuth = (req, res, next) => {
     });
   } else {
     res.status(401).send({ message: 'No token' });
+  }
+};
+// CHeck addmin role
+export const isAdmin = (req, res, next) => {
+  console.log('check role');
+  console.log(req.user);
+  if (req.user && req.user.role === 'admin') {
+    next();
+  } else {
+    res.status(401).send({ message: 'Invalid Admin Token' });
   }
 };

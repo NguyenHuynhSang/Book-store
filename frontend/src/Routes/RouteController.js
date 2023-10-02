@@ -11,6 +11,7 @@ import UserProfilePage from '../Pages/UserProfilePage';
 import OrderDetailPage from '../Pages/OrderDetailPage';
 import FilterPage from '../Pages/FilterPage';
 import ProtectedRoute from '../Components/ProtectedRoute';
+import UserListPage from '../Pages/adminArea/UserListPage';
 
 const RouteController = () => {
   return (
@@ -28,6 +29,14 @@ const RouteController = () => {
           element={
             <ProtectedRoute>
               <UserProfilePage />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/user/list"
+          element={
+            <ProtectedRoute>
+              <UserListPage />
             </ProtectedRoute>
           }
         ></Route>

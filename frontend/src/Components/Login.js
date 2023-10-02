@@ -9,6 +9,7 @@ const LoginForm = (props) => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   let setLogin = props.setLogin;
   function showLogin(e) {
     e.preventDefault();
@@ -22,7 +23,11 @@ const LoginForm = (props) => {
     console.log(email);
     e.preventDefault();
     try {
-      const { data } = await axios.post('api/user/login', { email, password });
+      const { data } = await axios.post('api/user/login', {
+        email,
+        password,
+      });
+      console.log('user return');
       console.log(data);
       ctxDispatch({ type: 'USER_LOGGEDIN', payload: data });
       localStorage.setItem('loggedUser', JSON.stringify(data));
