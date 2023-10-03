@@ -63,6 +63,25 @@ userRoute.post(
   })
 );
 
+userRoute.delete(
+  '/delete/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    console.log('res_delete');
+    console.log(req.params._id);
+    const user = await User.findById(req.params.id);
+
+    console.log(user);
+    if (user && user.role != 'admin') {
+      const deletedUser = await user.remove();
+      res.send({ message: 'User deleted', user: deletedUser });
+    } else {
+      res.status(404).send({ message: 'Not Found' });
+    }
+  })
+);
+
 userRoute.put(
   '/update',
   isAuth,
