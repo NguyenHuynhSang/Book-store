@@ -4,6 +4,7 @@ import Loading from '../../Components/Loading';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import {
+  DELETE_RESET,
   USER_DELETE,
   USER_LIST_FAIL,
   USER_LIST_SUCC,
@@ -26,6 +27,7 @@ export default function UserListPage() {
 
   useEffect(() => {
     console.log('fetch User list');
+
     const fetchData = async () => {
       try {
         const { data } = await axios.get('/api/user/list', {
@@ -51,6 +53,9 @@ export default function UserListPage() {
         });
 
         dispatch({ type: USER_DELETE, payload: data });
+        if (isDeleted) {
+          dispatch({ type: DELETE_RESET });
+        }
       } catch (error) {
         console.log(GetError(error));
       }
