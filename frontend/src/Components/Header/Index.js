@@ -88,11 +88,11 @@ const Header = () => {
                           Dashboard
                         </NavDropdown.Item>
                       </LinkContainer>
-                      <LinkContainer to="/order/orderHistory">
+                      <LinkContainer to="/user/list">
                         <NavDropdown.Item>
                           {' '}
                           <i class="fa-solid fa-user me-3 mb-2"></i>
-                          Admin Profile
+                          Users Manager
                         </NavDropdown.Item>
                       </LinkContainer>
                       <hr className="m-2"></hr>

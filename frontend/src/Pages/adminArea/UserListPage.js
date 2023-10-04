@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import MessageBox from '../../Components/MessageBox';
 import Loading from '../../Components/Loading';
-import { Button } from 'react-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 import {
   DELETE_RESET,
@@ -24,6 +24,9 @@ export default function UserListPage() {
     });
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { loggedUser } = state;
+  const [filter, setFilter] = useState('');
+  const [filterProp, setFilterProp] = useState('username');
+  const filterProperty = ['username', 'email', 'id', 'role'];
 
   useEffect(() => {
     console.log('fetch User list');
@@ -32,15 +35,22 @@ export default function UserListPage() {
       try {
         const { data } = await axios.get('/api/user/list', {
           headers: { Authorization: `Bearer ${loggedUser.token}` },
+          params: {
+            filter: filter,
+            filterProp: filterProp,
+          },
         });
-        console.log(data);
+        console.log(filter);
+        // console.log(data);
         dispatch({ type: USER_LIST_SUCC, payload: data });
       } catch (error) {
-        console.log(GetError(error));
+        const err = GetError(error);
+        console.log(err);
+        toast.error(err);
       }
     };
     fetchData();
-  }, [isDeleted]);
+  }, [isDeleted, filter, filterProp]);
   const deleteUser = async (x) => {
     console.log('call delete');
     console.log(x);
@@ -53,13 +63,22 @@ export default function UserListPage() {
         });
 
         dispatch({ type: USER_DELETE, payload: data });
+        toast.success('User ' + deleteUser.username + ' has been deleted');
         if (isDeleted) {
           dispatch({ type: DELETE_RESET });
         }
       } catch (error) {
-        console.log(GetError(error));
+        const err = GetError(error);
+        console.log(err);
+        toast.error(err);
       }
     }
+  };
+  const selectFilterHandler = (e) => {
+    e.preventDefault();
+    console.log('select');
+    console.log(e.target.value);
+    setFilterProp(e.target.value);
   };
   return (
     <div>
@@ -69,34 +88,65 @@ export default function UserListPage() {
       ) : error ? (
         <MessageBox>{error}</MessageBox>
       ) : (
-        <table className="table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>UserName</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {users?.map((x) => (
-              <tr key={x._id}>
-                <td>{x._id}</td>
-                <td>{x.username}</td>
-                <td>{x.name}</td>
-                <td>{x.email}</td>
-                <td>{x.role}</td>
-                <td>
-                  <Button>Edit</Button>
-                  <Button onClick={() => deleteUser(x)}>Delete</Button>
-                </td>
+        <div>
+          <Form.Group
+            as={Row}
+            className="mb-4"
+            controlId="formPlaintextPassword"
+          >
+            <Form.Label column sm="1">
+              Filter
+            </Form.Label>
+            <Col sm="1">
+              <Form.Select
+                aria-label="Default select example"
+                onChange={(e) => selectFilterHandler(e)}
+              >
+                {filterProperty.map((f) => (
+                  <option value={f}>{f}</option>
+                ))}
+              </Form.Select>
+            </Col>
+            <Col sm="8">
+              <Form.Control
+                type="text"
+                onChange={(e) => setFilter(e.target.value)}
+                placeholder="filter text"
+              />
+            </Col>
+            <Col sm="1">
+              <Button>Reset</Button>
+            </Col>
+          </Form.Group>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>UserName</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {users?.map((x) => (
+                <tr key={x._id}>
+                  <td>{x._id}</td>
+                  <td>{x.username}</td>
+                  <td>{x.name}</td>
+                  <td>{x.email}</td>
+                  <td>{x.role}</td>
+                  <td>
+                    <Button>Edit</Button>
+                    <Button onClick={() => deleteUser(x)}>Delete</Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

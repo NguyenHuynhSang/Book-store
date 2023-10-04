@@ -31,7 +31,22 @@ userRoute.get(
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
-    const user = await User.find({});
+    var filter = req.query.filter;
+    var filterProp = req.query.filterProp;
+
+    const filterRegex =
+      filter && filter !== ''
+        ? {
+            [filterProp]: {
+              $regex: filter,
+              $options: 'i', // lower case compare
+            },
+          }
+        : {};
+    console.log(req.query);
+    console.log(filterRegex);
+
+    const user = await User.find(filterRegex);
     res.send(user);
   })
 );
