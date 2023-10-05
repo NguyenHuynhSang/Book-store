@@ -47,6 +47,25 @@ const prices = [
   },
 ];
 
+const sort = [
+  {
+    name: 'latest',
+    value: 'null',
+  },
+  {
+    name: 'oldest',
+    value: 'oldest',
+  },
+  {
+    name: 'price: highest to lowest',
+    value: 'highest',
+  },
+  {
+    name: 'price: lowest to highest',
+    value: 'lowest',
+  },
+];
+
 export const ratings = [
   {
     name: '5 star',
@@ -242,7 +261,9 @@ export default function FilterPage() {
                       navigate(getFilterUrl({ order: e.target.value }));
                     }}
                   >
-                    <option value="latest">Latest books</option>
+                    {sort.map((s) => (
+                      <option value={s.value}>{s.name}</option>
+                    ))}
                   </select>
                 </Col>
               </Row>

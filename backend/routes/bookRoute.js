@@ -70,23 +70,24 @@ bookRoute.get('/search', async (req, res) => {
   const sortOrder =
     order === 'featured'
       ? { featured: -1 }
-      : order === 'lasest'
-      ? { price: 1 }
+      : order === 'latest'
+      ? { createdAt: -1 }
+      : order === 'oldest'
+      ? { createdAt: 1 }
       : order === 'highest'
       ? { price: -1 }
-      : order === 'toprated'
-      ? { price: -1 }
+      : order === 'lowest'
+      ? { price: 1 }
       : order === 'newest'
       ? { createdAt: -1 }
       : { _id: -1 };
-
+  console.log(sortOrder);
   const books = await Book.find({
     ...queryFilter,
     ...priceFilter,
     ...categoryFilter,
     ...ratingFilter,
   })
-
     .sort(sortOrder)
     .skip(pageSize * (page - 1))
     .limit(pageSize);
