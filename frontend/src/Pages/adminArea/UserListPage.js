@@ -14,6 +14,7 @@ import Store from '../../Store';
 import { toast } from 'react-toastify';
 import { getOverlayDirection } from 'react-bootstrap/esm/helpers';
 import GetError from '../../utils';
+import UserEditModal from '../../Components/UserEditModal';
 
 export default function UserListPage() {
   const [{ loading, error, users, deletedUser, isDeleted }, dispatch] =
@@ -22,11 +23,20 @@ export default function UserListPage() {
       loading: true,
       error: '',
     });
+
+  const [showEditModel, setShowEditModel] = useState(false);
+  const [userEdit, setUserEdit] = useState({});
+  const [showEditModelTriger, setEditModelTriger] = useState(false);
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { loggedUser } = state;
   const [filter, setFilter] = useState('');
   const [filterProp, setFilterProp] = useState('username');
   const filterProperty = ['username', 'email', 'id', 'role'];
+  const handleEditModal = (user) => {
+    console.log('open edit modal');
+    setShowEditModel(true);
+    setUserEdit(user);
+  };
 
   useEffect(() => {
     console.log('fetch User list');
@@ -89,6 +99,14 @@ export default function UserListPage() {
         <MessageBox>{error}</MessageBox>
       ) : (
         <div>
+          {showEditModel ? (
+            <UserEditModal
+              show={showEditModel}
+              userEdit={userEdit}
+            ></UserEditModal>
+          ) : (
+            ''
+          )}
           <Form.Group
             as={Row}
             className="mb-4"
@@ -139,7 +157,7 @@ export default function UserListPage() {
                   <td>{x.email}</td>
                   <td>{x.role}</td>
                   <td>
-                    <Button>Edit</Button>
+                    <Button onClick={() => handleEditModal(x)}>Edit</Button>
                     <Button onClick={() => deleteUser(x)}>Delete</Button>
                   </td>
                 </tr>
