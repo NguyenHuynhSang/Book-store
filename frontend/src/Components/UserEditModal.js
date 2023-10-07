@@ -2,17 +2,22 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-export default function UserEditModal(props) {
-  const [userEdit, setUserEdit] = useState(props.userEdit);
-  const [show, setShow] = useState(props.show);
+export default function UserEditModal({ setShowModel, show, userE }) {
+  const [userEdit, setUserEdit] = useState(userE);
   const [name, setName] = useState(userEdit.name);
   const [username, setUsername] = useState(userEdit.username);
   const [email, setEmail] = useState(userEdit.email);
   const [role, setRole] = useState(userEdit.role);
+  //hard code role
+  const roles = ['Admin', 'User'];
   //First, we initialize our event
   const event = new Event('onDialogClose');
-
-  const submitHandler = (e) => {};
+  const handleClose = () => {
+    setShowModel(false);
+  };
+  const submitHandler = (e) => {
+    console.log(show);
+  };
   return (
     <div>
       <Modal show={show}>
@@ -20,9 +25,8 @@ export default function UserEditModal(props) {
           <Modal.Title>Edit User: {userEdit.username}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h1 className="mb-3">User Infor</h1>
           <form onSubmit={(e) => submitHandler(e)}>
-            <Form.Group className="mb-3" controlId="name">
+            <Form.Group className="mb-3" controlId="username">
               <Form.Label> Username</Form.Label>
               <Form.Control
                 value={username}
@@ -43,11 +47,12 @@ export default function UserEditModal(props) {
               <Form.Control
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                type="email"
                 required
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="email">
+            <Form.Group className="mb-3" controlId="role">
               <Form.Label> Role</Form.Label>
               <Form.Control
                 value={userEdit.role}

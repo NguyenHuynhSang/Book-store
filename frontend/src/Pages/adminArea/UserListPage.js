@@ -26,7 +26,6 @@ export default function UserListPage() {
 
   const [showEditModel, setShowEditModel] = useState(false);
   const [userEdit, setUserEdit] = useState({});
-  const [showEditModelTriger, setEditModelTriger] = useState(false);
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { loggedUser } = state;
   const [filter, setFilter] = useState('');
@@ -102,7 +101,8 @@ export default function UserListPage() {
           {showEditModel ? (
             <UserEditModal
               show={showEditModel}
-              userEdit={userEdit}
+              setShowModel={setShowEditModel}
+              userE={userEdit}
             ></UserEditModal>
           ) : (
             ''
