@@ -54,11 +54,18 @@ export default function UserEditModal({ setShowModel, show, userE }) {
 
             <Form.Group className="mb-3" controlId="role">
               <Form.Label> Role</Form.Label>
-              <Form.Control
-                value={userEdit.role}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              ></Form.Control>
+              <Form.Control as="select" required>
+                {roles.map((r) =>
+                  r.toLocaleLowerCase() ===
+                  userEdit.role.toLocaleLowerCase() ? (
+                    <option value={r} selected>
+                      {r}
+                    </option>
+                  ) : (
+                    <option value={r}>{r}</option>
+                  )
+                )}
+              </Form.Control>
             </Form.Group>
             <div className="mb-3">
               <Button type="submit">Update</Button>
