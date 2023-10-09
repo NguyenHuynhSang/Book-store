@@ -8,7 +8,9 @@ userRoute.post(
   '/login',
 
   expressAsyncHandler(async (req, res) => {
-    const user = await User.findOne({ email: req.body.email.toLowerCase() });
+    const user = await User.findOne({
+      username: req.body.username.toLowerCase(),
+    });
     if (user) {
       if (bcrypt.compareSync(req.body.password, user.password)) {
         res.send({
@@ -139,6 +141,10 @@ userRoute.put(
       user.email = req.body.email || user.email;
       user.role = req.body.role || user.role;
       console.log(req.body);
+      if (req.body.newPassword) {
+        user.password = bcrypt.hashSync(req.body.newPassword, 8);
+        console.log('pass updated');
+      }
       const updatedUser = await user.save();
       console.log(updatedUser);
       res.send({ message: 'User Updated', user: updatedUser });

@@ -26,7 +26,7 @@ export default function UserEditModal({ setShowModel, show, userE }) {
   const [username, setUsername] = useState(userEdit.username);
   const [email, setEmail] = useState(userEdit.email);
   const [role, setRole] = useState(userEdit.role);
-
+  const [newPassword, setPassword] = useState('');
   //hard code role
   const roles = ['Admin', 'User'];
   //First, we initialize our event
@@ -47,6 +47,7 @@ export default function UserEditModal({ setShowModel, show, userE }) {
           name,
           email,
           role,
+          newPassword,
         },
         { headers: { Authorization: `Bearer ${loggedUser.token}` } }
       );
@@ -87,6 +88,14 @@ export default function UserEditModal({ setShowModel, show, userE }) {
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 required
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="password">
+              <Form.Label> New password:</Form.Label>
+              <Form.Control
+                value={newPassword}
+                onChange={(e) => setPassword(e.target.value)}
               ></Form.Control>
             </Form.Group>
 

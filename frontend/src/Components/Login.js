@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 const LoginForm = (props) => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
   let setLogin = props.setLogin;
@@ -24,7 +25,7 @@ const LoginForm = (props) => {
     e.preventDefault();
     try {
       const { data } = await axios.post('api/user/login', {
-        email,
+        username,
         password,
       });
       console.log('user return');
@@ -55,8 +56,8 @@ const LoginForm = (props) => {
           <input
             id="username"
             autoCapitalize="none"
-            placeholder="Nhap email"
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Nhap username"
+            onChange={(e) => setUsername(e.target.value)}
           />
           <p>Password</p>
           <input
