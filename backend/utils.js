@@ -19,7 +19,7 @@ export const generateToken = (user) => {
 export const isAuth = (req, res, next) => {
   const auth = req.headers.authorization;
 
-  console.log('check authen' + auth);
+  console.log('check authen');
 
   if (auth) {
     const token = auth.slice(7, auth.length);
@@ -38,7 +38,7 @@ export const isAuth = (req, res, next) => {
 // CHeck addmin role
 export const isAdmin = (req, res, next) => {
   console.log('check role');
-  console.log(req.user);
+  // console.log(req.user);
   if (req.user && req.user.role === 'admin') {
     next();
   } else {

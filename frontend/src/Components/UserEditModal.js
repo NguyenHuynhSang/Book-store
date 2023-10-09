@@ -1,22 +1,60 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useContext, useReducer, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Store from '../Store';
+import { toast } from 'react-toastify';
+
+const editUserReducer = (state, action) => {
+  switch (action.type) {
+    case 'Update_REQ':
+      return { ...state, loading: true };
+    case 'Update_SUCC':
+      return { ...state, loading: false };
+    case 'Update_FAIL':
+      return { ...state, loading: false };
+    default:
+      return state;
+  }
+};
 export default function UserEditModal({ setShowModel, show, userE }) {
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { loggedUser } = state;
   const [userEdit, setUserEdit] = useState(userE);
   const [name, setName] = useState(userEdit.name);
   const [username, setUsername] = useState(userEdit.username);
   const [email, setEmail] = useState(userEdit.email);
   const [role, setRole] = useState(userEdit.role);
+
   //hard code role
   const roles = ['Admin', 'User'];
   //First, we initialize our event
   const event = new Event('onDialogClose');
+  const [{ loading }, dispatch] = useReducer(editUserReducer, {
+    loading: false,
+  });
   const handleClose = () => {
     setShowModel(false);
   };
-  const submitHandler = (e) => {
-    console.log(show);
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log(userEdit);
+    try {
+      const { data } = await axios.put(
+        `/api/user/${userEdit._id}`,
+        {
+          name,
+          email,
+          role,
+        },
+        { headers: { Authorization: `Bearer ${loggedUser.token}` } }
+      );
+      dispatch({
+        type: 'Update_SUCC',
+      });
+      toast('Save success');
+    } catch (error) {}
   };
   return (
     <div>

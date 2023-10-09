@@ -31,6 +31,7 @@ export default function UserListPage() {
   const [filter, setFilter] = useState('');
   const [filterProp, setFilterProp] = useState('username');
   const filterProperty = ['username', 'email', 'id', 'role'];
+
   const handleEditModal = (user) => {
     console.log('open edit modal');
     setShowEditModel(true);
@@ -59,7 +60,7 @@ export default function UserListPage() {
       }
     };
     fetchData();
-  }, [isDeleted, filter, filterProp]);
+  }, [isDeleted, filter, filterProp, showEditModel]);
   const deleteUser = async (x) => {
     console.log('call delete');
     console.log(x);

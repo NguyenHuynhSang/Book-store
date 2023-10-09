@@ -4,7 +4,6 @@ import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
 import { generateToken, isAdmin, isAuth } from '../utils.js';
 const userRoute = express.Router();
-
 userRoute.post(
   '/login',
 
@@ -126,4 +125,27 @@ userRoute.put(
     }
   })
 );
+
+userRoute.put(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    console.log('call update');
+    const user = await User.findById(req.params.id);
+
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.role = req.body.role || user.role;
+      console.log(req.body);
+      const updatedUser = await user.save();
+      console.log(updatedUser);
+      res.send({ message: 'User Updated', user: updatedUser });
+    } else {
+      res.status(404).send({ message: 'User not Found!!!' });
+    }
+  })
+);
+
 export default userRoute;
