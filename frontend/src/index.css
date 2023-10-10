@@ -511,10 +511,11 @@ main {
 .btn-buy {
   width: 8rem;
 }
-
-.text-price {
-  color: #f08000;
+.text-price-base {
+  color: #f08000 !important;
   font-weight: 500;
+}
+.book-detail-price {
   font-size: 3rem;
 }
 .book-order-card {
@@ -631,4 +632,8 @@ main {
 .user-dropdown-box {
   font-size: 1.5rem;
   min-width: 200px;
+}
+
+.text-price-card-modal {
+  font-size: 1.2rem;
 }

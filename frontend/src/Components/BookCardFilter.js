@@ -5,10 +5,8 @@ import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import Store from '../Store';
 import Rating from './Rating';
+import { moneyFormat } from '../utils';
 
-function moneyFormat(num) {
-  return num.toFixed().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-}
 function BookCardFilter(props) {
   const { book } = props;
 
@@ -61,7 +59,9 @@ function BookCardFilter(props) {
         <Rating rating={book.rating} numReviews={book.numReviews}></Rating>
 
         <Card.Text>
-          <span className="text-price">{moneyFormat(book.price)}</span>
+          <span className="text-price-base book-detail-price">
+            {moneyFormat(book.price)}
+          </span>
           <i>VND</i>
         </Card.Text>
         <Button

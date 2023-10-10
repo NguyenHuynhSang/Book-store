@@ -14,7 +14,7 @@ import Rating from '../Components/Rating';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../Components/Loading';
 import Message from '../Components/Message';
-import GetError from '../utils';
+import GetError, { formatDate, moneyFormat } from '../utils';
 import Store from '../Store';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
@@ -30,12 +30,7 @@ const reducer = (state, action) => {
       return state;
   }
 };
-function moneyFormat(num) {
-  return num.toFixed().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-}
-function formatDate(date) {
-  return new Date(date).toISOString().split('T')[0];
-}
+
 function BookPage() {
   const navigate = useNavigate();
   const urlParam = useParams();
@@ -214,7 +209,7 @@ function BookPage() {
                   <Row>
                     <b>Price:</b>
                     <Col>
-                      <span className="text-price">
+                      <span className=" text-price-base book-detail-price">
                         {moneyFormat(book.price)}
                       </span>
                       <i>VND</i>

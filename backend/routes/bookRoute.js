@@ -20,7 +20,7 @@ bookRoute.get('/search', async (req, res) => {
   const searchQuery = query.query.toLowerCase() || '';
   const rating = query.rating || '';
   const price = query.price || '';
-  const order = query.order || '';
+  const order = query.order || 'latest';
   console.log('query.price' + query.price);
 
   ///Currently bug with unicode character
@@ -71,7 +71,7 @@ bookRoute.get('/search', async (req, res) => {
     order === 'featured'
       ? { featured: -1 }
       : order === 'latest'
-      ? { createdAt: -1 }
+      ? { _id: -1 }
       : order === 'oldest'
       ? { createdAt: 1 }
       : order === 'highest'
@@ -139,7 +139,10 @@ bookRoute.get('/slug/:slug', async (req, res) => {
 });
 
 bookRoute.get('/:id', async (req, res) => {
+  console.log('call get book by id api');
+  console.log(req.params);
   const book = await Book.findById(req.params.id);
+  console.log(book);
   if (book) {
     res.send(book);
   } else {

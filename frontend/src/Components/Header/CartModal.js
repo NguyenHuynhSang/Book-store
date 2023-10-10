@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Store from '../../Store';
 import Message from '../Message';
-
+import { moneyFormat } from '../../utils';
 const CartModal = (props) => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
@@ -11,11 +11,15 @@ const CartModal = (props) => {
   } = state;
 
   const updateCart = async (item, quantity) => {
-    const { data } = await axios.get(`api/books/${item._id}`);
+    const { data } = await axios.get(`/api/books/${item._id}`);
+    console.log(quantity);
+    if (quantity === 0) {
+      removeItems(item);
+      return;
+    }
     if (data.countInStock < quantity) {
       window.alert('Out of Stock!!! Only ' + data.countInStock + ' available');
-    }
-    ctxDispatch({ type: 'ADD_ITEM', payload: { ...item, quantity } });
+    } else ctxDispatch({ type: 'ADD_ITEM', payload: { ...item, quantity } });
     //navigate('/cart');
   };
 
@@ -30,7 +34,7 @@ const CartModal = (props) => {
           <Message>Cart is empty</Message>
         ) : (
           Items.map((x) => (
-            <div className="item">
+            <div className="item" key={x._id}>
               <img src={x.image} alt=""></img>
               <div className="info">
                 <h3>{x.name}</h3>
@@ -46,7 +50,12 @@ const CartModal = (props) => {
                   ></i>
                 </div>
 
-                <p> Gia: {x.price * x.quantity}</p>
+                <p>
+                  Price:{' '}
+                  <span className="text-price-base text-price-card-modal">
+                    {moneyFormat(x.price * x.quantity)}
+                  </span>
+                </p>
               </div>
               <button
                 type="button"
@@ -60,8 +69,10 @@ const CartModal = (props) => {
       </div>
       <div className="summary">
         <p>
-          Tong tien:{' '}
-          <span>{Items.reduce((a, c) => a + c.price * c.quantity, 0)} </span>
+          Totals:{' '}
+          <span className="text-price-base text-price-card-modal">
+            {moneyFormat(Items.reduce((a, c) => a + c.price * c.quantity, 0))}{' '}
+          </span>
         </p>
 
         <Link to="/cart" className="btn">
