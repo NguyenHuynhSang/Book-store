@@ -637,3 +637,9 @@ main {
 .text-price-card-modal {
   font-size: 1.2rem;
 }
+
+#catogories-dropdown {
+  color: #0f1111;
+  font-size: 1.2rem;
+  font-weight: 500;
+}

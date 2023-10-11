@@ -148,9 +148,17 @@ const Header = () => {
             <Link className="link-style" to="" id="categories-dropdown-btn">
               Category <i className="fa fa-triangle">A</i>
               <ul className="categories-dropdown">
-                <li>All </li>
+                <li>
+                  <Link id="catogories-dropdown" to={`/search?`}>
+                    All
+                  </Link>{' '}
+                </li>
                 {categories.map((x, index) => (
-                  <li title={x}>{x} </li>
+                  <li title={x}>
+                    <Link id="catogories-dropdown" to={`/search?category=${x}`}>
+                      {x}
+                    </Link>{' '}
+                  </li>
                 ))}
               </ul>
             </Link>
