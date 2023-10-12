@@ -1,5 +1,3 @@
-import { Accordion } from 'react-bootstrap';
-
 export const USER_LIST_REQ = 'USER_LIST_REQ';
 export const USER_LIST_SUCC = 'USER_LIST_SUCC';
 export const USER_LIST_FAIL = 'USER_GET_FAIL';

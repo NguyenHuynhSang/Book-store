@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Store from '../Store';
 import Message from '../Components/Message';
+import { moneyFormat } from '../utils';
 
 const CartPage = (props) => {
   let navigate = useNavigate();
@@ -37,24 +38,33 @@ const CartPage = (props) => {
         <title>Cart</title>
       </Helmet>
       <h1>Cart</h1>
-      <Row>
+      <Row className="cart-items ms-4">
         <Col md={8}>
           {Items.length === 0 ? (
             <Message>Cart is empty!!!</Message>
           ) : (
-            <ListGroup>
+            <ListGroup className="">
               {Items.map((x) => (
                 <ListGroup.Item key={x._id}>
-                  <Row className="align-items-center">
-                    <Col mg={4}>
-                      <img
-                        src={x.image}
-                        alt={x.name}
-                        className="img-fluid rounded img-thumbnail"
-                      ></img>
-                      <Link to={`/book/${x.slug}`}></Link>
+                  <Row className="align-items-center cart-item">
+                    <Col md={8}>
+                      <div className="cart-item-infor">
+                        <div>
+                          <Link to={`/book/${x.slug}`}>
+                            <img
+                              src={x.image}
+                              alt={x.name}
+                              className="img-fluid rounded cart-item-img-thumbnail"
+                            ></img>
+                          </Link>
+                        </div>
+
+                        <span className="ms-5 cart-item-book-name">
+                          <Link>{x.name}</Link>
+                        </span>
+                      </div>
                     </Col>
-                    <Col mg={3}>
+                    <Col md={1}>
                       <Button
                         variant="light"
                         onClick={() => updateCart(x, --x.quantity)}
@@ -70,8 +80,10 @@ const CartPage = (props) => {
                         <i className="fas fa-plus-circle"></i>
                       </Button>
                     </Col>
-                    <Col mg={3}>{x.price * x.quantity}</Col>
-                    <Col mg={2}>
+                    <Col md={2} className=" text-price-base  book-cart-price">
+                      {moneyFormat(x.price * x.quantity)}
+                    </Col>
+                    <Col md={1}>
                       <Button variant="light" onClick={() => removeItems(x)}>
                         <i className="fas fa-trash"></i>
                       </Button>
@@ -94,8 +106,13 @@ const CartPage = (props) => {
                   </h3>
                   <p>
                     {' '}
-                    Price: $
-                    {Items.reduce((a, c) => a + c.price * c.quantity, 0)}
+                    Price: VND{'    '}
+                    <span className="text-price-base book-detail-price">
+                      {' '}
+                      {moneyFormat(
+                        Items.reduce((a, c) => a + c.price * c.quantity, 0)
+                      )}
+                    </span>
                   </p>
                 </ListGroup.Item>
                 <ListGroup.Item>

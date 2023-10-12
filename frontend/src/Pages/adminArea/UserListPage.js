@@ -110,7 +110,7 @@ export default function UserListPage() {
           )}
           <Form.Group
             as={Row}
-            className="mb-4"
+            className="mb-4 box-container"
             controlId="formPlaintextPassword"
           >
             <Form.Label column sm="1">
@@ -137,7 +137,7 @@ export default function UserListPage() {
               <Button>Reset</Button>
             </Col>
           </Form.Group>
-          <table className="table">
+          <table className="table box-container">
             <thead>
               <tr>
                 <th>ID</th>
