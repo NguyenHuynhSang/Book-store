@@ -5,6 +5,8 @@ import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import Store from '../Store';
 import Rating from './Rating';
+import { API_BOOK_BY_ID } from '../Reducers/BookReducer';
+import { LINK_BOOK_BY_SLUG } from '../Routes/UrlMapper';
 
 function Book(props) {
   const { book } = props;
@@ -20,7 +22,7 @@ function Book(props) {
       quantity = ++existItem.quantity;
     }
 
-    const { data } = await axios.get(`api/books/${item._id}`);
+    const { data } = await axios.get(API_BOOK_BY_ID(item._id));
     if (data.countInStock < quantity) {
       window.alert('Out of Stock!!! Only ' + data.countInStock + ' available');
     } else {
@@ -30,7 +32,7 @@ function Book(props) {
   };
   return (
     <Card className="book d-flex" id="book-card">
-      <Link to={`/book/${book.slug}`}>
+      <Link to={LINK_BOOK_BY_SLUG(book.slug)}>
         <img src={book.image} className="cart-img-top" alt={book.name}></img>
       </Link>
       <Card.Body>

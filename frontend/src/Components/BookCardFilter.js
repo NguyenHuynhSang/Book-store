@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import Store from '../Store';
 import Rating from './Rating';
 import { moneyFormat } from '../utils';
+import { API_BOOK_BY_ID } from '../Reducers/BookReducer';
+import { URL_SEARCH_DEFAULT_PAGE } from '../Routes/UrlMapper';
 
 function BookCardFilter(props) {
   const { book } = props;
@@ -21,7 +23,7 @@ function BookCardFilter(props) {
       quantity = ++existItem.quantity;
     }
 
-    const { data } = await axios.get(`api/books/${item._id}`);
+    const { data } = await axios.get(API_BOOK_BY_ID(item._id));
     if (data.countInStock < quantity) {
       window.alert('Out of Stock!!! Only ' + data.countInStock + ' available');
     } else {
@@ -44,7 +46,7 @@ function BookCardFilter(props) {
         <Card.Text className="book-card-subtitle mb-1">
           Category:{' '}
           {book.caterories.map((c) => (
-            <Link to="/search">
+            <Link to={URL_SEARCH_DEFAULT_PAGE}>
               {c !== book.caterories[book.caterories.length - 1]
                 ? c.name + ', '
                 : c.name + '.'}

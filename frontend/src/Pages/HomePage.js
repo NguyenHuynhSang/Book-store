@@ -10,21 +10,17 @@ import Message from '../Components/Message';
 import Icons from '../Components/Home/Icons';
 import Slider from '../Components/Home/Slider';
 import style from '../Asset/css/Home.css';
-const userReducer = (state, action) => {
-  switch (action.type) {
-    case 'FETCH_REQ':
-      return { ...state, loading: true };
-    case 'FETCH_SUCCESS':
-      return { ...state, books: action.payload, loading: false };
-    case 'FETCH_FAIL':
-      return { ...state, loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
+import {
+  API_BOOKS_BASE,
+  API_BOOK_LIST,
+  FETCH_BOOK_LIST_FAIL,
+  FETCH_BOOK_LIST_REQ,
+  FETCH_BOOK_LIST_SUCCESS,
+  bookListReducer,
+} from '../Reducers/BookReducer';
 
 function HomePage() {
-  const [{ loading, error, books }, dispatch] = useReducer(userReducer, {
+  const [{ loading, error, books }, dispatch] = useReducer(bookListReducer, {
     books: [],
     loading: true,
     error: '',
@@ -34,13 +30,13 @@ function HomePage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: 'FETCH_REQ' });
+      dispatch({ type: FETCH_BOOK_LIST_REQ });
       try {
-        const result = await axios.get('api/books');
-        dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
+        const result = await axios.get(API_BOOKS_BASE);
+        dispatch({ type: FETCH_BOOK_LIST_SUCCESS, payload: result.data });
         // setBooks(result.data);
       } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', payload: err.message });
+        dispatch({ type: FETCH_BOOK_LIST_FAIL, payload: err.message });
       }
     };
     fetchData();

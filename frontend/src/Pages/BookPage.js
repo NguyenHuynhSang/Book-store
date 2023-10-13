@@ -17,26 +17,22 @@ import Message from '../Components/Message';
 import GetError, { formatDate, moneyFormat } from '../utils';
 import Store from '../Store';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'FETCH_REQ':
-      return { ...state, loading: true };
-    case 'FETCH_SUCCESS':
-      return { ...state, book: action.payload, loading: false };
-    case 'FETCH_FAIL':
-      return { ...state, loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
+import {
+  API_BOOK_BY_ID,
+  API_BOOK_BY_SLUG,
+  FETCH_BOOK_FAIL,
+  FETCH_BOOK_REQ,
+  FETCH_BOOK_SUCCESS,
+  bookReducer,
+} from '../Reducers/BookReducer';
+import { URL_SEARCH_DEFAULT_PAGE } from '../Routes/UrlMapper';
 
 function BookPage() {
   const navigate = useNavigate();
   const urlParam = useParams();
   const { slug } = urlParam;
 
-  const [{ loading, error, book }, dispatch] = useReducer(reducer, {
+  const [{ loading, error, book }, dispatch] = useReducer(bookReducer, {
     book: [],
     loading: true,
     error: '',
@@ -46,14 +42,14 @@ function BookPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: 'FETCH_REQ' });
+      dispatch({ type: FETCH_BOOK_REQ });
       try {
-        const result = await axios.get(`/api/books/slug/${slug}`);
-        dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
+        const result = await axios.get(API_BOOK_BY_SLUG(slug));
+        dispatch({ type: FETCH_BOOK_SUCCESS, payload: result.data });
         // setBooks(result.data);
         console.log(result.data);
       } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', payload: GetError(err) });
+        dispatch({ type: FETCH_BOOK_FAIL, payload: GetError(err) });
       }
     };
     fetchData();
@@ -69,7 +65,7 @@ function BookPage() {
       quantity = ++existItem.quantity;
     }
 
-    const { data } = await axios.get(`/api/books/${book._id}`);
+    const { data } = await axios.get(API_BOOK_BY_ID(book._id));
 
     if (data.countInStock < quantity) {
       window.alert('Out of Stock!!! Only ' + data.countInStock + ' available');
@@ -130,7 +126,7 @@ function BookPage() {
             <ListGroup.Item>
               <b>Caterory: </b>
               {book.caterories.map((c) => (
-                <Link to="/search">
+                <Link to={URL_SEARCH_DEFAULT_PAGE}>
                   {c !== book.caterories[book.caterories.length - 1]
                     ? c.name + ', '
                     : c.name + '.'}
