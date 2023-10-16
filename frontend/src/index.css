@@ -62,6 +62,12 @@ a {
 input {
   text-transform: none !important;
 }
+li {
+  list-style-type: none !important;
+}
+li:hover {
+  list-style-type: circle !important;
+}
 .btn:hover {
   background: var(--dark-color);
 }

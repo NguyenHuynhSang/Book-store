@@ -11,30 +11,11 @@ import Loading from '../Components/Loading';
 import Book from '../Components/Book';
 import { LinkContainer } from 'react-router-bootstrap';
 import BookCardFilter from '../Components/BookCardFilter';
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'FETCH_REQ':
-      return { ...state, loading: true };
-      break;
-    case 'FETCH_SUCC': {
-      return {
-        ...state,
-        books: action.payload.books,
-        page: action.payload.page,
-        pages: action.payload.pages,
-        countBooks: action.payload.countBooks,
-        loading: false,
-      };
-    }
-    case 'FETCH_FAIL': {
-      return { ...state, loading: false, error: action.payload };
-    }
-
-    default:
-      break;
-  }
-};
+import {
+  FETCH_BOOK_FILTER_FAIL,
+  FETCH_BOOK_FILTER_SUCCESS,
+  boolFilterReducer,
+} from '../Reducers/BookReducer';
 
 const prices = [
   {
@@ -100,8 +81,9 @@ export default function FilterPage() {
   // pagination
   const page = sp.get('page') || 1;
 
+  const [activeCategory, setActiveCategory] = useState('');
   const [{ loading, error, books, pages, countBooks }, dispatch] = useReducer(
-    reducer,
+    boolFilterReducer,
     {
       loading: true,
       error: '',
@@ -115,10 +97,10 @@ export default function FilterPage() {
         const { data } = await axios.get(
           `/api/books/search?page=${page}&query=${query}&category=${category}&price=${price}&rating=${rating}&order=${order}`
         );
-        dispatch({ type: 'FETCH_SUCC', payload: data });
+        dispatch({ type: FETCH_BOOK_FILTER_SUCCESS, payload: data });
       } catch (err) {
         dispatch({
-          type: 'FETCH_FAIL',
+          type: FETCH_BOOK_FILTER_FAIL,
           payload: GetError(err),
         });
         console.log(GetError(err));
@@ -167,7 +149,7 @@ export default function FilterPage() {
           <h3>Category</h3>
           <div>
             <ul>
-              <li>
+              <li className="activeCategory">
                 <Link
                   className={category === 'all' ? 'text-bold' : ''}
                   to={getFilterUrl({ category: 'all' })}
