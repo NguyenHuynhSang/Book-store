@@ -169,7 +169,7 @@ function BookPage() {
               <i className="fas fa-book"></i>
               <div className="content">
                 <h4>Dimensions</h4>
-                <p>100 pages</p>
+                <p>{book.dimensions}</p>
               </div>
             </div>
 

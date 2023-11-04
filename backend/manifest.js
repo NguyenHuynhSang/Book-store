@@ -91,6 +91,7 @@ const data = {
       name: 'Hành Tinh Của Một Kẻ Nghĩ Nhiều',
       type: '',
       slug: 'book-1',
+      dimensions: '6 x 1.85 x 9 inches',
       PublishYear: '2022',
       author: 'Nguyễn Đoàn Minh Thư',
       image: '/imgs/n.jpg',
@@ -116,6 +117,7 @@ const data = {
       author: 'Nguyễn Đoàn Minh Thư',
       image: '/imgs/n1.webp',
       price: '1000',
+      dimensions: '6 x 1.85 x 9 inches',
       countInStock: 10,
       numPage: 100,
       language: 'VN',
@@ -135,6 +137,7 @@ const data = {
       slug: 'book-3',
       PublishYear: '2022',
       author: 'Nguyễn Đoàn Minh Thư',
+      dimensions: '6 x 1.85 x 9 inches',
       image: '/imgs/n2.webp',
       price: '400000',
       countInStock: 10,
@@ -161,6 +164,7 @@ const data = {
       price: '1000000',
       countInStock: 10,
       numPage: 130,
+      dimensions: '6 x 1.85 x 9 inches',
       language: 'VN',
       publishDate: '03/07/2023',
       publisher: 'Ct B',
@@ -175,6 +179,7 @@ const data = {
       slug: 'book-5',
       PublishYear: '2022',
       author: 'Nguyễn Đoàn Minh Thư',
+      dimensions: '6 x 1.85 x 9 inches',
       image:
         'https://book365.vn/upload/resize_cache/iblock/6d7/570_490_1/6d7fac801463e9c2d998754e77890e3a.jpeg',
       price: '200000',
@@ -208,6 +213,7 @@ const data = {
       price: '2000000',
       countInStock: 20,
       numPage: 300,
+      dimensions: '6 x 1.85 x 9 inches',
       language: 'EN',
       publishDate: '02/02/2022',
       publisher: 'Amazon',
@@ -226,6 +232,7 @@ const data = {
       slug: 'book-7',
       PublishYear: '2022',
       author: 'Robert Jordan',
+      dimensions: '6 x 1.85 x 9 inches',
       description: `The Wheel of Time is now an original series on Prime Video, starring Rosamund Pike as Moiraine!
 
       In The Great Hunt, the second novel in Robert Jordan’s #1 New York Times bestselling epic fantasy series, The Wheel of Time®, Rand al’Thor and his companions set out to retrieve a powerful artifact from The Dark One’s Shadowspawn.
@@ -249,6 +256,7 @@ const data = {
     {
       name: 'Holly',
       type: '',
+      dimensions: '6 x 1.85 x 9 inches',
       slug: 'book-8',
       PublishYear: '2022',
       description: `Holly Gibney, one of Stephen King’s most compelling and ingeniously resourceful characters, returns in this thrilling novel to solve the gruesome truth behind multiple disappearances in a midwestern town.
@@ -280,6 +288,7 @@ const data = {
       price: '340000',
       countInStock: 20,
       numPage: 210,
+      dimensions: '6 x 1.85 x 9 inches',
       language: 'EN',
       publishDate: '02/06/2011',
       publisher: 'Amazon',

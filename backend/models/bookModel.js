@@ -5,8 +5,10 @@ const bookSchema = new mongoose.Schema(
     name: { type: String, require: true },
     slug: { type: String, require: true, unique: true },
     image: { type: String, default: '/imgs/n2.webp' },
+    images: [{ link: { type: String }, type: { type: String } }], // type: 'font','back','other'
     price: { type: Number, require: true },
     rating: { type: Number, default: 0 },
+    dimensions: { type: String },
     countInStock: { type: Number, default: 0 },
     description: { type: String },
     publishDate: { type: Date },
