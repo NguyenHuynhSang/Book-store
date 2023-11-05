@@ -88,6 +88,13 @@ const Header = () => {
                           Dashboard
                         </NavDropdown.Item>
                       </LinkContainer>
+                      <LinkContainer to="/user/books">
+                        <NavDropdown.Item>
+                          {' '}
+                          <i class="fa-solid fa-book me-3 mb-2"></i>
+                          Book Products Management
+                        </NavDropdown.Item>
+                      </LinkContainer>
                       <LinkContainer to="/user/list">
                         <NavDropdown.Item>
                           {' '}

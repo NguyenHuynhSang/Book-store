@@ -25,7 +25,9 @@ import {
   URL_SIGNUP_PAGE,
   URL_USER_PAGE,
   URL_USER_LIST_PAGE,
+  URL_BOOK_PRODUCT_PAGE,
 } from './UrlMapper';
+import BookProductPage from '../Pages/adminArea/BookProductPage';
 
 const RouteController = () => {
   return (
@@ -43,6 +45,15 @@ const RouteController = () => {
           element={
             <ProtectedRoute>
               <UserProfilePage />
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        <Route
+          path={URL_BOOK_PRODUCT_PAGE}
+          element={
+            <ProtectedRoute>
+              <BookProductPage />
             </ProtectedRoute>
           }
         ></Route>
@@ -72,6 +83,7 @@ const RouteController = () => {
             </ProtectedRoute>
           }
         ></Route>
+
         <Route path={URL_SEARCH_DEFAULT_PAGE} element={<FilterPage />}></Route>
       </Routes>
     </div>
