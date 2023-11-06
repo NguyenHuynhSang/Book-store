@@ -75,7 +75,7 @@ const CartModal = (props) => {
           </span>
         </p>
 
-        <Link to="/cart" className="btn">
+        <Link to="/cart" variant="success" className="btn btn-success">
           Thanh Toan{' '}
         </Link>
       </div>

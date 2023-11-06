@@ -4,7 +4,7 @@ import MessageBox from '../../Components/MessageBox';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 import Store from '../../Store';
-import GetError from '../../utils';
+import GetError, { moneyFormat } from '../../utils';
 import { toast } from 'react-toastify';
 import {
   bookProductsReducer,
@@ -74,7 +74,7 @@ export default function BookProductPage() {
                 <th>Book Name</th>
                 <th>Price</th>
                 <th>Create Date</th>
-                <th>Count in stock</th>
+                <th> Count in stock</th>
                 <th>Status</th>
 
                 <th>Action</th>
@@ -86,15 +86,19 @@ export default function BookProductPage() {
                 <tr key={x._id}>
                   <td>{x._id}</td>
                   <td>{x.name}</td>
-                  <td>{x.price}</td>
+                  <td> {moneyFormat(x.price)}</td>
                   <td>{x.price}</td>
                   <td>{x.countInStock}</td>
 
                   <td>{x.status}</td>
                   <td>
-                    <Button>Detail</Button>
-                    <Button>Edit</Button>
-                    <Button>Delete</Button>
+                    <Button className="me-3" variant="info">
+                      Detail
+                    </Button>
+                    <Button className="me-3">Edit</Button>
+                    <Button className="me-3" variant="danger">
+                      Delete
+                    </Button>
                   </td>
                 </tr>
               ))}

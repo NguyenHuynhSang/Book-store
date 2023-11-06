@@ -52,13 +52,16 @@ a {
   padding: 0.6rem;
   border-radius: 0.5rem;
   color: #fff;
-  background: var(--green);
+  /* background: var(--green); */
   display: inline-block;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   cursor: pointer;
-  font-weight: 200;
+  font-weight: 400;
 }
 
+.btn:hover {
+  background: var(--dark-color);
+}
 input {
   text-transform: none !important;
 }
@@ -68,9 +71,7 @@ li {
 li:hover {
   list-style-type: circle !important;
 }
-.btn:hover {
-  background: var(--dark-color);
-}
+
 section {
   padding: 5rem, 10%;
 }
