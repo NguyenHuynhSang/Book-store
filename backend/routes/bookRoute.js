@@ -10,6 +10,11 @@ bookRoute.get('/', async (req, res) => {
   res.send(books);
 });
 
+bookRoute.get('/products', async (req, res) => {
+  const books = await Book.find();
+  res.send(books);
+});
+
 bookRoute.get('/search', async (req, res) => {
   console.log('call filter');
   const { query } = req;

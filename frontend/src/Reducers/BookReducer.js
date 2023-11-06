@@ -10,6 +10,10 @@ export const FETCH_BOOK_FILTER_REQ = 'FETCH_BOOK_FILTER_REQ';
 export const FETCH_BOOK_FILTER_SUCCESS = 'FETCH_BOOK_FILTER_SUCCESS';
 export const FETCH_BOOK_FILTER_FAIL = 'FETCH_BOOK_FILTER_FAIL';
 
+export const FETCH_BOOK_PRODUCT_REQ = 'FETCH_BOOK_PRODUCT_REQ';
+export const FETCH_BOOK_PRODUCT_SUCCESS = 'FETCH_BOOK_PRODUCT_SUCCESS';
+export const FETCH_BOOK_PRODUCT_FAIL = 'FETCH_BOOK_PRODUCT_FAIL';
+
 export const API_BOOKS_BASE = '/api/books';
 
 export const API_BOOK_BY_SLUG = (slug) => {
@@ -42,6 +46,19 @@ export const bookListReducer = (state, action) => {
     case FETCH_BOOK_LIST_SUCCESS:
       return { ...state, books: action.payload, loading: false };
     case FETCH_BOOK_LIST_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const bookProductsReducer = (state, action) => {
+  switch (action.type) {
+    case FETCH_BOOK_PRODUCT_REQ:
+      return { ...state, loading: true };
+    case FETCH_BOOK_PRODUCT_SUCCESS:
+      return { ...state, books: action.payload, loading: false };
+    case FETCH_BOOK_PRODUCT_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
