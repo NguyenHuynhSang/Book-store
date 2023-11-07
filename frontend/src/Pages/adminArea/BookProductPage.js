@@ -97,6 +97,7 @@ export default function BookProductPage() {
         b.isActive = false;
       } else {
         b.isActive = true;
+        b.isUp = !b.isUp;
       }
     });
 
@@ -112,7 +113,6 @@ export default function BookProductPage() {
         <MessageBox>{error}</MessageBox>
       ) : (
         <div>
-          {toast('render')}
           <Form.Group
             as={Row}
             className="mb-4 box-container"
@@ -135,16 +135,18 @@ export default function BookProductPage() {
             <thead>
               <tr>
                 {bookColumn.column.map((x) => (
-                  <th>
-                    {x.name}
+                  <th onClick={() => handleActive(x)}>
+                    <span>{x.name}</span>
+
                     {x.isSortAble ? (
                       x.isActive ? (
-                        <i className="ms-2 fa fa-sort-up"></i>
+                        x.isUp ? (
+                          <i className="ms-2 fa fa-sort-up"></i>
+                        ) : (
+                          <i className="ms-2 fa fa-sort-down"></i>
+                        )
                       ) : (
-                        <i
-                          className="ms-2 fa fa-sort"
-                          onClick={() => handleActive(x)}
-                        ></i>
+                        <i className="ms-2 fa fa-arrow-down-short-wide"></i>
                       )
                     ) : (
                       ''

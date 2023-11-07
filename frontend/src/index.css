@@ -691,3 +691,14 @@ main {
   font-size: 1.3rem;
   color: var(--black) !important;
 }
+
+.sort-inactive {
+  color: white !important;
+}
+.sort-active {
+  background-color: #0f1111;
+}
+.sort-container {
+  display: flex;
+  flex-direction: column;
+}
