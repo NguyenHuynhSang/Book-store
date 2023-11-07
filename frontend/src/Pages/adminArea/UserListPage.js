@@ -40,7 +40,6 @@ export default function UserListPage() {
 
   useEffect(() => {
     console.log('fetch User list');
-
     const fetchData = async () => {
       try {
         const { data } = await axios.get('/api/user/list', {

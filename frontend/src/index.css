@@ -8,6 +8,7 @@
   --boder: 0.1rem solid rgba(0, 0, 0, 0.1);
   --boder-hover: 0.1rem solid var(--black);
   --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  --hover-color: rgba(0, 0, 0, 0.1);
 }
 
 /* doi nut xoa mat dinh trong input */
@@ -46,6 +47,19 @@ html::-webkit-scrollbar-thumb {
 
 a {
   text-decoration: none !important;
+}
+
+th {
+  border-right: 0.2rem solid rgba(0, 0, 0, 0.1);
+  font-weight: normal;
+  font-size: 1.5rem;
+  background-color: var(--hover-color) !important;
+}
+td {
+  border-right: 0.2rem solid rgba(0, 0, 0, 0.1);
+}
+table tbody tr:hover td {
+  background-color: var(--hover-color);
 }
 
 .btn {

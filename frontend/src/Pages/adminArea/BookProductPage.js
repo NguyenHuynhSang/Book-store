@@ -12,7 +12,55 @@ import {
 } from '../../Reducers/BookReducer';
 
 export default function BookProductPage() {
-  const x = '';
+  const [bookColumn, setBookColumn] = useState([
+    {
+      name: 'ID',
+      field: 'ID',
+      isUp: true,
+      isActive: true,
+      isSortAble: true,
+    },
+    {
+      name: 'Book Name',
+      field: 'name',
+      isUp: true,
+      isActive: false,
+      isSortAble: true,
+    },
+    {
+      name: 'CreateDate',
+      field: 'createDate',
+      isUp: false,
+      isActive: false,
+      isSortAble: true,
+    },
+    {
+      name: 'Price',
+      field: 'price',
+      isUp: true,
+      isActive: false,
+      isSortAble: true,
+    },
+    {
+      name: 'Count in stock',
+      field: 'countInStock',
+      isUp: false,
+      isActive: false,
+      isSortAble: true,
+    },
+    {
+      name: 'Status',
+      isUp: false,
+      isActive: false,
+      isSortAble: true,
+    },
+    {
+      name: 'Action',
+      isUp: false,
+      isActive: false,
+      isSortAble: false,
+    },
+  ]);
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { loggedUser } = state;
@@ -39,6 +87,16 @@ export default function BookProductPage() {
     };
     fetchData();
   }, []);
+
+  const handleActive = (x) => {
+    bookColumn.forEach((b) => {
+      x.isActive = true;
+      if (b.field != x.field) {
+        b.isActive = false;
+      }
+    });
+    console.log(bookColumn);
+  };
   return (
     <div>
       <h1>Book Products</h1>
@@ -69,15 +127,23 @@ export default function BookProductPage() {
           <table className="table box-container">
             <thead>
               <tr>
-                <th>ID</th>
-
-                <th>Book Name</th>
-                <th>Price</th>
-                <th>Create Date</th>
-                <th> Count in stock</th>
-                <th>Status</th>
-
-                <th>Action</th>
+                {bookColumn.map((x) => (
+                  <th>
+                    {x.name}
+                    {x.isSortAble ? (
+                      x.isActive && x.isUp ? (
+                        <i className="ms-2 fa fa-sort-up"></i>
+                      ) : (
+                        <i
+                          className="ms-2 fa fa-sort"
+                          onClick={() => handleActive(x)}
+                        ></i>
+                      )
+                    ) : (
+                      ''
+                    )}
+                  </th>
+                ))}
               </tr>
             </thead>
 
