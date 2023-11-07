@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useReducer, useState } from 'react';
 import Loading from '../../Components/Loading';
 import MessageBox from '../../Components/MessageBox';
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Button, Col, Form, Row, Toast } from 'react-bootstrap';
 import axios from 'axios';
 import Store from '../../Store';
 import GetError, { moneyFormat } from '../../utils';
@@ -12,55 +12,57 @@ import {
 } from '../../Reducers/BookReducer';
 
 export default function BookProductPage() {
-  const [bookColumn, setBookColumn] = useState([
-    {
-      name: 'ID',
-      field: 'ID',
-      isUp: true,
-      isActive: true,
-      isSortAble: true,
-    },
-    {
-      name: 'Book Name',
-      field: 'name',
-      isUp: true,
-      isActive: false,
-      isSortAble: true,
-    },
-    {
-      name: 'CreateDate',
-      field: 'createDate',
-      isUp: false,
-      isActive: false,
-      isSortAble: true,
-    },
-    {
-      name: 'Price',
-      field: 'price',
-      isUp: true,
-      isActive: false,
-      isSortAble: true,
-    },
-    {
-      name: 'Count in stock',
-      field: 'countInStock',
-      isUp: false,
-      isActive: false,
-      isSortAble: true,
-    },
-    {
-      name: 'Status',
-      isUp: false,
-      isActive: false,
-      isSortAble: true,
-    },
-    {
-      name: 'Action',
-      isUp: false,
-      isActive: false,
-      isSortAble: false,
-    },
-  ]);
+  const [bookColumn, setBookColumn] = useState({
+    column: [
+      {
+        name: 'ID',
+        field: 'ID',
+        isUp: true,
+        isActive: true,
+        isSortAble: true,
+      },
+      {
+        name: 'Book Name',
+        field: 'name',
+        isUp: true,
+        isActive: false,
+        isSortAble: true,
+      },
+      {
+        name: 'CreateDate',
+        field: 'createDate',
+        isUp: true,
+        isActive: false,
+        isSortAble: true,
+      },
+      {
+        name: 'Price',
+        field: 'price',
+        isUp: true,
+        isActive: false,
+        isSortAble: true,
+      },
+      {
+        name: 'Count in stock',
+        field: 'countInStock',
+        isUp: false,
+        isActive: false,
+        isSortAble: true,
+      },
+      {
+        name: 'Status',
+        isUp: false,
+        isActive: false,
+        isSortAble: true,
+      },
+      {
+        name: 'Action',
+        isUp: false,
+        isActive: false,
+        isSortAble: false,
+      },
+    ],
+  });
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { loggedUser } = state;
@@ -89,12 +91,16 @@ export default function BookProductPage() {
   }, []);
 
   const handleActive = (x) => {
-    bookColumn.forEach((b) => {
-      x.isActive = true;
-      if (b.field != x.field) {
+    var updatedBookCol = bookColumn.column;
+    updatedBookCol.forEach((b) => {
+      if (b.field !== x.field) {
         b.isActive = false;
+      } else {
+        b.isActive = true;
       }
     });
+
+    setBookColumn({ column: updatedBookCol });
     console.log(bookColumn);
   };
   return (
@@ -106,6 +112,7 @@ export default function BookProductPage() {
         <MessageBox>{error}</MessageBox>
       ) : (
         <div>
+          {toast('render')}
           <Form.Group
             as={Row}
             className="mb-4 box-container"
@@ -127,11 +134,11 @@ export default function BookProductPage() {
           <table className="table box-container">
             <thead>
               <tr>
-                {bookColumn.map((x) => (
+                {bookColumn.column.map((x) => (
                   <th>
                     {x.name}
                     {x.isSortAble ? (
-                      x.isActive && x.isUp ? (
+                      x.isActive ? (
                         <i className="ms-2 fa fa-sort-up"></i>
                       ) : (
                         <i
