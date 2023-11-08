@@ -11,7 +11,22 @@ bookRoute.get('/', async (req, res) => {
 });
 
 bookRoute.get('/products', async (req, res) => {
-  const books = await Book.find();
+  var sort = req.query.sort;
+  const order = sort.isUp === 'true' ? 1 : -1;
+  const sortOrder =
+    sort.field === 'id'
+      ? { _id: order }
+      : sort.field === 'name'
+      ? { name: order }
+      : sort.field === 'createAt'
+      ? { createdAt: order }
+      : sort.field === 'price'
+      ? { price: order }
+      : sort.field === 'countInStock'
+      ? { countInStock: order }
+      : { _id: -1 };
+  console.log(sortOrder);
+  const books = await Book.find().sort(sortOrder);
   res.send(books);
 });
 

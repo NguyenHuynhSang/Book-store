@@ -12,11 +12,14 @@ import {
 } from '../../Reducers/BookReducer';
 
 export default function BookProductPage() {
+  const [sort, setSort] = useState({ field: 'id', isUp: false });
+  const [filter, setFilter] = useState('');
+  const [filterProp, setFilterProp] = useState('username');
   const [bookColumn, setBookColumn] = useState({
     column: [
       {
         name: 'ID',
-        field: 'ID',
+        field: 'id',
         isUp: true,
         isActive: true,
         isSortAble: true,
@@ -30,7 +33,7 @@ export default function BookProductPage() {
       },
       {
         name: 'CreateDate',
-        field: 'createDate',
+        field: 'createAt',
         isUp: true,
         isActive: false,
         isSortAble: true,
@@ -78,6 +81,9 @@ export default function BookProductPage() {
       try {
         const { data } = await axios.get('/api/books/products', {
           headers: { Authorization: `Bearer ${loggedUser.token}` },
+          params: {
+            sort: sort,
+          },
         });
         dispatch({ type: FETCH_BOOK_PRODUCT_SUCCESS, payload: data });
         // console.log(data);
@@ -88,7 +94,7 @@ export default function BookProductPage() {
       }
     };
     fetchData();
-  }, []);
+  }, [sort]);
 
   const handleActive = (x) => {
     var updatedBookCol = bookColumn.column;
@@ -98,11 +104,14 @@ export default function BookProductPage() {
       } else {
         b.isActive = true;
         b.isUp = !b.isUp;
+        setSort({ field: b.field, isUp: b.isUp });
       }
     });
 
     setBookColumn({ column: updatedBookCol });
+
     console.log(bookColumn);
+    console.log(sort);
   };
   return (
     <div>
@@ -161,8 +170,8 @@ export default function BookProductPage() {
                 <tr key={x._id}>
                   <td>{x._id}</td>
                   <td>{x.name}</td>
-                  <td> {moneyFormat(x.price)}</td>
-                  <td>{x.price}</td>
+                  <td> {x.createdAt}</td>
+                  <td>{moneyFormat(x.price)}</td>
                   <td>{x.countInStock}</td>
 
                   <td>{x.status}</td>
