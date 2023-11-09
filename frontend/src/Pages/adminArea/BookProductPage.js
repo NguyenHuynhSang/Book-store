@@ -10,10 +10,12 @@ import {
   bookProductsReducer,
   FETCH_BOOK_PRODUCT_SUCCESS,
 } from '../../Reducers/BookReducer';
+import { LinkContainer } from 'react-router-bootstrap';
 
 export default function BookProductPage() {
   const [sort, setSort] = useState({ field: 'id', isUp: false });
   const [filter, setFilter] = useState('');
+  const [page, setPage] = useState(1);
   const [filterProp, setFilterProp] = useState('username');
   const [bookColumn, setBookColumn] = useState({
     column: [
@@ -21,55 +23,62 @@ export default function BookProductPage() {
         name: 'ID',
         field: 'id',
         isUp: true,
-        isActive: true,
+        isCurrentSort: true,
         isSortAble: true,
+        isShow: true,
       },
       {
         name: 'Book Name',
         field: 'name',
         isUp: true,
-        isActive: false,
+        isCurrentSort: false,
         isSortAble: true,
+        isShow: true,
       },
       {
         name: 'CreateDate',
         field: 'createAt',
         isUp: true,
-        isActive: false,
+        isCurrentSort: false,
         isSortAble: true,
+        isShow: true,
       },
       {
         name: 'Price',
         field: 'price',
         isUp: true,
-        isActive: false,
+        isCurrentSort: false,
         isSortAble: true,
+        isShow: true,
       },
       {
         name: 'Count in stock',
         field: 'countInStock',
         isUp: false,
-        isActive: false,
+        isCurrentSort: false,
         isSortAble: true,
+        isShow: true,
       },
       {
         name: 'Status',
         isUp: false,
-        isActive: false,
+        isCurrentSort: false,
         isSortAble: true,
+        isShow: true,
       },
       {
         name: 'Action',
         isUp: false,
-        isActive: false,
+        isCurrentSort: false,
         isSortAble: false,
+        isShow: true,
       },
     ],
   });
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { loggedUser } = state;
-  const [{ loading, error, books, deletedUser, isDeleted }, dispatch] =
+  const [{ loading, error, books, pages = 1, countBooks }, dispatch] =
     useReducer(bookProductsReducer, {
       books: [],
       loading: true,
@@ -83,6 +92,7 @@ export default function BookProductPage() {
           headers: { Authorization: `Bearer ${loggedUser.token}` },
           params: {
             sort: sort,
+            page: page,
           },
         });
         dispatch({ type: FETCH_BOOK_PRODUCT_SUCCESS, payload: data });
@@ -94,24 +104,24 @@ export default function BookProductPage() {
       }
     };
     fetchData();
-  }, [sort]);
+  }, [sort, page]);
 
+  const toPage = (num) => {
+    setPage(num);
+  };
   const handleActive = (x) => {
     var updatedBookCol = bookColumn.column;
     updatedBookCol.forEach((b) => {
       if (b.field !== x.field) {
-        b.isActive = false;
+        b.isCurrentSort = false;
       } else {
-        b.isActive = true;
+        b.isCurrentSort = true;
         b.isUp = !b.isUp;
         setSort({ field: b.field, isUp: b.isUp });
       }
     });
-
+    console.log(pages);
     setBookColumn({ column: updatedBookCol });
-
-    console.log(bookColumn);
-    console.log(sort);
   };
   return (
     <div>
@@ -148,7 +158,7 @@ export default function BookProductPage() {
                     <span>{x.name}</span>
 
                     {x.isSortAble ? (
-                      x.isActive ? (
+                      x.isCurrentSort ? (
                         x.isUp ? (
                           <i className="ms-2 fa fa-sort-up"></i>
                         ) : (
@@ -188,6 +198,22 @@ export default function BookProductPage() {
               ))}
             </tbody>
           </table>
+          <div className="paging-container">
+            {[...Array(pages).keys()].map((x) => (
+              <div key={x + 1}>
+                <Button
+                  className={
+                    Number(page) === x + 1
+                      ? 'btn-warning text-bold'
+                      : 'btn-light text-dark'
+                  }
+                  onClick={() => toPage(x + 1)}
+                >
+                  {x + 1}
+                </Button>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

@@ -57,7 +57,14 @@ export const bookProductsReducer = (state, action) => {
     case FETCH_BOOK_PRODUCT_REQ:
       return { ...state, loading: true };
     case FETCH_BOOK_PRODUCT_SUCCESS:
-      return { ...state, books: action.payload, loading: false };
+      return {
+        ...state,
+        books: action.payload.books,
+        page: action.payload.page,
+        pages: action.payload.pages,
+        countBooks: action.payload.countBooks,
+        loading: false,
+      };
     case FETCH_BOOK_PRODUCT_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:

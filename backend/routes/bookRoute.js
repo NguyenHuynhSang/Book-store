@@ -2,7 +2,7 @@ import express, { query } from 'express';
 import Book from '../models/bookModel.js';
 import Author from '../models/authorModel.js';
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 5;
 const bookRoute = express.Router();
 
 bookRoute.get('/', async (req, res) => {
@@ -25,9 +25,23 @@ bookRoute.get('/products', async (req, res) => {
       : sort.field === 'countInStock'
       ? { countInStock: order }
       : { _id: -1 };
+
+  const pageSize = PAGE_SIZE;
+  const page = req.query.page || 1;
+
   console.log(sortOrder);
-  const books = await Book.find().sort(sortOrder);
-  res.send(books);
+  const books = await Book.find()
+    .sort(sortOrder)
+    .skip(pageSize * (page - 1))
+    .limit(pageSize);
+
+  const countBooks = await Book.countDocuments();
+  res.send({
+    books,
+    page,
+    pages: Math.ceil(countBooks / pageSize),
+    countBooks,
+  });
 });
 
 bookRoute.get('/search', async (req, res) => {
