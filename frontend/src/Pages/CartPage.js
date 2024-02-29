@@ -70,14 +70,14 @@ const CartPage = (props) => {
                         onClick={() => updateCart(x, --x.quantity)}
                         disabled={x.quantity === 1}
                       >
-                        <i className="fas fa-minus-circle"></i>
+                        <i className="btn-add-minus-cart fas fa-minus-circle"></i>
                       </Button>{' '}
                       <span>{x.quantity}</span>{' '}
                       <Button
                         variant="light"
                         onClick={() => updateCart(x, ++x.quantity)}
                       >
-                        <i className="fas fa-plus-circle"></i>
+                        <i className=" btn-add-minus-cart fas fa-plus-circle"></i>
                       </Button>
                     </Col>
                     <Col md={2} className=" text-price-base  book-cart-price">
@@ -85,7 +85,7 @@ const CartPage = (props) => {
                     </Col>
                     <Col md={1}>
                       <Button variant="light" onClick={() => removeItems(x)}>
-                        <i className="fas fa-trash"></i>
+                        <i className="btn-add-minus-cart fas fa-trash"></i>
                       </Button>
                     </Col>
                   </Row>

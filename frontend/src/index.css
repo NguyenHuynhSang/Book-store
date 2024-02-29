@@ -711,3 +711,7 @@ main {
   flex-direction: row;
   justify-content: center;
 }
+
+.btn-add-minus-cart {
+  color: var(--green) !important;
+}
