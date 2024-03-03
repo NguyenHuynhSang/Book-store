@@ -123,7 +123,6 @@ export default function FilterPage() {
   }, [dispatch]);
 
   const getFilterUrl = (filter, skipPathname) => {
-    console.log(filter);
     const filterPage = filter.page || page;
 
     const filterCategory = filter.category || category;
@@ -229,8 +228,9 @@ export default function FilterPage() {
                       <Button
                         variant="light"
                         onClick={() => navigate('/search')}
+                        className="bg-light "
                       >
-                        <i className="fas fa-times-circle"></i>
+                        <i className="fas fa-times-circle text-success"></i>
                       </Button>
                     ) : null}
                   </div>

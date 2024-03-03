@@ -31,7 +31,9 @@ function BookPage() {
   const navigate = useNavigate();
   const urlParam = useParams();
   const { slug } = urlParam;
-
+  const checkOut = () => {
+    navigate('/checkout');
+  };
   const [{ loading, error, book }, dispatch] = useReducer(bookReducer, {
     book: [],
     loading: true,
@@ -230,6 +232,13 @@ function BookPage() {
                     <div className="d-grid">
                       <Button onClick={() => addToCart()} variant="primary">
                         Add to Cart
+                      </Button>
+                      <Button
+                        className="mt-3 bg-warning  text-white"
+                        onClick={() => checkOut()}
+                        variant="primary"
+                      >
+                        Check Out
                       </Button>
                     </div>
                   </ListGroup.Item>
