@@ -101,7 +101,11 @@ export default function UserEditModal({ setShowModel, show, userE }) {
 
             <Form.Group className="mb-3" controlId="role">
               <Form.Label> Role</Form.Label>
-              <Form.Control as="select" required>
+              <Form.Control
+                as="select"
+                required
+                onChange={(e) => setRole(e.target.value)}
+              >
                 {roles.map((r) =>
                   r.toLocaleLowerCase() ===
                   userEdit.role.toLocaleLowerCase() ? (

@@ -6,13 +6,13 @@ const userSchema = new mongoose.Schema(
     password: { type: String, require: true },
     name: { type: String },
     role: { type: String, default: 'user' },
-    seller:{
-      name:String,
-      logo:String,
-      description:String,
-      rating:{type:Number, default:0,require:true},
-      numReviews:{type:Number, default:0,require:true}
-    }
+    seller: {
+      name: String,
+      logo: String,
+      description: String,
+      rating: { type: Number, default: 0, require: true },
+      numReviews: { type: Number, default: 0, require: true },
+    },
     address: [
       {
         location: { type: String },

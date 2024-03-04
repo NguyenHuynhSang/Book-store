@@ -13,9 +13,10 @@ const SignUpPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
+  const [role, setRole] = useState('user');
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
+  const userRoles = ['user', 'seller'];
 
   // back to last page after sign up
   const { search } = useLocation();
@@ -90,6 +91,15 @@ const SignUpPage = () => {
             ></Form.Control>
           </Form.Group>
         </Form.Group>
+        <Form.Group className="mb-3" controlId="role">
+          <Form.Label> Role</Form.Label>
+          <Form.Control as="select" required>
+            {userRoles.map((r) => (
+              <option value={r}>{r}</option>
+            ))}
+          </Form.Control>
+        </Form.Group>
+
         <div className="mb-3">
           <Button type="submit" onClick={submitHandler}>
             Sign up
