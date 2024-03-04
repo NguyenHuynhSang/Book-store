@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useReducer, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -26,6 +26,12 @@ export default function UserEditModal({ setShowModel, show, userE }) {
   const [username, setUsername] = useState(userEdit.username);
   const [email, setEmail] = useState(userEdit.email);
   const [role, setRole] = useState(userEdit.role);
+  const [seller, setSeller] = useState(userEdit.seller);
+
+  const [sellerName, setSellerName] = useState('');
+  const [sellerLogo, setSellerLogo] = useState('');
+  const [sellerDescription, setSellerDescription] = useState('');
+
   const [newPassword, setPassword] = useState('');
   //hard code role
   const roles = ['Admin', 'User'];
@@ -48,6 +54,7 @@ export default function UserEditModal({ setShowModel, show, userE }) {
           email,
           role,
           newPassword,
+          seller,
         },
         { headers: { Authorization: `Bearer ${loggedUser.token}` } }
       );
@@ -118,6 +125,43 @@ export default function UserEditModal({ setShowModel, show, userE }) {
                 )}
               </Form.Control>
             </Form.Group>
+
+            {userEdit.role === 'seller' && (
+              <div>
+                <h2>Seller Infor</h2>
+
+                <Form.Group className="mb-3" controlId="comfirmPassword">
+                  <Form.Label>Seller name</Form.Label>
+                  <Form.Control
+                    placeholder="Enter Seller Name"
+                    value={seller.name}
+                    onChange={(e) =>
+                      setSeller({ ...seller, name: e.target.value })
+                    }
+                  ></Form.Control>
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="comfirmPassword">
+                  <Form.Label>Seller Logo</Form.Label>
+                  <Form.Control
+                    placeholder="Seller Logo"
+                    onChange={(e) =>
+                      setSeller({ ...seller, logo: e.target.value })
+                    }
+                    value={seller.logo}
+                  ></Form.Control>
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="comfirmPassword">
+                  <Form.Label>Seller Description</Form.Label>
+                  <Form.Control
+                    placeholder="Seller Logo"
+                    onChange={(e) => setSellerDescription(e.target.value)}
+                    value={seller.description}
+                  ></Form.Control>
+                </Form.Group>
+              </div>
+            )}
             <div className="mb-3">
               <Button type="submit">Update</Button>
             </div>

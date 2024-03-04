@@ -28,7 +28,7 @@ const SignUpPage = () => {
   const redirect = redirectInUrl ? redirectInUrl : '/';
   const nagigate = useNavigate();
   const submitHandler = async (e) => {
-    console.log(username);
+    console.log(role);
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -40,6 +40,7 @@ const SignUpPage = () => {
         email,
         username,
         name,
+        role,
         password,
         sellerName,
         sellerLogo,

@@ -60,6 +60,7 @@ userRoute.post(
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password),
       username: req.body.username,
+      role: req.body.role,
       seller: {
         name: req.body.sellerName,
         logo: req.body.sellerLogo,
@@ -152,6 +153,8 @@ userRoute.put(
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       user.role = req.body.role || user.role;
+      user.seller = req.body.seller || user.seller;
+      console.log(req.body.seller);
       console.log(req.body);
       if (req.body.newPassword) {
         user.password = bcrypt.hashSync(req.body.newPassword, 8);
