@@ -73,6 +73,7 @@ const Header = () => {
               onClick={() => setShowLoginForm(!isShowLoginForm)}
               className="fas fa-user"
             ></div>
+            {}
             {loggedUser ? (
               loggedUser.role === 'admin' ? (
                 <div>
@@ -143,6 +144,44 @@ const Header = () => {
               )
             ) : (
               ''
+            )}
+            {loggedUser && loggedUser.role === 'seller' && (
+              <div>
+                <NavDropdown
+                  title={'Admin: ' + loggedUser.username}
+                  id="admin-nav-dropdown"
+                >
+                  <div className="user-dropdown-box">
+                    <LinkContainer to="/seller">
+                      <NavDropdown.Item>
+                        {' '}
+                        <i class="fa-solid fa-bars me-3 mb-2"></i>SELLER
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/products/seller">
+                      <NavDropdown.Item>
+                        {' '}
+                        <i class="fa-solid fa-book me-3 mb-2"></i>
+                        Products Manager
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to="/order/seller">
+                      <NavDropdown.Item>
+                        {' '}
+                        <i class="fa-solid fa-user me-3 mb-2"></i>
+                        ORDER Manager
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                    <hr className="m-2"></hr>
+                    <LinkContainer to="/">
+                      <NavDropdown.Item onClick={LogoutHandler}>
+                        <i class="fa-solid fa-right-from-bracket me-3"></i>
+                        Logout
+                      </NavDropdown.Item>
+                    </LinkContainer>
+                  </div>
+                </NavDropdown>
+              </div>
             )}
           </div>
         </div>

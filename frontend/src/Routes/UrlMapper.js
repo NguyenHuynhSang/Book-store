@@ -14,6 +14,10 @@ export const URL_BOOK_PRODUCT_PAGE = 'user/books';
 
 export const URL_BOOK_BY_SLUG_PAGE = '/book/:slug';
 export const URL_ORDER_BY_ID_PAGE = '/order/:_id';
+
+export const URL_SELLER_PRODUCTS = '/products/seller';
+export const URL_SELLER_ORDERS = '/orders/seller';
+
 export const LINK_BOOK_BY_SLUG = (slug) => {
   return `/book/${slug}`;
 };
