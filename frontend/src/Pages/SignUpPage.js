@@ -14,6 +14,10 @@ const SignUpPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState('user');
+
+  const [sellerName, setSellerName] = useState('');
+  const [sellerLogo, setSellerLogo] = useState('');
+  const [sellerDescription, setSellerDescription] = useState('');
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
   const userRoles = ['user', 'seller'];
@@ -37,6 +41,9 @@ const SignUpPage = () => {
         username,
         name,
         password,
+        sellerName,
+        sellerLogo,
+        sellerDescription,
       });
       ctxDispatch({ type: 'USER_LOGGEDIN', payload: data });
       localStorage.setItem('loggedUser', JSON.stringify(data));
@@ -93,13 +100,46 @@ const SignUpPage = () => {
         </Form.Group>
         <Form.Group className="mb-3" controlId="role">
           <Form.Label> Role</Form.Label>
-          <Form.Control as="select" required>
+          <Form.Control
+            as="select"
+            required
+            onChange={(e) => setRole(e.target.value)}
+          >
             {userRoles.map((r) => (
               <option value={r}>{r}</option>
             ))}
           </Form.Control>
         </Form.Group>
 
+        {role === 'seller' && (
+          <div>
+            <h2>Seller Infor</h2>
+
+            <Form.Group className="mb-3" controlId="comfirmPassword">
+              <Form.Label>Seller name</Form.Label>
+              <Form.Control
+                placeholder="Enter Seller Name"
+                onChange={(e) => setSellerName(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="comfirmPassword">
+              <Form.Label>Seller Logo</Form.Label>
+              <Form.Control
+                placeholder="Seller Logo"
+                onChange={(e) => setSellerLogo(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="comfirmPassword">
+              <Form.Label>Seller Description</Form.Label>
+              <Form.Control
+                placeholder="Seller Logo"
+                onChange={(e) => setSellerDescription(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+          </div>
+        )}
         <div className="mb-3">
           <Button type="submit" onClick={submitHandler}>
             Sign up

@@ -60,6 +60,11 @@ userRoute.post(
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password),
       username: req.body.username,
+      seller: {
+        name: req.body.sellerName,
+        logo: req.body.sellerLogo,
+        description: req.body.description,
+      },
     });
     const checkUser = await User.findOne({
       username: req.body.username.toLowerCase(),
@@ -68,6 +73,7 @@ userRoute.post(
       res.status(401).send({ message: 'Ten user bi trung' });
       return;
     }
+
     const user = await newUser.save();
     res.send({
       _id: user.id,
@@ -114,6 +120,12 @@ userRoute.put(
       }
       console.log(user);
       const updatedUser = await user.save();
+      if (user.role === 'seller') {
+        user.seller.name = req.body.sellerName || user.seller.name;
+        user.seller.logo = req.body.sellerLogo || user.seller.logo;
+        user.seller.description =
+          req.body.sellerDescription || user.seller.description;
+      }
       console.log(4);
       res.send({
         _id: updatedUser._id,
