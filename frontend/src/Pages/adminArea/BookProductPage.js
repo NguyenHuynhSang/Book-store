@@ -11,6 +11,8 @@ import {
   FETCH_BOOK_PRODUCT_SUCCESS,
 } from '../../Reducers/BookReducer';
 import { LinkContainer } from 'react-router-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { URL_SELLER_ADD_PRODUCT } from '../../Routes/UrlMapper';
 
 export default function BookProductPage() {
   const [sort, setSort] = useState({ field: 'id', isUp: false });
@@ -75,9 +77,13 @@ export default function BookProductPage() {
       },
     ],
   });
-
+  const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { loggedUser } = state;
+
+  const CreateProduct = () => {
+    navigate(URL_SELLER_ADD_PRODUCT);
+  };
   const [{ loading, error, books, pages = 1, countBooks }, dispatch] =
     useReducer(bookProductsReducer, {
       books: [],
@@ -148,6 +154,12 @@ export default function BookProductPage() {
             </Col>
             <Col sm="1">
               <Button>Reset</Button>
+              <Button
+                onClick={() => CreateProduct()}
+                className="mx-1 bg-warning text-dark"
+              >
+                Create
+              </Button>
             </Col>
           </Form.Group>
           <table className="table box-container">

@@ -28,9 +28,11 @@ import {
   URL_BOOK_PRODUCT_PAGE,
   URL_SELLER_PRODUCTS,
   URL_SELLER_ORDERS,
+  URL_SELLER_ADD_PRODUCT,
 } from './UrlMapper';
 import BookProductPage from '../Pages/adminArea/BookProductPage';
 import SellerRoute from '../Components/SellerRoute';
+import CreateProductPage from '../Pages/adminArea/CreateProductPage';
 
 const RouteController = () => {
   return (
@@ -104,7 +106,14 @@ const RouteController = () => {
             </SellerRoute>
           }
         ></Route>
-
+        <Route
+          path={URL_SELLER_ADD_PRODUCT}
+          element={
+            <SellerRoute>
+              <CreateProductPage />
+            </SellerRoute>
+          }
+        ></Route>
         <Route path={URL_SEARCH_DEFAULT_PAGE} element={<FilterPage />}></Route>
       </Routes>
     </div>
