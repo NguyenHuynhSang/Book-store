@@ -91,7 +91,7 @@ const RouteController = () => {
           path={URL_SELLER_PRODUCTS}
           element={
             <SellerRoute>
-              <OrderHistoryPage />
+              <BookProductPage />
             </SellerRoute>
           }
         ></Route>

@@ -148,7 +148,7 @@ const Header = () => {
             {loggedUser && loggedUser.role === 'seller' && (
               <div>
                 <NavDropdown
-                  title={'Admin: ' + loggedUser.username}
+                  title={'Seller: ' + loggedUser.sellername}
                   id="admin-nav-dropdown"
                 >
                   <div className="user-dropdown-box">
@@ -162,7 +162,7 @@ const Header = () => {
                       <NavDropdown.Item>
                         {' '}
                         <i class="fa-solid fa-book me-3 mb-2"></i>
-                        Products Manager
+                        Book Products Management
                       </NavDropdown.Item>
                     </LinkContainer>
                     <LinkContainer to="/order/seller">

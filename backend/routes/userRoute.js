@@ -11,6 +11,7 @@ userRoute.post(
     const user = await User.findOne({
       username: req.body.username.toLowerCase(),
     });
+    console.log(user);
     if (user) {
       if (bcrypt.compareSync(req.body.password, user.password)) {
         res.send({
@@ -19,6 +20,7 @@ userRoute.post(
           email: user.email,
           username: user.username,
           role: user.role,
+          sellername: user.seller.name,
           token: generateToken(user),
         });
       }

@@ -1,6 +1,7 @@
 import express, { query } from 'express';
 import Book from '../models/bookModel.js';
 import Author from '../models/authorModel.js';
+import { isAuth, sellerOrAdmin } from '../utils.js';
 
 const PAGE_SIZE = 5;
 const bookRoute = express.Router();
@@ -10,9 +11,17 @@ bookRoute.get('/', async (req, res) => {
   res.send(books);
 });
 
-bookRoute.get('/products', async (req, res) => {
+bookRoute.get('/seller/products', async (req, res) => {
+  const seller = req.body.query.seller || '';
+  const filter = seller ? { seller } : {};
+  const books = await Book.find(...filter);
+  res.send(books);
+});
+
+bookRoute.get('/products', isAuth, sellerOrAdmin, async (req, res) => {
   var sort = req.query.sort;
   const order = sort.isUp === 'true' ? 1 : -1;
+
   const sortOrder =
     sort.field === 'id'
       ? { _id: order }
@@ -26,11 +35,20 @@ bookRoute.get('/products', async (req, res) => {
       ? { countInStock: order }
       : { _id: -1 };
 
+  const sellerId = req.user._id;
+  const sellerFilter =
+    req.user.role && req.user.role !== 'user'
+      ? {
+          seller: {
+            $eq: sellerId,
+          },
+        }
+      : {};
+  console.log(sellerFilter);
   const pageSize = PAGE_SIZE;
   const page = req.query.page || 1;
 
-  console.log(sortOrder);
-  const books = await Book.find()
+  const books = await Book.find({ seller: sellerId })
     .sort(sortOrder)
     .skip(pageSize * (page - 1))
     .limit(pageSize);

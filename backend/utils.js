@@ -45,3 +45,23 @@ export const isAdmin = (req, res, next) => {
     res.status(401).send({ message: 'Invalid Admin Token' });
   }
 };
+
+// check seller role
+export const isSeller = (req, res, next) => {
+  console.log('check role');
+  // console.log(req.user);
+  if (req.user && req.user.role === 'seller') {
+    next();
+  } else {
+    res.status(401).send({ message: 'Invalid seller Token' });
+  }
+};
+export const sellerOrAdmin = (req, res, next) => {
+  console.log('check role');
+  // console.log(req.user);
+  if (req.user && (req.user.role === 'seller' || req.user.role === 'admin')) {
+    next();
+  } else {
+    res.status(401).send({ message: 'Invalid seller/Admin Token' });
+  }
+};

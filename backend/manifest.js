@@ -44,6 +44,17 @@ const data = {
   ],
   users: [
     {
+      username: 'seller',
+      email: 'seller@gmail.com',
+      password: bcrypt.hashSync('seller'),
+      role: 'seller',
+      seller: {
+        name: 'Eshop',
+        description: 'des',
+        logo: 'logo',
+      },
+    },
+    {
       username: 'booklover',
       email: 'booklover@gmail.com',
       password: bcrypt.hashSync('booklover'),
