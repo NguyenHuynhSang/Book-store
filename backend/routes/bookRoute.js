@@ -167,6 +167,13 @@ bookRoute.get('/categories', async (req, res) => {
   res.send(categories);
 });
 
+bookRoute.get('/authors', async (req, res) => {
+  const authors = await Author.find();
+  let resAuthor = authors.map(({ _id, name }) => ({ _id, name }));
+
+  res.send(resAuthor);
+});
+
 //it works but it look bad lmao
 // need to find a better solution
 bookRoute.get('/slug/:slug', async (req, res) => {
@@ -201,4 +208,37 @@ bookRoute.get('/:id', async (req, res) => {
     res.status(404).send({ message: 'Book Not found' });
   }
 });
+
+bookRoute.post(
+  '/create',
+  expressAsyncHandler(async (req, res) => {
+    console.log('called api');
+    const newBook = new Book({
+      name: req.body.bookName,
+      slug: req.body.slug + Date.toString(),
+      description: req.body.description,
+      price: req.body.price,
+      countInStock: req.body.countInStock,
+      dimensions: req.body.dimensions,
+      language: req.body.language,
+      numPage: req.body.numPage,
+      caterories: req.body.category,
+      publisher: req.body.publisher,
+      publishDate: req.body.publishDate,
+    });
+    const checkUser = await User.findOne({
+      username: req.body.username.toLowerCase(),
+    });
+    if (checkUser) {
+      res.status(401).send({ message: 'slug book bi trung' });
+      return;
+    }
+
+    const book = await newUser.save();
+    res.send({
+      _id: book.id,
+      name: book.name,
+    });
+  })
+);
 export default bookRoute;
