@@ -20,6 +20,7 @@ export default function CreateProductPage() {
   const [countInStock, setCountInStock] = useState(0);
   const [dimensions, setDimensions] = useState('');
   const [publisher, setPublisher] = useState('');
+  const [publishDate, setPublishDate] = useState();
   const [language, setLanguage] = useState('');
   const [numPage, setNumPage] = useState(0);
   const [category, setCategory] = useState([]);
@@ -72,9 +73,6 @@ export default function CreateProductPage() {
     },
   ];
 
-  const show = (value) => {
-    console.log(value);
-  };
   const handleCategory = (value) => {
     const options = value.map(function (row) {
       // This function defines the "mapping behaviour". name and title
@@ -102,7 +100,7 @@ export default function CreateProductPage() {
       const { data } = await axios.post(
         '/api/books/create',
         {
-          name: bookName,
+          bookName: bookName,
           slug: slug,
           description: description,
           price: price,
@@ -110,6 +108,7 @@ export default function CreateProductPage() {
           category: category,
           language: language,
           countInStock: countInStock,
+          publishDate: publishDate,
           image: image,
         },
         {
@@ -118,6 +117,8 @@ export default function CreateProductPage() {
           },
         }
       );
+      toast('Created: ' + data.name);
+      navigate('/products/seller');
     } catch (err) {
       toast(GetError(err));
     }
@@ -214,7 +215,6 @@ export default function CreateProductPage() {
                       options={languages}
                       className="basic-multi-select"
                       classNamePrefix="select"
-                      onChange={(e) => show(e)}
                     />
                   </Form.Group>
 
@@ -261,7 +261,11 @@ export default function CreateProductPage() {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                   <Form.Label>Publish date</Form.Label>
-                  <Form.Control type="date" placeholder="Date" />
+                  <Form.Control
+                    type="date"
+                    placeholder="Date"
+                    onChange={(e) => setPublishDate(e.target.value)}
+                  />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                   <Form.Check type="checkbox" label="Check me out" />

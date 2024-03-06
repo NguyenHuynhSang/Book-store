@@ -218,6 +218,8 @@ bookRoute.post(
     console.log(req.body.category);
     console.log('user call this api');
     console.log(req.user);
+    console.log('book name');
+    console.log(req.body.bookName);
     const newBook = new Book({
       name: req.body.bookName,
       slug: req.body.slug,
@@ -234,7 +236,7 @@ bookRoute.post(
     });
     newBook.slug += newBook._id;
     console.log('new book');
-    //console.log(newBook);
+    console.log(newBook);
     const book = await newBook.save();
     console.log('saved');
     res.send({
