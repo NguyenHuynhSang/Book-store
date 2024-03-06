@@ -2,7 +2,7 @@ import express, { query } from 'express';
 import Book from '../models/bookModel.js';
 import Author from '../models/authorModel.js';
 import { isAuth, sellerOrAdmin } from '../utils.js';
-
+import expressAsyncHandler from 'express-async-handler';
 const PAGE_SIZE = 5;
 const bookRoute = express.Router();
 
@@ -211,13 +211,19 @@ bookRoute.get('/:id', async (req, res) => {
 
 bookRoute.post(
   '/create',
+  isAuth,
+  sellerOrAdmin,
   expressAsyncHandler(async (req, res) => {
-    console.log('called api');
+    console.log('called create api');
+    console.log(req.body.category);
+    console.log('user call this api');
+    console.log(req.user);
     const newBook = new Book({
       name: req.body.bookName,
-      slug: req.body.slug + Date.toString(),
+      slug: req.body.slug,
       description: req.body.description,
       price: req.body.price,
+      seller: req.user._id,
       countInStock: req.body.countInStock,
       dimensions: req.body.dimensions,
       language: req.body.language,
@@ -226,15 +232,11 @@ bookRoute.post(
       publisher: req.body.publisher,
       publishDate: req.body.publishDate,
     });
-    const checkUser = await User.findOne({
-      username: req.body.username.toLowerCase(),
-    });
-    if (checkUser) {
-      res.status(401).send({ message: 'slug book bi trung' });
-      return;
-    }
-
-    const book = await newUser.save();
+    newBook.slug += newBook._id;
+    console.log('new book');
+    //console.log(newBook);
+    const book = await newBook.save();
+    console.log('saved');
     res.send({
       _id: book.id,
       name: book.name,

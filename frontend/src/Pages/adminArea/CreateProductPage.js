@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
@@ -6,8 +6,12 @@ import Select from 'react-select';
 import GetError, { toSeoUrl } from '../../utils';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Store from '../../Store';
 
 export default function CreateProductPage() {
+  const { state, dispatch: dispatch } = useContext(Store);
+  const { cart, loggedUser } = state;
+
   const [bookName, setBookName] = useState('');
   const [slug, setSlug] = useState('');
   const [image, setImage] = useState('');
@@ -18,7 +22,9 @@ export default function CreateProductPage() {
   const [publisher, setPublisher] = useState('');
   const [language, setLanguage] = useState('');
   const [numPage, setNumPage] = useState(0);
+  const [category, setCategory] = useState([]);
   const categories = [];
+  let selectedCategories = [];
   let authors = [];
   useEffect(() => {
     const fetchCategory = async () => {
@@ -69,7 +75,53 @@ export default function CreateProductPage() {
   const show = (value) => {
     console.log(value);
   };
+  const handleCategory = (value) => {
+    const options = value.map(function (row) {
+      // This function defines the "mapping behaviour". name and title
+      // data from each "row" from your columns array is mapped to a
+      // corresponding item in the new "options" array
 
+      return { Name: row.value };
+    });
+    // setCate(options);
+    selectedCategories = [...options];
+    console.log(selectedCategories);
+  };
+
+  const HandleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('pre submit');
+    console.log(selectedCategories);
+    selectedCategories.forEach((x) => {
+      category.push(x);
+    });
+
+    console.log('cate');
+    console.log(category);
+    try {
+      const { data } = await axios.post(
+        '/api/books/create',
+        {
+          name: bookName,
+          slug: slug,
+          description: description,
+          price: price,
+          publisher: publisher,
+          category: category,
+          language: language,
+          countInStock: countInStock,
+          image: image,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${loggedUser.token}`,
+          },
+        }
+      );
+    } catch (err) {
+      toast(GetError(err));
+    }
+  };
   const setNameUtil = (value) => {
     const url = toSeoUrl(value);
     setBookName(value);
@@ -157,7 +209,7 @@ export default function CreateProductPage() {
                     <Form.Label>Language</Form.Label>
                     <Select
                       // defaultValue={[languages[0]]}
-                      isMulti
+
                       name="languages"
                       options={languages}
                       className="basic-multi-select"
@@ -186,6 +238,7 @@ export default function CreateProductPage() {
                     options={categories}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    onChange={(e) => handleCategory(e)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -213,7 +266,7 @@ export default function CreateProductPage() {
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                   <Form.Check type="checkbox" label="Check me out" />
                 </Form.Group>
-                <Button>Submit</Button>
+                <Button onClick={(e) => HandleSubmit(e)}>Submit</Button>
               </Col>
             </Row>
           </Form>
