@@ -25,8 +25,9 @@ export default function CreateProductPage() {
   const [numPage, setNumPage] = useState(0);
   const [category, setCategory] = useState([]); // selected categories
   const [categories, setCaterories] = useState([]); // store list of category to select
-  let selectedCategories = [];
+  const [selectedCategories, setSelectedCategories] = useState([]);
   let authors = [];
+  let ss = [];
   useEffect(() => {
     const fetchCategory = async () => {
       try {
@@ -35,7 +36,6 @@ export default function CreateProductPage() {
           const val = { value: x, label: x };
           categories.push(val);
         });
-        console.log('fetch Category');
       } catch (error) {
         toast.error(GetError(error));
       }
@@ -56,7 +56,6 @@ export default function CreateProductPage() {
     };
     fetchCategory();
     fetchAuthors();
-    console.log('fetch');
   }, []);
 
   const languages = [
@@ -75,25 +74,31 @@ export default function CreateProductPage() {
   ];
 
   const handleCategory = (value) => {
+    console.log('run handle');
     const options = value.map(function (row) {
       // This function defines the "mapping behaviour". name and title
       // data from each "row" from your columns array is mapped to a
       // corresponding item in the new "options" array
 
-      return { Name: row.value };
+      return { name: row.value };
     });
     // setCate(options);
-    selectedCategories = [...options];
-    console.log(selectedCategories);
+    setCategory([]);
+
+    options.forEach((x) => {
+      setCategory((category) => [...category, x]);
+    });
+
+    console.log(category);
   };
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    console.log('pre submit');
-    console.log(selectedCategories);
-    selectedCategories.forEach((x) => {
-      category.push(x);
-    });
+
+    // console.log(selectedCategories);
+    // selectedCategories.forEach((x) => {
+    //   category.push(x);
+    // });
 
     console.log('cate');
     console.log(category);
@@ -118,6 +123,7 @@ export default function CreateProductPage() {
           },
         }
       );
+
       toast('Created: ' + data.name);
       navigate('/products/seller');
     } catch (err) {
@@ -128,7 +134,6 @@ export default function CreateProductPage() {
     const url = toSeoUrl(value);
     setBookName(value);
     setSlug(url);
-    console.log(categories);
   };
   const navigate = useNavigate();
   return (

@@ -235,6 +235,7 @@ bookRoute.post(
       publishDate: req.body.publishDate,
     });
     newBook.slug += newBook._id;
+    newBook.caterories = req.body.category;
     console.log('new book');
     console.log(newBook);
     const book = await newBook.save();
