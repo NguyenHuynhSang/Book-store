@@ -12,6 +12,8 @@ export default function CreateProductPage() {
   const { state, dispatch: dispatch } = useContext(Store);
   const { cart, loggedUser } = state;
 
+  const [validated, setValidated] = useState(false);
+
   const [bookName, setBookName] = useState('');
   const [slug, setSlug] = useState('');
   const [image, setImage] = useState('');
@@ -93,42 +95,51 @@ export default function CreateProductPage() {
   };
 
   const HandleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('validate');
+    } else {
+      e.preventDefault();
+      console.log('cate');
+      console.log(category);
+      try {
+        const { data } = await axios.post(
+          '/api/books/create',
+          {
+            bookName: bookName,
+            slug: slug,
+            description: description,
+            price: price,
+            publisher: publisher,
+            category: category,
+            language: language,
+            countInStock: countInStock,
+            publishDate: publishDate,
+            image: image,
+          },
+          {
+            headers: {
+              authorization: `Bearer ${loggedUser.token}`,
+            },
+          }
+        );
+        toast('Created: ' + data.name);
+        navigate('/products/seller');
+      } catch (err) {
+        toast(GetError(err));
+      }
+      return;
+    }
+
+    setValidated(true);
 
     // console.log(selectedCategories);
     // selectedCategories.forEach((x) => {
     //   category.push(x);
     // });
-
-    console.log('cate');
-    console.log(category);
-    try {
-      const { data } = await axios.post(
-        '/api/books/create',
-        {
-          bookName: bookName,
-          slug: slug,
-          description: description,
-          price: price,
-          publisher: publisher,
-          category: category,
-          language: language,
-          countInStock: countInStock,
-          publishDate: publishDate,
-          image: image,
-        },
-        {
-          headers: {
-            authorization: `Bearer ${loggedUser.token}`,
-          },
-        }
-      );
-
-      toast('Created: ' + data.name);
-      navigate('/products/seller');
-    } catch (err) {
-      toast(GetError(err));
-    }
   };
   const setNameUtil = (value) => {
     const url = toSeoUrl(value);
@@ -140,7 +151,11 @@ export default function CreateProductPage() {
     <div className="">
       <Card style={{ width: '140rem', margin: 'auto' }}>
         <Card.Body>
-          <Form>
+          <Form
+            noValidate
+            validated={validated}
+            onSubmit={(e) => HandleSubmit(e)}
+          >
             <h2>Create New Book</h2>
 
             <hr></hr>
@@ -151,10 +166,14 @@ export default function CreateProductPage() {
                   <Form.Control
                     onChange={(e) => setNameUtil(e.target.value)}
                     size="lg"
+                    required
                     as="textarea"
                     // value={bookName}
                     rows={2}
                   />
+                  <Form.Control.Feedback type="invalid">
+                    Please enter book name.
+                  </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group
                   className="mb-2"
@@ -170,6 +189,9 @@ export default function CreateProductPage() {
                 >
                   <Form.Label>Thumbnail</Form.Label>
                   <Form.Control onChange={(e) => setImage(e.target.value)} />
+                  <Form.Control.Feedback type="invalid">
+                    Please enter image link
+                  </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group
                   className="mb-2"
@@ -189,6 +211,7 @@ export default function CreateProductPage() {
                     <Form.Control
                       type="number"
                       min="0"
+                      required
                       onChange={(e) => setPrice(e.target.value)}
                     />
                   </Form.Group>
@@ -198,6 +221,7 @@ export default function CreateProductPage() {
                     <Form.Control
                       type="number"
                       min="0"
+                      required
                       onChange={(e) => setCountInStock(e.target.value)}
                     />
                   </Form.Group>
@@ -228,6 +252,7 @@ export default function CreateProductPage() {
                       type="number"
                       min="0"
                       onChange={(e) => setNumPage(e.target.value)}
+                      required
                     />
                   </Form.Group>
                 </Row>
@@ -242,6 +267,7 @@ export default function CreateProductPage() {
                     options={categories}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    required
                     onChange={(e) => handleCategory(e)}
                   />
                 </Form.Group>
@@ -269,12 +295,13 @@ export default function CreateProductPage() {
                     type="date"
                     placeholder="Date"
                     onChange={(e) => setPublishDate(e.target.value)}
+                    required
                   />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                   <Form.Check type="checkbox" label="Check me out" />
                 </Form.Group>
-                <Button onClick={(e) => HandleSubmit(e)}>Submit</Button>
+                <Button type="submit">Submit</Button>
               </Col>
             </Row>
           </Form>
