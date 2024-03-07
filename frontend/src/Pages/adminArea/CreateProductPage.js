@@ -23,8 +23,8 @@ export default function CreateProductPage() {
   const [publishDate, setPublishDate] = useState();
   const [language, setLanguage] = useState('');
   const [numPage, setNumPage] = useState(0);
-  const [category, setCategory] = useState([]);
-  const categories = [];
+  const [category, setCategory] = useState([]); // selected categories
+  const [categories, setCaterories] = useState([]); // store list of category to select
   let selectedCategories = [];
   let authors = [];
   useEffect(() => {
@@ -35,6 +35,7 @@ export default function CreateProductPage() {
           const val = { value: x, label: x };
           categories.push(val);
         });
+        console.log('fetch Category');
       } catch (error) {
         toast.error(GetError(error));
       }
@@ -127,6 +128,7 @@ export default function CreateProductPage() {
     const url = toSeoUrl(value);
     setBookName(value);
     setSlug(url);
+    console.log(categories);
   };
   const navigate = useNavigate();
   return (
@@ -139,10 +141,7 @@ export default function CreateProductPage() {
             <hr></hr>
             <Row>
               <Col sm={8}>
-                <Form.Group
-                  className="mb-2"
-                  controlId="exampleForm.ControlTextarea1"
-                >
+                <Form.Group className="mb-2" controlId="bookName">
                   <Form.Label>Book Name</Form.Label>
                   <Form.Control
                     onChange={(e) => setNameUtil(e.target.value)}
@@ -229,7 +228,7 @@ export default function CreateProductPage() {
                 </Row>
               </Col>
               <Col sm={4}>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Group className="mb-3" controlId="formCategory">
                   <Form.Label>Category</Form.Label>
                   <Select
                     // defaultValue={[languages[0]]}
