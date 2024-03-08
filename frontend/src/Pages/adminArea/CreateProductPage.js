@@ -16,7 +16,7 @@ export default function CreateProductPage() {
 
   const [bookName, setBookName] = useState('');
   const [slug, setSlug] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState('/imgs/thumb.png');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState(0);
   const [countInStock, setCountInStock] = useState(0);

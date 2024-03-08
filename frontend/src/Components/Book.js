@@ -7,6 +7,7 @@ import Store from '../Store';
 import Rating from './Rating';
 import { API_BOOK_BY_ID } from '../Reducers/BookReducer';
 import { LINK_BOOK_BY_SLUG } from '../Routes/UrlMapper';
+import { moneyFormat } from '../utils';
 
 function Book(props) {
   const { book } = props;
@@ -38,9 +39,12 @@ function Book(props) {
       <Card.Body>
         <Rating rating={book.rating} numReviews={book.numReviews}></Rating>
         <Card.Title>{book.name}</Card.Title>
-        <Card.Text>{book.price}</Card.Text>
+        <Card.Text className="text-price-base">
+          {moneyFormat(book.price)}
+        </Card.Text>
       </Card.Body>
       <Button
+        style={{ width: '100%', margin: 'auto' }}
         className="btn-buy"
         disabled={book.countInStock <= 0}
         onClick={() => addToCart(book)}
