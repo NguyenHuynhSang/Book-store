@@ -229,7 +229,7 @@ bookRoute.post(
       countInStock: req.body.countInStock,
       dimensions: req.body.dimensions,
       language: req.body.language,
-      image: image ? image : '/imgs/n2.webp',
+      image: req.body.image || '/imgs/n2.webp',
       numPage: req.body.numPage,
       caterories: req.body.category,
       publisher: req.body.publisher,

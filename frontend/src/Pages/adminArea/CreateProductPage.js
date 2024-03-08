@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Card, Col, Row } from 'react-bootstrap';
+import { Button, Card, Col, Image, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select';
@@ -183,16 +183,32 @@ export default function CreateProductPage() {
 
                   <Form.Control disabled value={slug} />
                 </Form.Group>
-                <Form.Group
-                  className="mb-2"
-                  controlId="exampleForm.ControlTextarea1"
-                >
-                  <Form.Label>Thumbnail</Form.Label>
-                  <Form.Control onChange={(e) => setImage(e.target.value)} />
-                  <Form.Control.Feedback type="invalid">
-                    Please enter image link
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <Row>
+                  <Col sm="4">
+                    <img
+                      style={{ width: '100%', height: '300px' }}
+                      src={image}
+                      className="cart-img-top"
+                      alt="thumb"
+                    ></img>
+                  </Col>
+                  <Col sm="8">
+                    {' '}
+                    <Form.Group
+                      className="mb-2"
+                      controlId="exampleForm.ControlTextarea1"
+                    >
+                      <Form.Label>Thumbnail</Form.Label>
+                      <Form.Control
+                        onChange={(e) => setImage(e.target.value)}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        Please enter image link
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                </Row>
+
                 <Form.Group
                   className="mb-2"
                   controlId="exampleForm.ControlTextarea1"
