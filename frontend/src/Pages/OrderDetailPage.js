@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useReducer } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import GetError from '../utils';
+import GetError, { moneyFormat } from '../utils';
 import { Helmet } from 'react-helmet-async';
 import { Card, Col, ListGroup, Row } from 'react-bootstrap';
 
@@ -26,9 +26,7 @@ export default function OrderDetailPage() {
     loading: true,
     error: '',
   });
-  function moneyFormat(num) {
-    return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-  }
+
   const round = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
 
   useEffect(() => {

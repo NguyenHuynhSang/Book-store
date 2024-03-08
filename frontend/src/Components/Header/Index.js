@@ -165,7 +165,7 @@ const Header = () => {
                         Book Products Management
                       </NavDropdown.Item>
                     </LinkContainer>
-                    <LinkContainer to="/order/seller">
+                    <LinkContainer to="/orders/seller">
                       <NavDropdown.Item>
                         {' '}
                         <i class="fa-solid fa-user me-3 mb-2"></i>

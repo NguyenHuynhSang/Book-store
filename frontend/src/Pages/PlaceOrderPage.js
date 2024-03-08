@@ -5,7 +5,7 @@ import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import Store from '../Store';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import GetError from '../utils';
+import GetError, { moneyFormat } from '../utils';
 import axios from 'axios';
 import Header from '../Components/Header/Index';
 
@@ -31,9 +31,7 @@ export default function PlaceOrderPage() {
   });
 
   const navigate = useNavigate();
-  function moneyFormat(num) {
-    return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-  }
+
   const round = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
 
   cart.itemsPrice = round(
@@ -92,13 +90,13 @@ export default function PlaceOrderPage() {
             <Card.Body>
               <Card.Title>Shipping infor</Card.Title>
               <Card.Text>
-                <strong>Name:</strong>
+                <strong>Name: </strong>
                 {cart.shippingInfor.fullName}
                 <br></br>
-                <strong>Address:</strong>
+                <strong>Address: </strong>
                 {cart.shippingInfor.address}
                 <br></br>
-                <strong>Phone:</strong>
+                <strong>Phone: </strong>
                 {cart.shippingInfor.phone}
                 <br></br>
                 <Link to="/shipping">Edit </Link>
@@ -106,15 +104,6 @@ export default function PlaceOrderPage() {
             </Card.Body>
           </Card>
 
-          <Card className="mb-3">
-            <Card.Body>
-              <Card.Title>Payment</Card.Title>
-              <Card.Text>
-                <strong>Method:</strong>
-                Tra khi nhan
-              </Card.Text>
-            </Card.Body>
-          </Card>
           <Card className="mb-3">
             <Card.Body>
               <Card.Title>Payment</Card.Title>
@@ -172,7 +161,7 @@ export default function PlaceOrderPage() {
                     <Col>
                       <strong>Items</strong>
                     </Col>
-                    <Col>${cart.itemsPrice?.toFixed(2)}</Col>
+                    <Col>{moneyFormat(cart.itemsPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -180,7 +169,7 @@ export default function PlaceOrderPage() {
                     <Col>
                       <strong>Shipping Price</strong>
                     </Col>
-                    <Col>${cart.shippingPrice?.toFixed(2)}</Col>
+                    <Col>{moneyFormat(cart.shippingPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -188,7 +177,7 @@ export default function PlaceOrderPage() {
                     <Col>
                       <strong>tax Price</strong>
                     </Col>
-                    <Col>${cart.taxPrice?.toFixed(2)}</Col>
+                    <Col>{moneyFormat(cart.taxPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -197,7 +186,7 @@ export default function PlaceOrderPage() {
                       <strong>total</strong>
                     </Col>
                     <Col>
-                      <strong>${cart.totalPrice?.toFixed(2)}</strong>
+                      <strong>{moneyFormat(cart.totalPrice)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
