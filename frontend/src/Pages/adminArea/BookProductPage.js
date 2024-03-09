@@ -143,16 +143,16 @@ export default function BookProductPage() {
             className="mb-4 box-container"
             controlId="formPlaintextPassword"
           >
-            <Form.Label column sm="1">
+            <Form.Label column sm="1" style={{ margin: 'auto 0' }}>
               Filter
             </Form.Label>
-            <Col sm="1">
+            <Col sm="1" style={{ margin: 'auto 0' }}>
               <Form.Select aria-label="Default select example"></Form.Select>
             </Col>
-            <Col sm="8">
+            <Col sm="8" style={{ margin: 'auto 0' }}>
               <Form.Control type="text" placeholder="filter text" />
             </Col>
-            <Col sm="1">
+            <Col sm="1" style={{ margin: 'auto 0' }}>
               <Button>Reset</Button>
               <Button
                 onClick={() => CreateProduct()}

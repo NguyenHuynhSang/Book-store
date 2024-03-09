@@ -33,6 +33,8 @@ import {
 import BookProductPage from '../Pages/adminArea/BookProductPage';
 import SellerRoute from '../Components/SellerRoute';
 import CreateProductPage from '../Pages/adminArea/CreateProductPage';
+import OrderManagerPage from '../Pages/OrderMagagerPage';
+import OrderDetailManagerPage from '../Pages/OrderDetailManagerPage';
 
 const RouteController = () => {
   return (
@@ -78,11 +80,7 @@ const RouteController = () => {
         ></Route>
         <Route
           path={URL_ORDER_HISTORY_PAGE}
-          element={
-            <ProtectedRoute>
-              <OrderHistoryPage />
-            </ProtectedRoute>
-          }
+          element={<OrderHistoryPage />}
         ></Route>
 
         <Route
@@ -98,7 +96,7 @@ const RouteController = () => {
           path={URL_SELLER_ORDERS}
           element={
             <SellerRoute>
-              <OrderHistoryPage />
+              <OrderManagerPage />
             </SellerRoute>
           }
         ></Route>
@@ -110,6 +108,15 @@ const RouteController = () => {
             </SellerRoute>
           }
         ></Route>
+        <Route
+          path={'/seller/orderdetail/:_id'}
+          element={
+            <SellerRoute>
+              <OrderDetailManagerPage />
+            </SellerRoute>
+          }
+        ></Route>
+
         <Route path={URL_SEARCH_DEFAULT_PAGE} element={<FilterPage />}></Route>
       </Routes>
     </div>

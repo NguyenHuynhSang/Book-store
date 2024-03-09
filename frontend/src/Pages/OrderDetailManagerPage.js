@@ -1,89 +1,55 @@
-import React, { useContext, useReducer } from 'react';
-import CheckOutStep from '../Components/CheckOutStep';
+import axios from 'axios';
+import React, { useEffect, useReducer } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import GetError, { moneyFormat } from '../utils';
 import { Helmet } from 'react-helmet-async';
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
-import Store from '../Store';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import GetError, { moneyFormat } from '../utils';
-import axios from 'axios';
-import Header from '../Components/Header/Index';
 
-const reducer = (action, state) => {
+const reducer = (state, action) => {
   switch (action.type) {
-    case 'CREATE_REQ':
+    case 'FETCH_REQ':
       return { ...state, loading: true };
-    case 'CREATE_SUCC':
-      return { ...state, loading: false };
-    case 'CREATE_FAIL':
-      return { ...state, loading: false };
+    case 'FETCH_SUCCESS':
+      return { ...state, order: action.payload, loading: false };
+    case 'FETCH_FAIL':
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
 };
-export default function PlaceOrderPage() {
-  const { state, dispatch: dispatch } = useContext(Store);
-  const { cart, loggedUser } = state;
+export default function OrderDetailManagerPage() {
+  const urlParam = useParams();
+  const { _id } = urlParam;
 
-  const [{ loading, error }, ctxDispatch] = useReducer(reducer, {
+  const [{ loading, error, order }, dispatch] = useReducer(reducer, {
+    order: [],
     loading: true,
     error: '',
   });
 
-  const navigate = useNavigate();
-
   const round = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
 
-  cart.itemsPrice = round(
-    cart.Items.reduce((a, c) => a + c.quantity * c.price, 0)
-  );
-
-  cart.shippingPrice = cart.itemsPrice > 100 ? round(0) : round(10);
-  cart.taxPrice = round(0.15 * cart.itemsPrice);
-  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
-  cart.paymentMenthod = 'tien mat';
-  const planOrderHandler = async () => {
-    console.log('plan order');
-    console.log(cart);
-    try {
-      const { data } = await axios.post(
-        'api/orders',
-        {
-          orderItems: cart.Items,
-          shippingAddress: cart.shippingInfor,
-          paymentMethod: cart.paymentMenthod,
-          itemsPrice: cart.itemsPrice,
-          shippingPrice: cart.shippingPrice,
-          taxPrice: 0,
-          totalPrice: cart.totalPrice,
-        },
-        {
-          headers: {
-            authorization: `Bearer ${loggedUser.token}`,
-          },
-        }
-      );
-      console.log('token' + loggedUser.token);
-      ctxDispatch({ type: 'CART_CLEAR' });
-      console.log(1);
-      dispatch({ type: 'CREATE_SUCC' });
-      console.log(2);
-      localStorage.removeItem('cartItems');
-      console.log(data);
-      navigate(`/order/${data.order._id}`);
-    } catch (err) {
-      console.log('error');
-      dispatch({ type: 'CREATE_FAIL' });
-      toast(GetError(err));
-    }
-  };
+  useEffect(() => {
+    console.log('call api  1 ');
+    const fetchData = async () => {
+      dispatch({ type: 'FETCH_REQ' });
+      try {
+        console.log('call api   ');
+        const result = await axios.get(`/api/orders/${_id}`);
+        dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
+        // setBooks(result.data);
+        console.log(result);
+      } catch (err) {
+        dispatch({ type: 'FETCH_FAIL', payload: GetError(err) });
+      }
+    };
+    fetchData();
+  }, [_id]);
   return (
     <div>
-      <CheckOutStep step1 step2 step3 step4></CheckOutStep>
       <Helmet>
-        <title>Preview Order</title>
+        <title>Order Detail</title>
       </Helmet>
-      <h1 className="my-3">Order Detail</h1>
       <Row>
         <Col md={8}>
           <Card className="mb-3">
@@ -91,15 +57,14 @@ export default function PlaceOrderPage() {
               <Card.Title>Shipping infor</Card.Title>
               <Card.Text>
                 <strong>Name: </strong>
-                {cart.shippingInfor.fullName}
+                {order.shippingAddress?.fullName}
                 <br></br>
                 <strong>Address: </strong>
-                {cart.shippingInfor.address}
+                {order.shippingAddress?.address}
                 <br></br>
                 <strong>Phone: </strong>
-                {cart.shippingInfor.phone}
+                {order.shippingAddress?.phone}
                 <br></br>
-                <Link to="/shipping">Edit </Link>
               </Card.Text>
             </Card.Body>
           </Card>
@@ -113,6 +78,7 @@ export default function PlaceOrderPage() {
               </Card.Text>
             </Card.Body>
           </Card>
+
           <Card className="mb-3">
             <Card.Body>
               <Card.Title>Items</Card.Title>
@@ -130,7 +96,7 @@ export default function PlaceOrderPage() {
                     <strong>Price x quantity</strong>
                   </Col>
                 </Row>
-                {cart.Items.map((x) => (
+                {order.orderItems?.map((x) => (
                   <ListGroup.Item key={x._id}>
                     <Row className="align-items-center">
                       <Col mg={4}>
@@ -161,7 +127,7 @@ export default function PlaceOrderPage() {
                     <Col>
                       <strong>Items</strong>
                     </Col>
-                    <Col>{moneyFormat(cart.itemsPrice)}</Col>
+                    <Col>{moneyFormat(order.itemsPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -169,7 +135,7 @@ export default function PlaceOrderPage() {
                     <Col>
                       <strong>Shipping Price</strong>
                     </Col>
-                    <Col>{moneyFormat(cart.shippingPrice)}</Col>
+                    <Col>{moneyFormat(order.shippingPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -177,7 +143,7 @@ export default function PlaceOrderPage() {
                     <Col>
                       <strong>tax Price(5%)</strong>
                     </Col>
-                    <Col>{moneyFormat(cart.taxPrice)}</Col>
+                    <Col> {moneyFormat(order.taxPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -186,20 +152,23 @@ export default function PlaceOrderPage() {
                       <strong>total</strong>
                     </Col>
                     <Col>
-                      <strong>{moneyFormat(cart.totalPrice)}</strong>
+                      <strong>{moneyFormat(order.totalPrice)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>
+
                 <ListGroup.Item>
-                  <div className="d-grid">
-                    <Button
-                      type="button"
-                      onClick={planOrderHandler}
-                      disabled={cart.Items.length === 0}
-                    >
-                      Place Order
-                    </Button>
-                  </div>
+                  <Row>
+                    <Col>
+                      <strong>Status</strong>
+                    </Col>
+                    <Col>
+                      <strong className="bg-warning text-dark">
+                        {order.isDelivered}Deliver
+                      </strong>
+                    </Col>
+                    <Button className="mt-3">Deliver</Button>
+                  </Row>
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>

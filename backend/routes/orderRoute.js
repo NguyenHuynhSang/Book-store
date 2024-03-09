@@ -19,7 +19,7 @@ orderRoute.post(
       user: req.user._id,
       paymentMethod: req.body.paymentMethod,
       shippingPrice: req.body.shippingPrice,
-      taxPrice: 10,
+      taxPrice: req.body.taxPrice,
       totalPrice: req.body.totalPrice,
     });
 
