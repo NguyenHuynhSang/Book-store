@@ -175,7 +175,7 @@ export default function PlaceOrderPage() {
                 <ListGroup.Item>
                   <Row>
                     <Col>
-                      <strong>tax Price</strong>
+                      <strong>tax Price(5%)</strong>
                     </Col>
                     <Col>{moneyFormat(cart.taxPrice)}</Col>
                   </Row>

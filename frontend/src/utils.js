@@ -6,7 +6,7 @@ const GetError = (err) => {
 export default GetError;
 
 export function moneyFormat(num) {
-  return num.toFixed().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  return num?.toFixed().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 export function formatDate(date) {
   return new Date(date).toISOString().split('T')[0];

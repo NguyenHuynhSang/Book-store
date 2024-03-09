@@ -78,15 +78,7 @@ export default function OrderDetailPage() {
               </Card.Text>
             </Card.Body>
           </Card>
-          <Card className="mb-3">
-            <Card.Body>
-              <Card.Title>Payment</Card.Title>
-              <Card.Text>
-                <strong>Method:</strong>
-                Tra khi nhan
-              </Card.Text>
-            </Card.Body>
-          </Card>
+
           <Card className="mb-3">
             <Card.Body>
               <Card.Title>Items</Card.Title>
@@ -135,7 +127,7 @@ export default function OrderDetailPage() {
                     <Col>
                       <strong>Items</strong>
                     </Col>
-                    <Col>${order.itemsPrice?.toFixed(2)}</Col>
+                    <Col>{moneyFormat(order.itemsPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -143,15 +135,15 @@ export default function OrderDetailPage() {
                     <Col>
                       <strong>Shipping Price</strong>
                     </Col>
-                    <Col>${order.shippingPrice?.toFixed(2)}</Col>
+                    <Col>{moneyFormat(order.shippingPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>
-                      <strong>tax Price</strong>
+                      <strong>tax Price(5%)</strong>
                     </Col>
-                    <Col>${order.taxPrice?.toFixed(2)}</Col>
+                    <Col> {moneyFormat(order.taxPrice)}</Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
@@ -160,7 +152,7 @@ export default function OrderDetailPage() {
                       <strong>total</strong>
                     </Col>
                     <Col>
-                      <strong>${order.totalPrice?.toFixed(2)}</strong>
+                      <strong>{moneyFormat(order.totalPrice)}</strong>
                     </Col>
                   </Row>
                 </ListGroup.Item>

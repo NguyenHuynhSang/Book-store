@@ -74,11 +74,7 @@ const RouteController = () => {
         <Route path={URL_BOOK_BY_SLUG_PAGE} element={<BookPage />}></Route>
         <Route
           path={URL_ORDER_BY_ID_PAGE}
-          element={
-            <ProtectedRoute>
-              <OrderDetailPage />
-            </ProtectedRoute>
-          }
+          element={<OrderDetailPage />}
         ></Route>
         <Route
           path={URL_ORDER_HISTORY_PAGE}
