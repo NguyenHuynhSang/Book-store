@@ -21,8 +21,9 @@ orderRoute.post(
       shippingPrice: req.body.shippingPrice,
       taxPrice: req.body.taxPrice,
       totalPrice: req.body.totalPrice,
+      seller: req.body.orderItems[0].seller,
     });
-
+    newOrder.deliverInfor = 'waiting';
     console.log('Start');
     console.log(newOrder);
     const order = await newOrder.save();
@@ -34,12 +35,35 @@ orderRoute.post(
   })
 );
 
+orderRoute.put(
+  '/:id',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    console.log('user id:' + req.user._id);
+    const orders = await Order.find({ user: req.user._id });
+    console.log('orders:' + orders);
+    res.send(orders);
+  })
+);
+
 orderRoute.get(
   '/orderHistory',
   isAuth,
   expressAsyncHandler(async (req, res) => {
     console.log('user id:' + req.user._id);
     const orders = await Order.find({ user: req.user._id });
+    console.log('orders:' + orders);
+    res.send(orders);
+  })
+);
+
+orderRoute.get(
+  '/orderManager',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    console.log('user id:' + req.user._id);
+    const orders = await Order.find({ seller: req.user._id });
     console.log('orders:' + orders);
     res.send(orders);
   })

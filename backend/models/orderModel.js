@@ -9,6 +9,7 @@ const orderSchema = new mongoose.Schema(
         price: { type: Number, require: true },
         rating: { type: Number, default: 0 },
         price: { type: Number, require: true },
+        seller: { type: mongoose.Schema.Types.ObjectId },
         quantity: { type: Number, require: true, default: 0 },
         book: {
           type: mongoose.Schema.Types.ObjectId,
@@ -39,6 +40,7 @@ const orderSchema = new mongoose.Schema(
 
     paidAt: { type: Date },
     isDelivered: { type: Boolean, default: false },
+    deliverInfor: { type: String },
     deliveredAt: { type: Date },
   },
   {

@@ -35,7 +35,7 @@ export default function OrderManagerPage() {
     const fetchData = async () => {
       try {
         console.log('token' + loggedUser.token);
-        const { data } = await axios.get('/api/orders/orderHistory', {
+        const { data } = await axios.get('/api/orders/orderManager', {
           headers: { Authorization: `Bearer ${loggedUser.token}` },
         });
         dispatch({
