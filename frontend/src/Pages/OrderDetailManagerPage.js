@@ -30,6 +30,9 @@ export default function OrderDetailManagerPage() {
     error: '',
   });
   const [delivery, seteDelivery] = useState('');
+  const [shipName, setShipName] = useState('');
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
   const deliveryStatus = ['waiting', 'comfirmed', 'delivering', 'delivered'];
   const round = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
 
@@ -40,6 +43,9 @@ export default function OrderDetailManagerPage() {
         `/api/orders/${order._id}`,
         {
           delivery,
+          shipName,
+          address,
+          phone,
         },
         { headers: { Authorization: `Bearer ${loggedUser.token}` } }
       );
@@ -58,6 +64,9 @@ export default function OrderDetailManagerPage() {
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
         // setBooks(result.data);
         console.log(result);
+        setShipName(result.data.shippingAddress.fullName);
+        setAddress(result.data.shippingAddress.address);
+        setPhone(result.data.shippingAddress.phone);
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: GetError(err) });
       }
@@ -75,15 +84,31 @@ export default function OrderDetailManagerPage() {
             <Card.Body>
               <Card.Title>Shipping infor</Card.Title>
               <Card.Text>
-                <strong>Name: </strong>
-                {order.shippingAddress?.fullName}
-                <br></br>
-                <strong>Address: </strong>
-                {order.shippingAddress?.address}
-                <br></br>
-                <strong>Phone: </strong>
-                {order.shippingAddress?.phone}
-                <br></br>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Ship Name</Form.Label>
+                  <Form.Control
+                    placeholder="Enter Name"
+                    value={shipName}
+                    onChange={(e) => setShipName(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Ship Address</Form.Label>
+                  <Form.Control
+                    placeholder="Enter Address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Ship Address</Form.Label>
+                  <Form.Control
+                    placeholder="Enter phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </Form.Group>
               </Card.Text>
             </Card.Body>
           </Card>
