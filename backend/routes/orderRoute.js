@@ -39,11 +39,15 @@ orderRoute.put(
   '/:id',
   isAuth,
   expressAsyncHandler(async (req, res) => {
+    console.log('call order api');
     const order = await Order.findById(req.params.id);
-    console.log('user id:' + req.user._id);
-    const orders = await Order.find({ user: req.user._id });
-    console.log('orders:' + orders);
-    res.send(orders);
+    console.log(req.params.id);
+    console.log(req.body.delivery);
+    if (order) {
+      order.deliverInfor = req.body.delivery || order.deliverInfor;
+    }
+    const updatedOrder = await order.save();
+    res.send(updatedOrder);
   })
 );
 

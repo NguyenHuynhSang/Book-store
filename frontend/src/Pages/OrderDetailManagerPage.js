@@ -1,9 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import GetError, { moneyFormat } from '../utils';
 import { Helmet } from 'react-helmet-async';
-import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
+import { Button, Card, Col, Form, ListGroup, Row } from 'react-bootstrap';
+import Store from '../Store';
+import { toast } from 'react-toastify';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -20,15 +22,32 @@ const reducer = (state, action) => {
 export default function OrderDetailManagerPage() {
   const urlParam = useParams();
   const { _id } = urlParam;
-
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { loggedUser } = state;
   const [{ loading, error, order }, dispatch] = useReducer(reducer, {
     order: [],
     loading: true,
     error: '',
   });
-
+  const [delivery, seteDelivery] = useState('');
+  const deliveryStatus = ['waiting', 'comfirmed', 'delivering', 'delivered'];
   const round = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
 
+  const handleUpdateOrder = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await axios.put(
+        `/api/orders/${order._id}`,
+        {
+          delivery,
+        },
+        { headers: { Authorization: `Bearer ${loggedUser.token}` } }
+      );
+
+      toast('Updated Order');
+      dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
+    } catch (error) {}
+  };
   useEffect(() => {
     console.log('call api  1 ');
     const fetchData = async () => {
@@ -141,7 +160,7 @@ export default function OrderDetailManagerPage() {
                 <ListGroup.Item>
                   <Row>
                     <Col>
-                      <strong>tax Price(5%)</strong>
+                      <strong>tax Price(10%)</strong>
                     </Col>
                     <Col> {moneyFormat(order.taxPrice)}</Col>
                   </Row>
@@ -164,10 +183,23 @@ export default function OrderDetailManagerPage() {
                     </Col>
                     <Col>
                       <strong className="bg-warning text-dark">
-                        {order.isDelivered}Deliver
+                        {order.deliverInfor}
                       </strong>
                     </Col>
-                    <Button className="mt-3">Deliver</Button>
+                    <Form.Select
+                      defaultValue={order.deliverInfor}
+                      onChange={(e) => seteDelivery(e.target.value)}
+                    >
+                      {deliveryStatus.map((z) => (
+                        <option value={z}>{z}</option>
+                      ))}
+                    </Form.Select>
+                    <Button
+                      className="mt-3"
+                      onClick={(e) => handleUpdateOrder(e)}
+                    >
+                      Update Order
+                    </Button>
                   </Row>
                 </ListGroup.Item>
               </ListGroup>

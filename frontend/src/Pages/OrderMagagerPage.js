@@ -104,7 +104,7 @@ export default function OrderManagerPage() {
                   <td>{x.shippingAddress.fullName}</td>
                   <td>{x.shippingAddress.phone}</td>
                   <td>{x.totalPrice}</td>
-                  <th>{x.isDelivered ? 'yes' : 'no'}</th>
+                  <th>{x.deliverInfor}</th>
                 </tr>
               ))}
             </tbody>
