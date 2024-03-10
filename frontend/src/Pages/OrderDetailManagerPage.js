@@ -212,12 +212,18 @@ export default function OrderDetailManagerPage() {
                       </strong>
                     </Col>
                     <Form.Select
-                      defaultValue={order.deliverInfor}
+                      selectedValue={order.deliverInfor}
                       onChange={(e) => seteDelivery(e.target.value)}
                     >
-                      {deliveryStatus.map((z) => (
-                        <option value={z}>{z}</option>
-                      ))}
+                      {deliveryStatus.map((z) =>
+                        z === order.deliverInfor ? (
+                          <option selected value={z}>
+                            {z}
+                          </option>
+                        ) : (
+                          <option value={z}>{z}</option>
+                        )
+                      )}
                     </Form.Select>
                     <Button
                       className="mt-3"
