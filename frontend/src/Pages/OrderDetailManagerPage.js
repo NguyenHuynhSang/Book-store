@@ -102,7 +102,7 @@ export default function OrderDetailManagerPage() {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Ship Address</Form.Label>
+                  <Form.Label>Ship phone:</Form.Label>
                   <Form.Control
                     placeholder="Enter phone"
                     value={phone}
@@ -207,31 +207,46 @@ export default function OrderDetailManagerPage() {
                       <strong>Status</strong>
                     </Col>
                     <Col>
-                      <strong className="bg-warning text-dark">
-                        {order.deliverInfor}
-                      </strong>
+                      <Form.Select
+                        selectedValue={order.deliverInfor}
+                        onChange={(e) => seteDelivery(e.target.value)}
+                      >
+                        {deliveryStatus.map((z) =>
+                          z === order.deliverInfor ? (
+                            <option selected value={z}>
+                              {z}
+                            </option>
+                          ) : (
+                            <option value={z}>{z}</option>
+                          )
+                        )}
+                      </Form.Select>
                     </Col>
-                    <Form.Select
-                      selectedValue={order.deliverInfor}
-                      onChange={(e) => seteDelivery(e.target.value)}
-                    >
-                      {deliveryStatus.map((z) =>
-                        z === order.deliverInfor ? (
-                          <option selected value={z}>
-                            {z}
-                          </option>
-                        ) : (
-                          <option value={z}>{z}</option>
-                        )
-                      )}
-                    </Form.Select>
-                    <Button
-                      className="mt-3"
-                      onClick={(e) => handleUpdateOrder(e)}
-                    >
-                      Update Order
-                    </Button>
                   </Row>
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <Row>
+                    <Col>
+                      <strong>Create At:</strong>
+                    </Col>
+                    <Col>
+                      <strong>{order.createdAt}</strong>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <strong>UpdatedAt At:</strong>
+                    </Col>
+                    <Col>
+                      <strong>{order.updatedAt}</strong>
+                    </Col>
+                  </Row>
+                  <Button
+                    className="mt-3"
+                    onClick={(e) => handleUpdateOrder(e)}
+                  >
+                    Update Order
+                  </Button>
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>

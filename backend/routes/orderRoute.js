@@ -41,10 +41,7 @@ orderRoute.put(
   expressAsyncHandler(async (req, res) => {
     console.log('call order api');
     const order = await Order.findById(req.params.id);
-    console.log(req.params.id);
-    console.log(req.body.shipName);
-    console.log(req.body.address);
-    console.log(req.body.phone);
+
     if (order) {
       order.deliverInfor = req.body.delivery || order.deliverInfor;
       order.shippingAddress.fullName =
@@ -53,6 +50,9 @@ orderRoute.put(
         req.body.address || order.shippingAddress.address;
       order.shippingAddress.phone =
         req.body.phone || order.shippingAddress.phone;
+      if (order.deliverInfor === 'delivered') {
+        order.deliveredAt = new Date();
+      }
     }
     const updatedOrder = await order.save();
     console.log(updatedOrder);
